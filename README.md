@@ -1,9 +1,9 @@
 # anotacoes-bootcamp-notion
 
-Site para arquivar todas as minhas anotações sobre o Bootcamp que fiz no notion. 
+Site para arquivar todas as minhas anotações sobre o Bootcamp que fiz no Notion.
 
-O Notion tem um limite, entao caso nao haja mais espaco colocarei tudo aqui e ficar um site completo. 
+O Notion tem um limite, então caso não haja mais espaço colocarei tudo aqui e ficar um site completo.
 
-Ele salva o arquivo como se fosse um markdown, e te da a opcao de exportar todas as anotacoes como HTML.
+Ele salva o arquivo como se fosse um markdown, e te dá a opção de exportar todas as anotações como HTML.
 
-Assim fica facil e com a mesma estilizacao da pagina do Notion.
+Assim fica fácil e com a mesma estilização da pagina do Notion.
