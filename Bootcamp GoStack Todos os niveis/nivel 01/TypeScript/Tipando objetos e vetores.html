@@ -619,8 +619,8 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="be8abb86-bdca-4564-b686-e21f9703a267" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🖋️</span></div><h1 class="page-title">Tipando objetos e vetores</h1></header><div class="page-body"><p id="d51a46d5-c31a-44e2-90b7-3d80d1aebf83" class="">Criar na scr a pasta services e dentro o arquivo CreateUser.ts:</p><p id="b4b86bb0-9e65-4a5f-942f-ba6ac7d8e923" class="">src→services→CreateUser.ts</p><p id="ba17a1ca-1244-4448-9f2f-9fe6be33ddb0" class="">
-</p><p id="8e323c18-46dd-4672-a955-ccb7abaea2f4" class=""><strong>CreateUser.ts:</strong></p><pre id="a8ace2f6-826c-42e0-84cf-3bd2dc732a9f" class="code"><code>/**
+</style></head><body><article id="be8abb86-bdca-4564-b686-e21f9703a267" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🖋️</span></div><h1 class="page-title">Tipando objetos e vetores</h1></header><div class="page-body"><p id="d51a46d5-c31a-44e2-90b7-3d80d1aebf83" class="">Criar na scr a pasta services e dentro o arquivo CreateUser.ts:</p><p id="b4b86bb0-9e65-4a5f-942f-ba6ac7d8e923" class="">src→services→<mark class="highlight-blue"><strong><code>CreateUser.ts</code></strong></mark></p><p id="ba17a1ca-1244-4448-9f2f-9fe6be33ddb0" class="">
+</p><p id="8e323c18-46dd-4672-a955-ccb7abaea2f4" class=""><mark class="highlight-blue"><strong><code>CreateUser.ts</code></strong></mark><strong>:</strong></p><pre id="a8ace2f6-826c-42e0-84cf-3bd2dc732a9f" class="code"><code>/**
  * Para criar: name, email, password
  */
 
@@ -647,7 +647,7 @@ export default function createUser({ name, email, password }: CreateUserData) {
   return user;
 }</code></pre><p id="dbd24d8e-c98e-4319-bce8-e15b06d40b38" class="">
 </p><p id="bcd2cb22-5939-46be-a697-bedcb83df679" class="">Ir na routes.ts e import o CreateUser.ts:</p><p id="be826773-68b7-4984-93d8-b4d16a4026be" class="">
-</p><p id="cc5e7612-cdc0-4019-895f-cc468417ad01" class=""><strong>routes.ts:</strong></p><pre id="f3d2a082-67c6-4b0f-afc3-4e6ddbc9d45b" class="code"><code>import { Request, Response } from &quot;express&quot;;
+</p><p id="cc5e7612-cdc0-4019-895f-cc468417ad01" class=""><mark class="highlight-blue"><strong><code>routes.ts</code></strong></mark><strong>:</strong></p><pre id="f3d2a082-67c6-4b0f-afc3-4e6ddbc9d45b" class="code"><code>import { Request, Response } from &quot;express&quot;;
 import createUser from &quot;./services/CreateUser&quot;;
 
 export function helloWorld(request: Request, response: Response) {

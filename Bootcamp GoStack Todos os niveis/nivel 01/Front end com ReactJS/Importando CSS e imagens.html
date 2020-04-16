@@ -619,7 +619,7 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="b154f6ee-0a7a-4be1-8eda-a7044cccf6b6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🛩️</span></div><h1 class="page-title">Importando CSS e imagens</h1></header><div class="page-body"><p id="bd35d7ef-1094-44d3-a747-3f3fc7bce775" class="">Configurar um novo loader dentro do <strong>webpack.config.js, </strong>adicionar o test.</p><pre id="d3cd4579-4702-468f-a15a-a27d1fd4ff07" class="code"><code>const path = require(&quot;path&quot;);
+</style></head><body><article id="b154f6ee-0a7a-4be1-8eda-a7044cccf6b6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🛩️</span></div><h1 class="page-title">Importando CSS e imagens</h1></header><div class="page-body"><p id="bd35d7ef-1094-44d3-a747-3f3fc7bce775" class="">Configurar um novo loader dentro do <code><mark class="highlight-yellow"><strong>webpack.config.js</strong></mark></code><strong>, </strong>adicionar o test.</p><pre id="d3cd4579-4702-468f-a15a-a27d1fd4ff07" class="code"><code>const path = require(&quot;path&quot;);
 
 module.exports = {
   entry: path.resolve(__dirname, &quot;src&quot;, &quot;index.js&quot;),
@@ -649,7 +649,7 @@ module.exports = {
 };</code></pre><p id="51201be5-fb80-49a5-a15c-10fcf294c428" class="">
 </p><p id="b8532b26-6b87-4ecb-a8e1-3a6766d21127" class="">Instalar os loaders de style e css:</p><pre id="f0e8a7ab-5a68-4361-8f3f-00441c596b48" class="code"><code>yarn add style-loader css-loader</code></pre><p id="c5105a9d-2e3f-4754-a871-34406b673654" class="">
 </p><p id="9b6d3012-c57a-47ce-9833-ae6527ff1424" class="">Rodar o servidor:</p><pre id="a5e45d23-1585-428a-b2eb-13b965c95f03" class="code"><code>yarn webpack-dev-server --mode development</code></pre><p id="52106a52-6da0-4474-96fc-472b6453fcea" class="">
-</p><p id="6150bcc2-399e-44d3-beae-1f6197f69a8b" class="">Criar na src o arquivo App.css:</p><pre id="33bdc65f-d5c2-4d4b-9c54-0bdb52e02a1c" class="code"><code>* {
+</p><p id="6150bcc2-399e-44d3-beae-1f6197f69a8b" class="">Criar na <strong>src</strong> o arquivo <strong><code><mark class="highlight-blue">App.css</mark></code></strong>:</p><pre id="33bdc65f-d5c2-4d4b-9c54-0bdb52e02a1c" class="code"><code>* {
   margin: 0;
   padding: 0;
   outline: 0;
@@ -661,12 +661,14 @@ body {
   font: 14px sans-serif;
   color: #333;
 }</code></pre><p id="b2174dba-2d47-4e80-94cb-b8ab3ccaadc6" class="">
-</p><p id="003fd8ac-1849-4188-90d6-414d701ec213" class="">E importar o App.css no App.js:</p><pre id="2d01fb24-9d68-4fb3-89b4-bf4376eea77b" class="code"><code>import React, { useState } from &quot;react&quot;;
+</p><p id="003fd8ac-1849-4188-90d6-414d701ec213" class="">E importar o <strong><code><mark class="highlight-blue">App.css</mark></code></strong> no <mark class="highlight-yellow"><strong><code>App.js</code></strong></mark>:</p><pre id="2d01fb24-9d68-4fb3-89b4-bf4376eea77b" class="code"><code>import React, { useState } from &quot;react&quot;;
 
 import &quot;./App.css&quot;;
 
 import Header from &quot;./components/Header&quot;;</code></pre><p id="ec9a2357-2489-404a-be29-51a29c37d4db" class="">
-</p><hr id="dbccddf6-6038-4147-b4b1-9a7edfe08721"/><p id="04ef8dd8-7d21-468f-9e9b-aa0955868602" class=""><div class="indented"><p id="2ee37ad4-3a84-4087-b323-c39d30e1f247" class="">Para facilitar o comando na linha do terminal para iniciar o webpack server, ir no <strong>package.json</strong> e adicionar o <strong>scripts</strong>. E depois só rodar <strong><code>yarn dev</code></strong>.</p></div></p><pre id="ad2c83e6-e105-488e-b028-56bc2b4a3561" class="code"><code>{
+</p><hr id="dbccddf6-6038-4147-b4b1-9a7edfe08721"/><p id="2ee37ad4-3a84-4087-b323-c39d30e1f247" class="">Para facilitar o comando na linha do terminal para iniciar o webpack server, ir no <code><mark class="highlight-orange"><strong>package.json</strong></mark></code> e adicionar o <strong>scripts</strong>. </p><p id="dbf855a6-dea9-4799-a7fb-724f24230777" class="">E depois só rodar .</p><pre id="e605ada0-bcbd-43d5-bd29-1a1950222676" class="code"><code><strong>yarn dev</strong></code></pre><p id="e0bb9b3f-b187-4558-9c86-eb3f008e657e" class="">
+</p><p id="cad6c084-ea2d-44bd-8631-c3028a745ec0" class="">
+</p><pre id="ad2c83e6-e105-488e-b028-56bc2b4a3561" class="code"><code>{
   &quot;name&quot;: &quot;frontend&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
   &quot;main&quot;: &quot;index.js&quot;,
@@ -694,7 +696,7 @@ import Header from &quot;./components/Header&quot;;</code></pre><p id="ec9a2357-
 }</code></pre><p id="a36259e1-9541-4b02-bfc3-d8b435bee61f" class="">
 </p><hr id="4631d34d-81a8-4c01-ab8a-cd10136dd959"/><p id="6b210a85-27db-4013-8158-62aa20468fd7" class="">
 </p><p id="d11a8a66-4cbd-489d-ac9c-d281b47d02bd" class="">Instalar o file-loader, utilizar para carregar arquivo dentro da aplicação.</p><pre id="499d6ca4-e398-4d9b-9e82-45c482a208b8" class="code"><code>yarn add file-loader</code></pre><p id="302ef130-8f29-4f07-b11a-02c1b16f04f5" class="">
-</p><p id="8c5f39b2-edd9-451e-bb30-497da21b4604" class="">Configurar o <strong>webpack.config.js</strong> adicionando o <strong>file-loader</strong>:</p><pre id="039a7728-7008-4a9d-8ded-2f7c5aab6ff8" class="code"><code>const path = require(&quot;path&quot;);
+</p><p id="8c5f39b2-edd9-451e-bb30-497da21b4604" class="">Configurar o <code><mark class="highlight-yellow"><strong>webpack.config.js</strong></mark></code> adicionando o <strong>file-loader</strong>:</p><pre id="039a7728-7008-4a9d-8ded-2f7c5aab6ff8" class="code"><code>const path = require(&quot;path&quot;);
 
 module.exports = {
   entry: path.resolve(__dirname, &quot;src&quot;, &quot;index.js&quot;),
@@ -728,7 +730,7 @@ module.exports = {
     ],
   },
 };</code></pre><p id="dc69b07b-f017-4316-b375-e1c5a7882236" class="">
-</p><p id="48a0e91e-7376-4e67-9cb8-5cd93e32b45e" class="">Criar na <strong>src</strong> a pasta <strong>assets</strong> e dentro salvar uma imagem.</p><p id="27c65379-edf1-4bf7-b509-a049ccf13a7d" class="">E importar a imagem no <strong>App.js</strong> e reiniciar o servidor.</p><pre id="0ee84a43-4b66-43bc-b4c1-a0f61edf9f76" class="code"><code>import React, { useState } from &quot;react&quot;;
+</p><p id="48a0e91e-7376-4e67-9cb8-5cd93e32b45e" class="">Criar na <strong>src</strong> a pasta <strong>assets</strong> e dentro salvar uma imagem.</p><p id="27c65379-edf1-4bf7-b509-a049ccf13a7d" class="">E importar a imagem no <code><mark class="highlight-yellow"><strong>App.js</strong></mark></code> e reiniciar o servidor.</p><pre id="0ee84a43-4b66-43bc-b4c1-a0f61edf9f76" class="code"><code>import React, { useState } from &quot;react&quot;;
 
 import &quot;./App.css&quot;;
 import backgroundImage from &quot;./assets/background.jpeg&quot;;

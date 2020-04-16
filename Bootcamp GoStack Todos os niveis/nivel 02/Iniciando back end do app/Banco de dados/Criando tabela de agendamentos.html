@@ -620,9 +620,9 @@ blockquote {
 }
 	
 </style></head><body><article id="4c817dc7-204a-42ec-a9d4-cd3d2c841994" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📅</span></div><h1 class="page-title">Criando tabela de agendamentos</h1></header><div class="page-body"><p id="f34a77e3-dee3-44af-99a2-a96860924df1" class="">Criar a tabela de appointments</p><p id="87afb745-9de2-4e98-b5b2-d2b373cfcc94" class="">
-</p><p id="184fe3cd-7381-4d28-9a4f-fa338222a317" class="">No ormconfig.json configurar uma pasta onde serao armazenadas as migrations do banco de dados.</p><p id="afe2558e-0e63-4221-9bf1-2896d402ae00" class="">
+</p><p id="184fe3cd-7381-4d28-9a4f-fa338222a317" class="">No <mark class="highlight-orange"><strong><code>ormconfig.json</code></strong></mark> configurar uma pasta onde serao armazenadas as migrations do banco de dados.</p><p id="afe2558e-0e63-4221-9bf1-2896d402ae00" class="">
 </p><p id="29c950b7-ccf1-47ba-bb48-23cb91d41c19" class="">Criar na pasta database a pasta migrations</p><p id="53a2e72e-548b-4fba-9119-67db121a01b8" class="">
-</p><pre id="6c408d43-89fb-4558-a178-613b19e70c97" class="code"><code>{
+</p><p id="b0e0f6f1-d317-4785-b2c1-8de9d00da00b" class=""><mark class="highlight-orange"><strong><code>ormconfig.json</code></strong></mark></p><pre id="6c408d43-89fb-4558-a178-613b19e70c97" class="code"><code>{
   &quot;type&quot;: &quot;postgres&quot;,
   &quot;host&quot;: &quot;localhost&quot;,
   &quot;port&quot;: 5432,
@@ -635,7 +635,8 @@ blockquote {
   }
 }</code></pre><p id="5a93b2b7-0626-4c6c-806b-8abe093426fe" class="">
 </p><p id="39a2e947-c50e-41d9-a54e-060ee82bd645" class="">
-</p><p id="25345440-6c05-4920-94aa-c136ab91b376" class="">Ir no package.json e criar um script para fazer o typeorm salvar no formato de TypeScript.</p><p id="708942a8-dfe4-4a22-992e-a3244c176f0f" class="">package.json</p><pre id="3511a131-5fc6-49ef-a69e-0635b5cd832a" class="code"><code>{
+</p><p id="25345440-6c05-4920-94aa-c136ab91b376" class="">Ir no <strong><code><mark class="highlight-orange">package.json</mark></code></strong> e criar um script para fazer o typeorm salvar no formato de <mark class="highlight-blue">TypeScript</mark>.</p><p id="708942a8-dfe4-4a22-992e-a3244c176f0f" class="">
+</p><p id="21430dd2-2cae-4e74-b793-5521d3eb04b1" class=""><strong><code><mark class="highlight-orange">package.json</mark></code></strong></p><pre id="3511a131-5fc6-49ef-a69e-0635b5cd832a" class="code"><code>{
   &quot;name&quot;: &quot;primeiro-projeto-node&quot;,
   &quot;version&quot;: &quot;1.0.0&quot;,
   &quot;main&quot;: &quot;index.js&quot;,
@@ -652,7 +653,7 @@ blockquote {
 </p><hr id="56699b36-4fce-4366-920d-6f7f6d8f2e2d"/><p id="9bcb3510-b5cf-4f78-a4c1-999bf20224cf" class="">
 </p><p id="6f6236fe-82a6-4e6d-9a98-4e16700a99b8" class="">1 semana : Agendamentos</p><p id="9136473e-005e-49a3-9da2-2ae2f5d49b64" class="">2 semana: Usuários</p><p id="ccfc8d47-f41c-4893-ae86-7a1eb11b3b88" class="">3 semana: (NOVO DEV) Edição Agendamentos</p><p id="04a2dd0c-7a8a-4e6e-ad45-32b4ca77eb48" class="">4 semana: Compras</p><p id="09ce464b-f8af-4e2b-abea-5766e341341e" class="">
 </p><hr id="2bd46b6e-1071-4feb-a071-425418e2d91b"/><p id="41fa7cbb-9d13-4ea6-af88-c651c5a4c9c8" class="">
-</p><p id="906d75c0-51ed-4826-babf-883ca1311b5e" class="">Desabilitar a regra do this no codigo da migration.</p><p id="e63d4736-bfc5-405c-90dd-7326cd45c413" class="">Adicionando o <code>&quot;class-methods-use-this&quot;: &quot;off&quot;</code> nas <code>rules</code></p><p id="667d7f4f-27bf-4ccc-811c-3b8388c8efea" class="">Ir no .eslint.json:</p><pre id="90124390-a769-4acb-82a7-ca75d4720ffd" class="code"><code>&quot;rules&quot;: {
+</p><p id="906d75c0-51ed-4826-babf-883ca1311b5e" class="">Desabilitar a regra do this no codigo da migration.</p><p id="e63d4736-bfc5-405c-90dd-7326cd45c413" class="">Adicionando o <code>&quot;class-methods-use-this&quot;: &quot;off&quot;</code> nas <code>rules</code></p><p id="667d7f4f-27bf-4ccc-811c-3b8388c8efea" class="">Ir no <mark class="highlight-purple"><strong><code>.eslint.json</code></strong></mark>:</p><pre id="90124390-a769-4acb-82a7-ca75d4720ffd" class="code"><code>&quot;rules&quot;: {
     &quot;prettier/prettier&quot;: &quot;error&quot;,
     &quot;class-methods-use-this&quot;: &quot;off&quot;,
     &quot;import/extensions&quot;: [

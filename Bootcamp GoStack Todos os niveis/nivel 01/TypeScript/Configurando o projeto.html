@@ -623,7 +623,7 @@ blockquote {
 </p><p id="6520d821-95b7-4323-9413-bf7e3a51fa14" class="">Criar a pasta src e dentro o arquivo index.ts</p><p id="ba8d125d-dfd6-4c59-b3e4-2f0f1e98708c" class="">
 </p><p id="2fb2d434-4d4d-4b16-becd-f66e81d1eb93" class="">Instalar o express</p><pre id="06eb3452-4d96-467b-8b91-17e028951b17" class="code"><code>yarn add express</code></pre><p id="2c536fe1-9995-4eaf-8e1c-2099f67f1f3a" class="">
 </p><p id="a3819323-15c4-425f-ba1d-3475d0ea754f" class="">Para instalar as tipagens do express: Passar o mouse em cima do três pontinhos.</p><pre id="e6984d05-ebf5-4f2c-b48f-789118cdace7" class="code"><code>yarn add @types/express -D</code></pre><p id="cdaff476-b7a0-4b5e-a55b-0394971bc87d" class="">
-</p><p id="7f8284a5-163f-4bdd-bcc3-9ef60c8453f9" class="">E importar o express no index.ts</p><pre id="c6e8d735-1c61-4b51-994e-d8221eeeeed3" class="code"><code>import express from &quot;express&quot;;
+</p><p id="7f8284a5-163f-4bdd-bcc3-9ef60c8453f9" class="">E importar o express no <mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><pre id="c6e8d735-1c61-4b51-994e-d8221eeeeed3" class="code"><code>import express from &quot;express&quot;;
 
 const app = express();
 
@@ -632,8 +632,8 @@ app.get(&quot;/&quot;, (request, response) =&gt; {
 });
 
 app.listen(3333);</code></pre><p id="aa3ce1f0-396c-49a9-8734-ace6591dd881" class="">
-</p><p id="33fd4520-20e3-4a75-875b-bb6e534131b4" class="">Converter o arquivo TypeScript em JavaScript para o Node entender e rodar.</p><pre id="90154a5d-4ea7-4ee1-bfdd-bc9dc8970ceb" class="code"><code>yarn tsc src/index.ts</code></pre><p id="5f55895c-c2a4-4b9d-a4f4-90150d31f80b" class="">
-</p><p id="4c0b5ded-0461-4d1d-8677-c31971014845" class="">Para criar o tsconfig.json</p><pre id="446af691-baf7-41d9-9fdb-301b80a1ac04" class="code"><code>yarn tsc src/index.ts</code></pre><p id="bbaf1c43-c833-4793-82e9-989fbb756868" class="">
+</p><p id="33fd4520-20e3-4a75-875b-bb6e534131b4" class="">Converter o arquivo <mark class="highlight-blue">TypeScript</mark> em <mark class="highlight-yellow">JavaScript</mark> para o Node entender e rodar.</p><pre id="90154a5d-4ea7-4ee1-bfdd-bc9dc8970ceb" class="code"><code>yarn tsc src/index.ts</code></pre><p id="5f55895c-c2a4-4b9d-a4f4-90150d31f80b" class="">
+</p><p id="4c0b5ded-0461-4d1d-8677-c31971014845" class="">Para criar o <mark class="highlight-orange"><strong><code>tsconfig.json</code></strong></mark></p><pre id="446af691-baf7-41d9-9fdb-301b80a1ac04" class="code"><code>yarn tsc src/index.ts</code></pre><p id="bbaf1c43-c833-4793-82e9-989fbb756868" class="">
 </p><p id="5ca6d36e-f897-4f4c-9d66-2b3f5e62b126" class="">Agora ele vai pegar automaticamente todos os arquivos ts e converter em js.</p><pre id="d980f76c-5954-4e9e-ad4b-1fe83563a107" class="code"><code>yarn tsc src/index.ts</code></pre><p id="92405a52-8f59-4615-b642-ab33144342b6" class="">
 </p><p id="02e07e34-516c-434d-b147-73f5f9f0b107" class="">E agora só rodar o node e acessar o localhost:3333</p><pre id="baf43091-3b06-4401-ad04-d566e1693b8b" class="code"><code>node src/index.js</code></pre><p id="d171c7dc-d5d3-461a-8f7d-a9376c8a16dd" class="">
 </p><p id="af127e1b-4878-4389-ba93-e0c105e36a82" class="">Colocar o arquivo js convertido em uma pasta chamada dist. Ir no <code>tsconfig.json</code> e descomentar a linha <strong>outDir</strong> e deixar <strong>&quot;./dist&quot;</strong>:</p><pre id="0f6d9961-0efe-42a8-ae70-0543cd4c0dca" class="code"><code>&quot;outDir&quot;: &quot;./dist&quot; /* Redirect output structure to the directory. */,</code></pre><p id="b268d88a-8c97-47f4-81ff-3462ac7eeaff" class="">

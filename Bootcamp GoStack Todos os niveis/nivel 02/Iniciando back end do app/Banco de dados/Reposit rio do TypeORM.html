@@ -619,7 +619,7 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="20341d41-4775-45c6-8a46-96ee48b8b2f0" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://avatars0.githubusercontent.com/u/20165699?s=200&amp;v=4"/></div><h1 class="page-title">Repositório do TypeORM</h1></header><div class="page-body"><p id="83007621-2d7b-4639-838b-54b05a848a3c" class="">AppointmentsRepository.ts</p><pre id="dfc96d3c-d3fc-4ae7-8502-3b55f642a6fb" class="code"><code>import { EntityRepository, Repository } from &#x27;typeorm&#x27;;
+</style></head><body><article id="20341d41-4775-45c6-8a46-96ee48b8b2f0" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://avatars0.githubusercontent.com/u/20165699?s=200&amp;v=4"/></div><h1 class="page-title">Repositório do TypeORM</h1></header><div class="page-body"><p id="83007621-2d7b-4639-838b-54b05a848a3c" class=""><mark class="highlight-blue"><strong><code>AppointmentsRepository.ts</code></strong></mark></p><pre id="dfc96d3c-d3fc-4ae7-8502-3b55f642a6fb" class="code"><code>import { EntityRepository, Repository } from &#x27;typeorm&#x27;;
 
 import Appointment from &#x27;../models/Appointment&#x27;;
 
@@ -637,7 +637,7 @@ class AppointmentsRepository extends Repository&lt;Appointment&gt; {
 
 export default AppointmentsRepository;</code></pre><p id="1f6690e9-2512-4d4c-93c4-132f3e945cd6" class="">
 </p><hr id="951af676-0e6f-4dee-8f06-00a8a1058da2"/><p id="d7d765b2-1c4e-4e74-b5ef-99e7b0361be7" class="">
-</p><p id="b5ad348a-ce7f-467b-9b91-5aa3edecb625" class="">Ir no CreateAppointmentService.ts</p><pre id="a651ba0c-d31e-41ea-a3e6-a77c55379909" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+</p><p id="b5ad348a-ce7f-467b-9b91-5aa3edecb625" class="">Ir no <mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark></p><pre id="a651ba0c-d31e-41ea-a3e6-a77c55379909" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
 import { getCustomRepository } from &#x27;typeorm&#x27;;
 
 import Appointment from &#x27;../models/Appointment&#x27;;
@@ -676,7 +676,7 @@ class CreateAppointmentService {
 
 export default CreateAppointmentService;</code></pre><p id="d7fcca66-0cf6-4c36-a8e4-01e6f9f26212" class="">
 </p><hr id="8d738c3d-c2dd-485f-945e-c2b5fe6b54a2"/><p id="6c923278-62c5-4d6d-bedb-7b9287a732dd" class="">
-</p><p id="e75baf16-f795-45f9-b991-a2e3c6c1bdf0" class="">appointments.routes.ts</p><pre id="dccdb4f2-7704-4f6e-9881-902519fc8568" class="code"><code>import { Router } from &#x27;express&#x27;;
+</p><p id="e75baf16-f795-45f9-b991-a2e3c6c1bdf0" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="dccdb4f2-7704-4f6e-9881-902519fc8568" class="code"><code>import { Router } from &#x27;express&#x27;;
 import { getCustomRepository } from &#x27;typeorm&#x27;;
 import { parseISO } from &#x27;date-fns&#x27;;
 
@@ -717,8 +717,8 @@ appointmentsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
 
 export default appointmentsRouter;</code></pre><p id="886d5954-d9b3-4d31-a4b8-98a0fe15aef8" class="">
 </p><p id="a382a373-e071-4237-aba0-6773cac6cd2c" class="">Instalar o reflect-metada</p><pre id="8c5a82a2-d50d-4d29-b37c-05568115700b" class="code"><code>yarn add reflect-metadata</code></pre><p id="1e2e4acb-1ad0-4509-9ef1-02cb898e7db9" class="">
-</p><p id="b5679a61-3800-4623-b548-59f038f181d2" class="">Importar o reflect-metada no server.ts</p><p id="00d8eae6-4917-4ce5-8332-94d663d48162" class="">
-</p><p id="54ea9ff2-24b1-43be-82de-559efb4425b8" class="">server.ts</p><pre id="0053096d-b247-4442-80db-d3fb5a50a9f6" class="code"><code>import &#x27;reflect-metadata&#x27;;
+</p><p id="b5679a61-3800-4623-b548-59f038f181d2" class="">Importar o reflect-metada no <mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><p id="00d8eae6-4917-4ce5-8332-94d663d48162" class="">
+</p><p id="54ea9ff2-24b1-43be-82de-559efb4425b8" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="0053096d-b247-4442-80db-d3fb5a50a9f6" class="code"><code>import &#x27;reflect-metadata&#x27;;
 
 import express from &#x27;express&#x27;;
 import routes from &#x27;./routes&#x27;;
@@ -733,7 +733,7 @@ app.use(routes);
 app.listen(3333, () =&gt; {
   console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
 });</code></pre><p id="7489adc5-fef7-4dca-a585-5eb2819385b2" class="">
-</p><p id="f9870a6a-1324-4cf8-bd8f-57fb0214d225" class="">E para o TypeORM carregar automaticamente todos os models</p><p id="37d5d0b9-2209-4f9a-81ba-bcd83f46c6b6" class="">Ir no ormconfig.json e adicionar o entities</p><pre id="714114c7-4abf-4ff9-a251-81e23cef59d6" class="code"><code>{
+</p><p id="f9870a6a-1324-4cf8-bd8f-57fb0214d225" class="">E para o TypeORM carregar automaticamente todos os models</p><p id="37d5d0b9-2209-4f9a-81ba-bcd83f46c6b6" class="">Ir no <mark class="highlight-orange"><strong><code>ormconfig.json</code></strong></mark> e adicionar o entities</p><pre id="714114c7-4abf-4ff9-a251-81e23cef59d6" class="code"><code>{
   &quot;type&quot;: &quot;postgres&quot;,
   &quot;host&quot;: &quot;localhost&quot;,
   &quot;port&quot;: 5432,
@@ -746,8 +746,8 @@ app.listen(3333, () =&gt; {
     &quot;migrationsDir&quot;: &quot;./src/database/migrations&quot;
   }
 }</code></pre><p id="d5ccdd3d-95ac-48cd-8919-98150c594f6a" class="">
-</p><p id="485c1b59-243d-4f08-b536-fd2cb791a2b7" class="">CreateAppointmentService.ts , colocar o await na linha do findAppointmentInSameDate</p><p id="f128520c-f340-4bc0-9f6f-dcbc01aa9601" class="">
-</p><p id="9a13e7a6-f122-47bb-9979-fb925cd93430" class="">CreateAppointmentService.ts</p><pre id="1fd952cc-9bec-414a-a340-d5e69b7def21" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+</p><p id="485c1b59-243d-4f08-b536-fd2cb791a2b7" class=""><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark> , colocar o await na linha do findAppointmentInSameDate</p><p id="f128520c-f340-4bc0-9f6f-dcbc01aa9601" class="">
+</p><p id="9a13e7a6-f122-47bb-9979-fb925cd93430" class=""><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark></p><pre id="1fd952cc-9bec-414a-a340-d5e69b7def21" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
 import { getCustomRepository } from &#x27;typeorm&#x27;;
 
 import Appointment from &#x27;../models/Appointment&#x27;;
@@ -786,7 +786,7 @@ class CreateAppointmentService {
 
 export default CreateAppointmentService;</code></pre><p id="4f38d796-f41b-4b16-aa35-58767190197a" class="">
 </p><p id="6198a645-394c-409f-b8e6-8dabe5ccd36e" class="">Na migration de CreateAppointments, adicional o <mark class="highlight-red"><strong>default</strong></mark> na coluna de <strong>id. </strong>O diego esqueceu</p><p id="4e449deb-da7e-4f01-a6be-6466c3d32eb4" class="">
-</p><p id="dd56c97f-334e-4749-b303-d87eccb4ef27" class="">migrations/CreateAppointments.ts</p><pre id="70d2a4bb-2e1e-4793-8aad-b6a03dc8dca2" class="code"><code>import { MigrationInterface, QueryRunner, Table } from &#x27;typeorm&#x27;;
+</p><p id="dd56c97f-334e-4749-b303-d87eccb4ef27" class=""><strong>migrations/</strong><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark></p><pre id="70d2a4bb-2e1e-4793-8aad-b6a03dc8dca2" class="code"><code>import { MigrationInterface, QueryRunner, Table } from &#x27;typeorm&#x27;;
 
 export default class CreateAppointments1587058689907
   implements MigrationInterface {
