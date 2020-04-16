@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Criando repositórios</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,70 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="bccda33c-8709-4b2b-bf29-32adbaa5d371" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📂</span></div><h1 class="page-title">Criando repositórios</h1></header><div class="page-body"><h1 id="259d5e89-e735-4f24-a140-4bd6f7d5b55c" class=""><strong>Persistência ↔ Repositório ↔ Rota</strong></h1><p id="f2b6d954-1e34-4946-963e-ee041ff7fd2b" class="">
+</p><p id="bdbac143-ccfe-471c-9adb-b93232d42b17" class="">As <strong>regras</strong> como <strong>create</strong> ou <strong>find</strong>, vão ser armazenadas no repositório para abstrair mais o código. </p><p id="f634c6b8-9cb5-4e0e-b8ba-8d8e0dd90b14" class=""><mark class="highlight-red"><strong>O repositório tem mais responsabilidade</strong></mark> e a rota não.</p><p id="9eebb4ef-db33-46b9-a957-c2c153c290f0" class="">
+</p><p id="19e9bcd2-ac62-4aad-96af-5abaa8aa09b4" class="">Vou tirar código de <mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark><mark class="highlight-blue"><strong> </strong></mark>e colocar no <mark class="highlight-blue"><code><strong>AppointmentsRepository.ts</strong></code></mark></p><p id="d0fccdfe-5925-4ad7-a0d2-5e57d3c6cfa3" class="">
+</p><p id="0ff95c7a-661b-4d12-bd78-c1dcdfee7e9d" class="">Geralmente vai ter um repositório por model</p><p id="fbf2549a-9e0c-43ad-9205-336ae2eb6bd5" class="">
+</p><hr id="3f16849e-1f9a-474d-bcfd-1e36ea486415"/><p id="45eac1d1-bf2e-433f-a766-13fe7863de20" class="">
+</p><p id="fe16be26-07c3-4f66-81ff-ca1682db0571" class="">Na <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-gray"><strong><code>repositories</code></strong></mark> e dentro o arquivo <mark class="highlight-blue"><code><strong>AppointmentsRepository.ts</strong></code></mark></p><p id="98dc99cb-498a-4bbe-b6fa-14a686af5307" class="">
+</p><p id="d105b246-2836-4b98-bdfc-e61e3ce2625d" class=""><mark class="highlight-blue"><code><strong>AppointmentsRepository.ts</strong></code></mark></p><pre id="e03ecaf5-61b3-40e1-b527-423947a3c419" class="code"><code>import { isEqual } from &#x27;date-fns&#x27;;
+import Appointment from &#x27;../models/Appointment&#x27;;
+
+class AppointmentsRepository {
+  private appointments: Appointment[];
+
+  constructor() {
+    this.appointments = [];
+  }
+
+  // O metodo tem retoro Appointment se retornar. SE NAO retornar, ele retorna o valor como null.
+  public findByDate(date: Date): Appointment | null {
+    const findAppointment = this.appointments.find(appointment =&gt;
+      isEqual(date, appointment.date),
+    );
+
+    return findAppointment || null;
+  }
+
+  // Esse metodo tem o retorno do tipo Appointment, [id: string, provider: string, date: Date].
+  public create(provider: string, date: Date): Appointment {
+    const appointment = new Appointment(provider, date);
+
+    this.appointments.push(appointment);
+
+    return appointment;
+  }
+}
+
+export default AppointmentsRepository;</code></pre><p id="67becdbb-1181-4158-9d48-66dd88c8a347" class="">
+</p><p id="4d68115a-e2f6-4c3f-a912-b33fc6bf98a9" class=""><mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark></p><pre id="7b0d6591-ccba-42bd-ae6e-856a242a163a" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { startOfHour, parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+const appointmentsRouter = Router();
+const appointmentsRepository = new AppointmentsRepository();
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  const { provider, date } = request.body;
+
+  // Tranformar a data no tipo date do Javascript
+  const parsedDate = startOfHour(parseISO(date)); // &quot;2020-04-14T16:00:00.000Z&quot;
+
+  // Verificar se existe uma data ja agendada.
+  const findAppointmentInSameDate = appointmentsRepository.findByDate(
+    parsedDate,
+  );
+
+  if (findAppointmentInSameDate) {
+    return response
+      .status(400)
+      .json({ message: &#x27;This appointment is already booked&#x27; });
+  }
+
+  const appointment = appointmentsRepository.create(provider, parsedDate);
+
+  return response.json(appointment);
+});
+
+export default appointmentsRouter;</code></pre></div></article></body></html>

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Validando a data</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,51 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="4e08f7f2-c981-4d59-a694-4fb6de2374bc" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📅</span></div><h1 class="page-title">Validando a data</h1></header><div class="page-body"><p id="03449b01-b057-4173-a7dc-08ac6d8d7182" class="">Instalar o date-fns</p><pre id="bd1a7dc4-f711-4e0b-afd2-4e99067263cc" class="code"><code>yarn add date-fns</code></pre><p id="85e94429-ffab-4fe9-b367-6cc3972d3ceb" class="">
+</p><p id="df6c96a5-6b83-41d1-9ee4-3b6d11999d37" class=""><strong>parseISO</strong>, converte uma string para o formato date do JavaScript.</p><p id="84961b5c-732a-4126-9272-596587275a60" class=""><strong>startOfHour</strong>, vai deixar a hora, minutos, segundos e milissegundos zerados.</p><p id="768d0bbf-854a-4429-9ef8-63b7091fdad2" class=""><strong>IsEqual</strong>, verifica se duas datas são iguais, na mesma data e no mesmo horário.</p><p id="e4919d6d-c9fd-47f2-abe8-426ad897404c" class="">
+</p><p id="99acc9e4-4137-4e63-9ee0-1f28c0f00e69" class=""><mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark></p><pre id="e4b04a5a-875f-4856-9b0d-c177e8300938" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { uuid } from &#x27;uuidv4&#x27;;
+import { startOfHour, parseISO, isEqual } from &#x27;date-fns&#x27;;
+
+const appointmentsRouter = Router();
+
+interface Appointment {
+  id: string;
+  provider: string;
+  date: Date;
+}
+
+const appointments: Appointment[] = [];
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  const { provider, date } = request.body;
+
+  // Tranformar a data no tipo date do Javascript
+  const parsedDate = startOfHour(parseISO(date)); // &quot;2020-04-14T16:00:00.000Z&quot;
+
+  // Verificar se existe uma data ja agendada.
+  const findAppointmentInSameDate = appointments.find(appointment =&gt;
+    isEqual(parsedDate, appointment.date),
+  );
+
+	// Se existir, vai dar errro
+  if (findAppointmentInSameDate) {
+    return response
+      .status(400)
+      .json({ message: &#x27;This appointment is already booked&#x27; });
+  }
+
+  const appointment = {
+    id: uuid(),
+    provider,
+    date: parsedDate,
+  };
+
+  appointments.push(appointment);
+
+  return response.json(appointment);
+});
+
+export default appointmentsRouter;</code></pre><p id="191b79c1-e8bc-436f-bca9-5e2be12a01e0" class="">
+</p><p id="86680b50-599d-42b0-abd0-aa577b76b93e" class="">Criar dois agendamentos no mesmo horário no <mark class="highlight-purple"><strong>Insomnia</strong></mark>, o primeiro vai dar <strong><mark class="highlight-teal_background">OK</mark></strong> e o segundo <strong><mark class="highlight-orange_background">Bad Request.</mark></strong></p><p id="e044af49-0f83-4755-84e3-bacd25a2aea3" class="">
+</p></div></article></body></html>

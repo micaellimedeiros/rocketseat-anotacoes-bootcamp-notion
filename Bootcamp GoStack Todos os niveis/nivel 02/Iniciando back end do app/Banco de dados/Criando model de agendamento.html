@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Criando model de agendamento</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,24 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="ac716ae7-39db-40d0-a597-91cc87712d7e" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💃</span></div><h1 class="page-title">Criando model de agendamento</h1></header><div class="page-body"><p id="da7374e5-594b-4611-bd38-6f681150788b" class="">Entity, um model que vai ser salvo no banco de dados</p><p id="b3722ed6-5e61-4ba1-b22c-012ea285ff21" class="">
+</p><p id="145e87cd-3f2a-41e3-87c2-31e6bacd4e79" class="">No <mark class="highlight-orange"><strong><code>tsconfig.json</code></strong></mark>, descomentar: Funcionalidade do <mark class="highlight-blue"><strong>TypeScript</strong></mark> para usar o <strong>@</strong></p><pre id="7b54282e-e272-43d3-a710-6b58af11c90e" class="code"><code>&quot;experimentalDecorators&quot;: true /* Enables experimental support for ES7 decorators. */,
+&quot;emitDecoratorMetadata&quot;: true /* Enables experimental support for emitting type metadata for decorators. */,</code></pre><p id="834eb9ba-ccea-4b53-99ce-7727de85342e" class="">
+</p><p id="d205d9df-9868-4b1a-8e0e-a716c89df429" class="">No model de Appointment</p><p id="2fe3b024-d681-4962-a000-b19636e2389b" class=""><mark class="highlight-blue"><strong><code>models/Appointments.ts</code></strong></mark></p><pre id="d9a94d93-4c60-4719-b40d-167a4d138796" class="code"><code>import { Entity, Column, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
+
+// O Entity pega esse model, toda vez que ele for salvo
+// Vai ser armazenado dentro da tabela de appointments
+@Entity(&#x27;appointments&#x27;)
+class Appointment {
+  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
+  id: string;
+
+  @Column()
+  provider: string;
+
+  @Column(&#x27;timestamp with time zone&#x27;)
+  date: Date;
+}
+
+export default Appointment;</code></pre><p id="6aadfb4f-d9c1-45b4-9ede-6e665169f2d0" class="">
+</p><p id="52304734-7aa6-4446-ac85-cac46f8c05d0" class="">No <mark class="highlight-orange"><strong><code>tsconfig.json</code></strong></mark>, descomentar e colocar como false. Para não ficar reclamando no model</p><pre id="a2616dd2-3e68-48c6-b401-a3a0b46d5d72" class="code"><code>&quot;strictPropertyInitialization&quot;: false /* Enable strict checking of property initialization in classes. */,</code></pre></div></article></body></html>

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Configurando TypeORM</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,39 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="fc07c018-c867-4121-bcc2-fdb8c510d9c0" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://avatars0.githubusercontent.com/u/20165699?s=200&amp;v=4"/></div><h1 class="page-title">Configurando TypeORM</h1></header><div class="page-body"><p id="b56741d3-672a-43f9-825f-5c2cb24a03f7" class="">Duplicar o projeto anterior, mudei o nome para &quot;iniciando-back-end&quot;</p><p id="5df23708-4e56-4b81-9646-3dafca6707af" class="">
+</p><p id="d289bd5a-7dca-4e9b-80b0-f4abfa2e55aa" class="">Instalar o TypeORM e o drive do Postgres</p><pre id="30bf1883-60ab-43e1-8b7e-b7c93630a019" class="code"><code>yarn add typeorm pg</code></pre><p id="8fed112a-1594-471a-b164-159fd3e2600c" class="">
+</p><p id="24eb5239-8a28-4699-8ba5-0d2040086b27" class="">Criar na raiz do projeto o arquivo <mark class="highlight-orange"><strong><code>ormconfig.json</code></strong></mark></p><pre id="09b26c33-7c4f-4106-8884-0dbd04bbbf3f" class="code"><code>{
+  &quot;type&quot;: &quot;postgres&quot;,
+  &quot;host&quot;: &quot;localhost&quot;,
+  &quot;port&quot;: 5432,
+  &quot;username&quot;: &quot;postgres&quot;,
+  &quot;password&quot;: &quot;docker&quot;,
+  &quot;database&quot;: &quot;gostack_gobarber&quot;
+}</code></pre><p id="2374d322-f961-45d4-b0af-b21fea7d77a7" class="">
+</p><p id="7b38db66-e87d-498b-9459-f8effefb5033" class="">Na pasta <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-yellow"><code><strong>database</strong></code></mark> e dentro o arquivo <mark class="highlight-blue"><code><strong>index.ts</strong></code></mark>, que vai ser o arquivo que vai fazer a conexão com o banco de dados.</p><p id="ba969188-d47b-46b5-bba8-cdf48065edae" class="">
+</p><p id="f086d33b-8932-4ce4-8892-255eae080b6b" class=""><mark class="highlight-blue"><code><strong>index.ts</strong></code></mark></p><pre id="a879c3bf-f934-469f-8364-5c97b734b5fd" class="code"><code>import { createConnection } from &#x27;typeorm&#x27;;
+
+// Ele vai automaticamente procurar em toda a pasta do projeto
+// um arquivo chamado &quot;ormconfig.json&quot;
+// e automaticamente vai importar os dados do arquivo
+// e fazer a conexao com o banco de dados
+createConnection();</code></pre><p id="42b90bfb-bc86-4206-9b40-78c1187d6741" class="">
+</p><hr id="987ab7d1-03b4-4f6b-9fe0-028a4653aede"/><p id="dc8bd2ba-601d-4ed0-b1d1-e02bc571b535" class="">
+</p><p id="10f9f48d-5eb7-4bbb-9b0f-871309aedf91" class="">Ir no <mark class="highlight-blue"><code><strong>server.ts</strong></code></mark> e importar o database:</p><p id="b8a7fd4d-6d2e-44a9-a763-d05061c77232" class="">
+</p><p id="9c7c167c-c2a9-4707-9664-8c2cf7d0c6eb" class=""><mark class="highlight-blue"><code><strong>server.ts</strong></code></mark></p><pre id="3e469181-1640-4e8e-8ec9-6e1bf454963c" class="code"><code>import express from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+
+import &#x27;./database&#x27;;
+
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="857f4ff7-075e-425f-9406-d89c12cbb53f" class="">
+</p><p id="48f39b2a-fc87-4b7d-80ff-84d5a65b5d32" class="">Criar no DBeaver a base de dados, a database gostack_gobarber</p><p id="352084b6-2281-4d9b-ba2b-9fec1ea16ec1" class="">Iniciar a conexão com a base de dados.</p><p id="9317c3f8-01eb-4ecc-975a-fcabbc667c69" class="">Clica em cima de PostgreSQL -  postgres com o botão direito</p><p id="1d7767ff-333a-4312-b303-7c4d9ed47414" class="">Create &gt; Database &gt; Database Name: gostack_gobarber</p><p id="375e5c2c-e7a2-428a-9a02-60d3302a5cad" class="">
+</p><p id="8d794452-ee3a-48f1-9d38-c6b094e49753" class="">E para testar a conexão com o banco de dados.</p><pre id="48f122af-c907-44b6-aa07-223e533fe09b" class="code"><code>yarn dev:server</code></pre><p id="e2f73a7b-3919-4ac9-8f76-ef7d4c1328ee" class="">
+</p></div></article></body></html>

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Trabalhando com dados</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,69 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="e469be1c-5119-4579-8410-b0cba9749f9d" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗂️</span></div><h1 class="page-title">Trabalhando com dados</h1></header><div class="page-body"><p id="6a3bc1db-aa37-4846-a669-561e61c4de81" class="">DTO - Data Transfer Object</p><p id="203697ed-bf3e-4525-9640-eb8397dda5da" class="">
+</p><p id="fe60c4db-ef3f-49ff-b682-adb97e212995" class="">Usar parametro</p><p id="465781a8-8ba8-4c20-a921-ea2898275adb" class="">
+</p><p id="5296b9c0-83bc-4b37-891c-ebdd102eea94" class="">ANTES:</p><p id="cb1bca48-5651-45e5-9232-c7c622a55a36" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="631b9415-157d-4fa3-a94b-506871fbebf0" class="code"><code>const appointment = appointmentsRepository.create(provider, parsedDate);</code></pre><p id="fb136446-3270-42e2-b0d2-7e799f0495af" class="">
+</p><p id="3abe3b77-47e7-4735-96c2-950f15038e27" class=""><mark class="highlight-blue"><code><strong>AppointmentsRepository.ts</strong></code></mark></p><pre id="43129363-557c-462a-a553-54064e785a04" class="code"><code>public create(provider: string, date: Date): Appointment {
+  const appointment = new Appointment(provider, date);
+
+  this.appointments.push(appointment);
+
+  return appointment;
+}</code></pre><p id="2304b999-5e49-4f4e-a6ce-089d3f1d68bc" class="">
+</p><hr id="2645a52f-afa5-4377-9e6d-155cc0131276"/><p id="83e93423-73e7-4c59-ac48-f6d902b148d5" class="">
+</p><p id="b8ba6608-98d9-4197-80c9-8020241e1b32" class="">DEPOIS:</p><p id="0b2748db-54ca-4e2f-b8be-32395aea9b99" class="">
+</p><p id="5398bb73-b761-4133-8c34-b507ff4ac2dc" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="790babd4-3571-4b98-8ba9-0e6e979388f1" class="code"><code>const appointment = appointmentsRepository.create({
+  provider,
+  date: parsedDate,
+});</code></pre><p id="2ad77eda-3dc4-4a3c-a9ca-a2b5d1eff9c3" class="">
+</p><p id="16f728bb-3d09-4654-af06-79c5feefa5f9" class=""><mark class="highlight-blue"><code><strong>AppointmentsRepository.ts</strong></code></mark></p><pre id="37283fe1-e581-4dd9-b537-c593a82bfd44" class="code"><code>interface CreateAppointmentDTO {
+  provider: string;
+  date: Date;
+}
+
+public create({ provider, date }: CreateAppointmentDTO): Appointment {
+  const appointment = new Appointment({ provider, date });
+
+  this.appointments.push(appointment);
+
+  return appointment;
+}</code></pre><p id="d3a32fbd-d10e-4f76-ad48-f8ff45625c50" class="">
+</p><hr id="155c5c3f-da8e-427e-80d3-a66687be6d7b"/><p id="915b16a2-d710-4831-91da-da17abb28c8a" class="">
+</p><p id="0d737a0f-8007-49ec-bb19-7b3b84c6af45" class="">Model</p><p id="f65579dc-2c67-438b-aebd-07c34d0f1c18" class="">ANTES:</p><p id="a3c82d6e-526e-42b7-9f24-29f32ce4ee87" class=""><mark class="highlight-blue"><code><strong>models/Appointments.ts</strong></code></mark></p><pre id="5f756235-8b82-4920-9652-14dfb092bfd4" class="code"><code>import { uuid } from &#x27;uuidv4&#x27;;
+
+class Appointment {
+  id: string;
+
+  provider: string;
+
+  date: Date;
+
+  constructor(provider: string, date: Date) {
+    this.id = uuid();
+    this.provider = provider;
+    this.date = date;
+  }
+}
+
+export default Appointment;</code></pre><p id="418ee3b1-9120-4d5e-a6ca-e5c2e653dee1" class="">
+</p><p id="5768a151-8cb4-44cd-a9b0-640ea1654382" class="">DEPOIS:</p><p id="09115d00-a907-4082-97ba-43a9b5f72661" class=""><mark class="highlight-blue"><code><strong>models/Appointments.ts</strong></code></mark></p><pre id="3418550f-4830-4ff7-b810-bd335464e027" class="code"><code>import { uuid } from &#x27;uuidv4&#x27;;
+
+class Appointment {
+  id: string;
+
+  provider: string;
+
+  date: Date;
+
+  // O Omit ele pegar todos os tipos da classes.
+  // E voce pode omitir um variavel para ele nao ser obrigatoria.
+  // Exclui uma propriedade dentro de um tipo. Tipo: Appointment, propriedade: id.
+  constructor({ provider, date }: Omit&lt;Appointment, &#x27;id&#x27;&gt;) {
+    this.id = uuid();
+    this.provider = provider;
+    this.date = date;
+  }
+}
+
+export default Appointment;</code></pre></div></article></body></html>

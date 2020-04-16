@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Debugando NodeJS</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,70 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="bea1d556-b5cb-44e4-8e85-e3f594a852e8" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🐞</span></div><h1 class="page-title">Debugando NodeJS</h1></header><div class="page-body"><p id="d8164cfc-9570-4159-b124-11e3f2499179" class="">Ir no Debug do VSCode e clicar em <mark class="highlight-blue">create a launch.json file</mark></p><p id="96225385-89b7-472d-a190-977a7e6b747f" class="">
+</p><p id="e4ec64c0-7c3b-4680-95dd-250eb5bb995c" class=""><mark class="highlight-orange"><strong><code>launch.json</code></strong></mark></p><pre id="a53ca971-756a-494d-b793-0b3354e7c29e" class="code"><code>{
+  //Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;request&quot;: &quot;attach&quot;,
+      &quot;protocol&quot;: &quot;inspector&quot;,
+      &quot;restart&quot;: true,
+      &quot;name&quot;: &quot;Debug&quot;,
+      &quot;skipFiles&quot;: [
+        &quot;&lt;node_internals&gt;/**&quot;
+      ],
+      &quot;outFiles&quot;: [
+        &quot;${workspaceFolder}/**/*.js&quot;
+      ]
+    }
+  ]
+}</code></pre><p id="7ac8b4fc-f302-48ca-9439-2a63eae5599d" class="">
+</p><p id="86e3e490-7068-4644-900e-81628dd1c5a0" class="">Ir no <mark class="highlight-teal"><strong><code>packages.json</code></strong></mark> e adicionar a flag <code>--inspect</code> no script do dev:server</p><pre id="f8863e3e-4a08-43b1-8991-0e83d7da34b7" class="code"><code>&quot;dev:server&quot;: &quot;ts-node-dev --inspect --transpileOnly --ignore node_modules src/server.ts&quot;</code></pre><p id="e304efe6-54c6-4215-8308-e3de619c7ce3" class="">
+</p><p id="d56c4634-5760-4c6b-a8ab-f62d6b8b3c8f" class="">Para iniciar o server junto com o debug</p><pre id="9f933f6b-a283-4e87-afc4-6e6d76c44714" class="code"><code>yarn dev:server</code></pre><p id="b4297c8e-c98e-4ce4-bfcf-e65b24118d5e" class="">
+</p><hr id="cafc5831-e9b5-4e76-a2ee-78c57457781e"/><p id="ebab6592-8ac2-479d-be15-f9bc39cd34f3" class="">
+</p><p id="45eb4577-94db-4968-9ec9-fae7a1e6beae" class="">E como funcionar o Debug?</p><p id="b6dd7da5-673e-484f-8277-70f154c70f1a" class="">
+</p><p id="7d1223a1-dde6-4a9b-a0ce-37cf759ca458" class=""><mark class="highlight-blue"><code><strong>index.ts</strong></code></mark></p><pre id="43435caa-a4bc-4c78-8904-7fc7a4c9ade2" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+const routes = Router();
+
+routes.post(&#x27;/users&#x27;, (request, response) =&gt; {
+  const { name, email } = request.body;
+
+  const user = {
+    name,
+    email,
+  };
+
+  return response.json(user);
+});
+
+export default routes;</code></pre><p id="4c666444-731a-478d-9275-5cc5b8ca39d4" class="">
+</p><hr id="0c320de5-466b-4704-a458-ed2f6d1c3c40"/><p id="9ba8034a-a16f-4f5c-9629-f510fcb2d34f" class="">
+</p><p id="7a053b36-59b5-47f1-bc3e-564a3796c9a0" class="">Executar o código pelo <mark class="highlight-purple"><strong>Insomnia</strong></mark>:</p><p id="023ecfa9-56ed-45dc-b801-64f0210216d9" class="">Criar uma rota POST: http://localhost:3333/users</p><p id="ebf54c85-d653-4871-8a65-70e949ce272c" class="">
+</p><p id="23b12187-a947-45d6-b9c3-8c9377f6a49e" class="">JSON:</p><pre id="617e523b-d330-4190-af09-e0a2469d378f" class="code"><code>{
+	&quot;name&quot;: &quot;Diego&quot;,
+	&quot;email&quot;: &quot;diego@rocketseat.com.br&quot;
+}</code></pre><p id="8f4fa220-5be8-4fec-a2ea-cf17480a3c78" class="">
+</p><hr id="70367eee-4fe0-4b4f-a376-f23f52f4b04d"/><p id="60997707-7545-44cc-b7f8-1dfb2b58383e" class="">
+</p><p id="f43713bd-8207-4e93-be84-73a98ad514c9" class="">Dar Send, logo ele vai dar erro.</p><p id="787495f9-b07a-45a0-a53f-f50adbb54d31" class="">Ir ate <code>const { name, email } = request.body;</code> e clicar na bolinha vermelha de debug.</p><p id="b4bbd6c1-2bd9-4949-afeb-461666851fb3" class="">E debugar denovo, ele vai dar erro.</p><p id="ad130033-b9d5-4643-8733-532ed0e4c691" class="">Porque ele não ta entendendo o formato JSON.</p><p id="745a361d-9cb1-4552-9d2b-a02b656519cc" class="">
+</p><p id="b04964d4-669c-4601-b833-b9ceaaf30eda" class="">Ir ate o <mark class="highlight-blue"><code><strong>server.ts</strong></code></mark> e adicionar o <code>app.use(express.json())</code>;</p><p id="ff12716d-d8c6-4d6e-8255-ad6b6591c9c8" class="">
+</p><p id="9ff835a6-4ab4-4ac9-9e04-db9d3f85434a" class=""><mark class="highlight-blue"><code><strong>server.ts</strong></code></mark></p><pre id="8e9e95ed-edc1-4611-98ea-3d591e0280da" class="code"><code>import express from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="777ba99b-af94-43ac-b509-ca844d1f2ccc" class="">
+</p><p id="21541fb0-df09-46c2-a02c-b32b582a041e" class="">
+</p><p id="1fc515ea-5fc8-4739-b32d-d2104b394ff8" class="">Cancelar a requisição no <mark class="highlight-purple"><strong>Insomnia</strong></mark>, reiniciar o servidor. </p><p id="b2a6af88-9c2f-41e2-93af-df70c4e46090" class="">
+</p><p id="3435833f-b04e-4090-97ea-0ba4d791df1e" class="">E fazer a requisição novamente no <mark class="highlight-purple"><strong>Insomnia</strong></mark>, e o debug vai mostrar o resultado.</p><p id="2f5b76a2-e9a5-4f61-9266-543e6f9e07b3" class="">
+</p><p id="3929cbe9-316f-46c3-83b4-919675e13873" class="">Para facilitar o debug, você pode escrever no <strong>WATCH</strong> do debug.</p><p id="38eda617-86ca-4638-a5c4-2764fe6ec0d0" class=""><mark class="highlight-purple"><code>request.body</code></mark>, <mark class="highlight-purple"><code>request.query</code></mark>, e ele vai trazer a informações que você quer.</p><p id="4e006e44-a341-40d0-b51e-848a6acac42e" class="">
+</p></div></article></body></html>

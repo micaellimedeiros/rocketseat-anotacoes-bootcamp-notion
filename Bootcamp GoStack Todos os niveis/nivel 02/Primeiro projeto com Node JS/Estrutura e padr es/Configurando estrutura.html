@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Configurando estrutura</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,52 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="a134ea21-0e38-4a0c-86fe-3e091da68e2c" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👨🏻‍🔧</span></div><h1 class="page-title">Configurando estrutura</h1></header><div class="page-body"><pre id="1a9bdb82-f601-47f9-897c-e1703d5a8eeb" class="code"><code>yarn init -y
+
+yarn add express
+
+yarn add typescript -D
+
+yarn tsc --init</code></pre><p id="2f56df6f-75d5-462a-8895-2b7cf6f4bf68" class="">
+</p><p id="c1bf926a-6a93-4e69-ba58-7e7bfc1207ae" class="">Criar a pasta <mark class="highlight-teal"><code><strong>src</strong></code></mark> e dentro dela criar o arquivo <code><strong><mark class="highlight-blue">server.ts</mark></strong></code></p><p id="66859497-dc62-4960-8814-483b4814989f" class="">
+</p><p id="c63dc6a1-f8d8-421a-9d5e-9a3b3f132bae" class="">Ir no <mark class="highlight-orange"><strong><code>tsconfig.json</code></strong></mark> e setar:</p><pre id="09afb938-a121-4a01-b7a5-b145e2528e39" class="code"><code>&quot;outDir&quot;: &quot;./dist&quot; /* Redirect output structure to the directory. */,
+
+&quot;rootDir&quot;: &quot;./src&quot; /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,</code></pre><p id="6a741171-bb1d-41ae-8a16-63d940209eae" class="">
+</p><pre id="73bdcae0-80ef-4053-9510-a5112ab8c0b7" class="code"><code>yarn tsc
+
+yarn add @types/express -D</code></pre><p id="abbe096a-abfe-43a5-8125-0935b71ffadc" class="">
+</p><hr id="a9b9c4bb-8338-49d0-ae4f-3ef53c354534"/><p id="9387e8ab-67f9-4ce3-b89d-a0503c874f5c" class="">
+</p><p id="2f591120-ec3e-40ef-98f0-2789b9d45efd" class="">No <code><strong><mark class="highlight-blue">server.ts</mark></strong></code><strong><mark class="highlight-blue"> </mark></strong>:</p><p id="06caf4f9-ee5e-4e5e-82f8-b2769caf7abc" class="">```</p><pre id="a29291eb-318e-49dd-93f1-e942c6439afd" class="code"><code>import express from &quot;express&quot;;
+
+const app = express();
+
+app.get(&quot;/&quot;, (request, response) =&gt; {
+  return response.json({ message: &quot;Hello World&quot; });
+});
+
+app.listen(3333, () =&gt; {
+  console.log(&quot;🚀️ Server started on port 3333!&quot;);
+});</code></pre><p id="f6ea99d2-870a-4bec-9f9d-e727a0ab17c9" class="">
+</p><hr id="1e29c49c-d31b-4e4d-ad13-a34f69da7049"/><p id="f632d190-ea7c-4f7f-98bf-47579a46f71f" class="">
+</p><p id="05c2c92c-b325-44d9-a64e-d1ec3b641662" class="">Apagar a pasta <code><mark class="highlight-pink"><strong>dist</strong></mark></code></p><p id="67bbd6f6-c539-40f5-9e0e-4476b9610d5d" class="">
+</p><p id="0fb527f0-29f2-4c5a-9c92-38a8cc15f5f0" class="">Instalar o ts-node-dev:</p><pre id="7f921600-b8d7-48fb-a4db-e905d370a0d6" class="code"><code>yarn add ts-node-dev -D</code></pre><p id="85a56bfe-35ee-4735-9ea9-0bbb7a9c8148" class="">
+</p><p id="24bccd48-8fd1-4105-ba1d-dfe57e476052" class="">No <mark class="highlight-teal"><strong><code>package.json</code></strong></mark> criar um scripts de <strong>build</strong> e <strong>dev:server</strong>:</p><pre id="e7ff7264-b86e-4096-9455-1f353c169439" class="code"><code>{
+  &quot;name&quot;: &quot;primeiro-projeto-node&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsc&quot;,
+    &quot;dev:server&quot;: &quot;ts-node-dev --transpileOnly --no-notify --ignore node_modules src/server.ts&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.17.1&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/express&quot;: &quot;^4.17.6&quot;,
+    &quot;ts-node-dev&quot;: &quot;^1.0.0-pre.44&quot;,
+    &quot;typescript&quot;: &quot;^3.8.3&quot;
+  }
+}</code></pre><p id="09d609f9-51bb-433d-b221-0f161751f696" class="">
+</p><p id="11e6aa0f-9e63-47f7-974a-9107a6d5a7bc" class="">E para rodar o servidor:</p><pre id="2879ccd3-7304-41d7-9b71-a9fbd942f307" class="code"><code>yarn dev:server</code></pre><p id="2a49049c-0249-46ca-8eb2-afcf31d53395" class="">
+</p></div></article></body></html>

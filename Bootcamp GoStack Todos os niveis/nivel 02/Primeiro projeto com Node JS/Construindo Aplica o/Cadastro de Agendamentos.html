@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cadastro de Agendamentos</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,65 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="cee4e9c3-a4d1-411d-908c-a93f7d775100" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">➕</span></div><h1 class="page-title">Cadastro de Agendamentos</h1></header><div class="page-body"><p id="16d78302-2215-4932-ba99-8a99077e8d46" class="">Criar um arquivo somente para rota de appointments</p><p id="65f0a869-7df8-4645-9306-59348020d765" class="">Criar na pasta <code><strong><mark class="highlight-teal">routes</mark></strong></code> o arquivo <code><strong><mark class="highlight-blue">appointments.routes.ts</mark></strong></code></p><p id="e33d5982-d5b1-4df9-84d8-1512261ebab8" class="">
+</p><p id="84112ea2-3409-443f-a84a-430289d04209" class=""><code><strong><mark class="highlight-blue">appointments.routes.ts</mark></strong></code></p><pre id="7e27d198-bb55-48a1-bd01-f1b2735e55ad" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+const appointmentsRouter = Router();
+
+// POST http://localhost:3333/appointments
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  return response.json({ message: &#x27;Hello World&#x27; });
+});
+
+export default appointmentsRouter;</code></pre><p id="c087c7d5-87ed-43e5-b6bb-e8bec81a3efc" class="">
+</p><p id="1a87e9e8-fe19-4913-8709-7aa4657d2211" class=""><code><strong><mark class="highlight-blue">index.ts</mark></strong></code><strong><mark class="highlight-blue"> </mark></strong> - importar o appointmentsRouter</p><pre id="9f324bc4-18fc-4060-839b-4474264c1b0f" class="code"><code>import { Router } from &#x27;express&#x27;;
+import appointmentsRouter from &#x27;./appointments.routes&#x27;;
+
+const routes = Router();
+
+routes.use(&#x27;/appointments&#x27;, appointmentsRouter);
+
+export default routes;</code></pre><p id="761054d3-e6f4-4d09-8409-3530ec168331" class="">
+</p><p id="b9444486-0a32-4c76-beec-5693185b502b" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e criar uma nova WorkSpace com o nome <strong>GoBarber Bootcamp.</strong></p><p id="9ac55e29-3d17-4ac7-976b-d794b706e41d" class="">Criar uma pasta chamada <strong>Appointments </strong> e uma rota <strong>POST</strong> chamada Create.</p><p id="18eb8268-df3b-4a4f-b8f5-59ef7ed6d696" class="">
+</p><p id="1b7aea57-4886-4b81-a0b1-4bdcf7a4503e" class="">Configurar o ambiente de desenvolvimento.</p><p id="779079d8-c628-406d-8246-e6e3c8d0e5ef" class=""><mark class="highlight-purple"><strong>dev</strong></mark></p><pre id="11ee4c13-71cb-4814-ad1c-d9df87712f58" class="code"><code>{
+  &quot;base_url&quot;: &quot;http://localhost:3333&quot;
+}</code></pre><p id="be3c630c-55c9-4855-80e2-b2b3ed32c754" class="">
+</p><p id="50b2977d-f35d-4a00-ad67-2f0043d62fc5" class="">
+</p><p id="74fc338c-5c58-4686-9a1a-21650dcebc05" class="">POST - Create - {{ base_url }}/appointments</p><p id="a7c3ad7b-197f-44eb-b27a-4d9f8dc6c5c2" class="">
+</p><hr id="5c8f5aa1-d4df-4ec6-bbd5-f45c6d1d8336"/><p id="c0d34e90-6758-4b11-9388-9478e83a0e63" class="">
+</p><p id="12a23907-06f0-403f-b47c-4607f04deb58" class="">Instalar a lib uuivd4 para criar IDs</p><pre id="97e81e36-4a83-4d54-bec1-c4d749b87cbc" class="code"><code>yarn add uuidv4</code></pre><p id="887a2e3e-1636-429b-bc12-db84f6f32e8f" class="">
+</p><p id="2247385c-982a-41d0-b6b0-af9d763dfdda" class="">Criar um appointment:</p><p id="88c7c33b-d4d0-4634-b942-02fa6a2c4c8a" class="">
+</p><p id="465bb73f-06fe-4bc8-99cb-6688bfb4e8ef" class=""><code><strong><mark class="highlight-blue">appointments.routes.ts</mark></strong></code></p><pre id="66d41c8c-3c1d-4de4-baac-d744dbbdf684" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { uuid } from &#x27;uuidv4&#x27;;
+
+const appointmentsRouter = Router();
+
+const appointments = [];
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  const { provider, date } = request.body;
+
+  const appointment = {
+    id: uuid(),
+    provider,
+    date,
+  };
+
+  appointments.push(appointment);
+
+  return response.json(appointment);
+});
+
+export default appointmentsRouter;</code></pre><p id="f9891e26-e343-44e6-a8ba-1d0d2b51b902" class="">
+</p><p id="53a4995d-f37d-408f-8333-2477d3265778" class="">E no <mark class="highlight-purple"><strong>Insomnia,</strong></mark> Appointments/<mark class="highlight-teal">Create</mark> dar um send</p><p id="802e9d11-559a-4c05-b8fd-2860cc124547" class="">
+</p><p id="e5b94dac-bb6b-4a41-ba9a-98732392247d" class=""><strong>JSON</strong></p><pre id="9cccdee0-0b71-4270-a733-cb8a3150b862" class="code"><code>{
+	&quot;provider&quot;: &quot;Diego Fernandes&quot;,
+	&quot;date&quot;: &quot;{% now &#x27;iso-8601&#x27;, &#x27;&#x27; %}&quot;
+}</code></pre><p id="503f98b4-e3b3-44bf-9eba-d57aa51ea15d" class="">
+</p><p id="25336c68-1531-43aa-80ab-2a6962d2b070" class=""><strong>Preview</strong></p><pre id="b194e3db-3803-4cbd-91f9-2670eba0ebbe" class="code"><code>{
+  &quot;id&quot;: &quot;146e7c18-b2be-4c34-8363-811f24205ec2&quot;,
+  &quot;provider&quot;: &quot;Diego Fernandes&quot;,
+  &quot;date&quot;: &quot;2020-04-14T15:53:12.378Z&quot;
+}</code></pre><p id="45b208e5-3604-4861-af56-d999d12f8ed7" class="">
+</p></div></article></body></html>

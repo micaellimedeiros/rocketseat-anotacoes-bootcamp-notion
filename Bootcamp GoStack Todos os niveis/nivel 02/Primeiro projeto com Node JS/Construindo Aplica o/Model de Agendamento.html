@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Model de Agendamento</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,59 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="a206b942-2fb7-4e48-89dd-703006821528" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💃</span></div><h1 class="page-title">Model de Agendamento</h1></header><div class="page-body"><p id="cc9af403-1cc6-497a-8d75-6a4042a42a61" class="">Model - O formato de um dado armazenado em um lugar.</p><p id="ed6dcb14-edcd-4154-8164-2f0d5a034a8e" class="">
+</p><p id="f7011fbf-c95a-4b24-8d94-393b488c9309" class="">Na <code><mark class="highlight-teal"><strong>src</strong></mark></code> criar a pasta <code><mark class="highlight-red"><strong>models</strong></mark></code> e dentro o arquivo <code><strong><mark class="highlight-blue">Appointment.ts</mark></strong></code></p><p id="8da051c1-fd77-4003-8cf9-4b91c28ded06" class="">
+</p><p id="9399392d-1633-48a9-b17a-b88b8a68cd17" class=""><code><strong><mark class="highlight-blue">Appointment.ts</mark></strong></code></p><pre id="29b99cc5-a979-4600-9650-e03ab4053aaf" class="code"><code>import { uuid } from &#x27;uuidv4&#x27;;
+
+class Appointment {
+  id: string;
+
+  provider: string;
+
+  date: Date;
+
+  constructor(provider: string, date: Date) {
+    this.id = uuid();
+    this.provider = provider;
+    this.date = date;
+  }
+}
+
+export default Appointment;</code></pre><p id="6676ad36-3f2f-43b0-a4a9-b41de4a13495" class="">
+</p><hr id="6a45d196-1549-43a9-8794-20ed1cbe8dfc"/><p id="9281251f-3f04-45a2-b7cc-0913d80370f4" class="">
+</p><p id="10bc92af-1044-43df-99f6-48add6eb313b" class="">Agora no <mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark> tirar a <mark class="highlight-blue">Interface</mark> e importar o model <mark class="highlight-blue">Appointment</mark>.</p><p id="27f19190-b1cf-43d2-9b5a-4ca5a4a6a317" class="">
+</p><p id="b13f0106-aa8b-4b06-9729-93ec6b92ac16" class="">Obs: o uuid aqui não precisa mais usar, pois ele já sendo chamado no model de Appointment. </p><pre id="aa01a3b2-581b-478c-993e-40cfbfb1c9ce" class="code"><code>const appointment = new Appointment(provider, parsedDate);</code></pre><p id="4f5e4034-dbe0-4369-ab1a-d8cb6605fafb" class="">
+</p><p id="7b24237a-126e-4d16-a267-8253e88fb651" class=""><mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark> </p><pre id="01c2b191-8685-44e9-b942-b111fbfc4722" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { startOfHour, parseISO, isEqual } from &#x27;date-fns&#x27;;
+import Appointment from &#x27;../models/Appointment&#x27;;
+
+const appointmentsRouter = Router();
+
+const appointments: Appointment[] = [];
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  const { provider, date } = request.body;
+
+  // Tranformar a data no tipo date do Javascript
+  const parsedDate = startOfHour(parseISO(date)); // &quot;2020-04-14T16:00:00.000Z&quot;
+
+  // Verificar se existe uma data ja agendada.
+  const findAppointmentInSameDate = appointments.find(appointment =&gt;
+    isEqual(parsedDate, appointment.date),
+  );
+
+  if (findAppointmentInSameDate) {
+    return response
+      .status(400)
+      .json({ message: &#x27;This appointment is already booked&#x27; });
+  }
+
+  const appointment = new Appointment(provider, parsedDate);
+
+  appointments.push(appointment);
+
+  return response.json(appointment);
+});
+
+export default appointmentsRouter;</code></pre><p id="ebfad0e6-71d9-48e0-89f8-665bd9fbb8e3" class="">
+</p></div></article></body></html>

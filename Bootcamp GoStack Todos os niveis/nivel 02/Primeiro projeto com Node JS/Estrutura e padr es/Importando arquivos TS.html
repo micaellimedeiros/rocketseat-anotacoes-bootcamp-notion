@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Importando arquivos TS</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,59 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="5d2c7064-6e1a-4da0-a9ed-95f758d2e553" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">✈️</span></div><h1 class="page-title">Importando arquivos TS</h1></header><div class="page-body"><p id="82f7a35d-6bfc-4e4e-9cd4-304e961a37f1" class="">Criar na <mark class="highlight-teal"><code><strong>src</strong></code></mark> a pasta <code><mark class="highlight-teal"><strong>routes</strong></mark></code> e dentro o arquivo <mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><p id="62626d07-3526-4581-beb4-9d8b112d083b" class="">
+</p><p id="b99690fd-9581-4a63-a674-483ad492ba0f" class=""><mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><pre id="9139c064-66fe-4d10-a565-6b80f532bd97" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+const routes = Router();
+
+routes.get(&#x27;/&#x27;, (request, response) =&gt; response.json({ message: &#x27;Hello World&#x27; }));
+
+export default routes;</code></pre><p id="229f932a-d700-40e7-b939-0e07256a4d21" class="">
+</p><p id="5780336c-230b-48d1-8650-0aa96f883815" class="">Instalar o Eslint Import Resolver TypeScript</p><pre id="1802adf5-56dc-49ee-8d83-155d36b2d187" class="code"><code>yarn add -D eslint-import-resolver-typescript</code></pre><p id="c2ae6012-5a6b-4c4f-8acc-79e1a36517e6" class="">
+</p><p id="cddd0a22-c5a9-4f7d-91c8-02f9679a7ebe" class="">Ir no <mark class="highlight-purple"><strong><code>.eslint.json</code></strong></mark> e adicionar os settings e rules. Para o código não reclamar</p><pre id="78fa32a8-e37d-490a-bb0c-66cf98d93513" class="code"><code>{
+  &quot;env&quot;: {
+    &quot;es6&quot;: true,
+    &quot;node&quot;: true
+  },
+  &quot;extends&quot;: [
+    &quot;airbnb-base&quot;
+  ],
+  &quot;globals&quot;: {
+    &quot;Atomics&quot;: &quot;readonly&quot;,
+    &quot;SharedArrayBuffer&quot;: &quot;readonly&quot;
+  },
+  &quot;parser&quot;: &quot;@typescript-eslint/parser&quot;,
+  &quot;parserOptions&quot;: {
+    &quot;ecmaVersion&quot;: 2018,
+    &quot;sourceType&quot;: &quot;module&quot;
+  },
+  &quot;plugins&quot;: [
+    &quot;@typescript-eslint&quot;
+  ],
+  &quot;rules&quot;: {
+    &quot;import/extensions&quot;: [
+      &quot;error&quot;,
+      &quot;ignorePackages&quot;,
+      {
+        &quot;ts&quot;: &quot;never&quot;
+      }
+    ]
+  },
+  &quot;settings&quot;: {
+    &quot;import/resolver&quot;: {
+      &quot;typescript&quot;:{}
+    }
+  }
+}</code></pre><p id="319af842-e9e6-4074-a488-5177fc1c3d75" class="">
+</p><p id="f98be70a-69d2-4ea8-ac9f-a6ed231db302" class="">E voltar no <mark class="highlight-blue"><strong><code>server.ts</code></strong></mark> e importar o routes</p><p id="36af1fa8-89ba-4a5e-ad2f-bb50789dee3d" class="">
+</p><p id="0486b549-b063-4a06-af1d-8783a3308b7d" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="ce52c022-06f6-4cbc-b76b-d00fbf8f88f8" class="code"><code>import express from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+
+const app = express();
+
+app.use(routes);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="76159ce6-fcaf-4169-a1de-f8dfe2e55e38" class="">
+</p></div></article></body></html>

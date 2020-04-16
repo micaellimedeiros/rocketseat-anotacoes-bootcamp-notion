@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Services &amp; SOLID</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,96 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="b611aeee-b7b8-428c-8b95-e0a46ff06b00" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🛂</span></div><h1 class="page-title">Services &amp; SOLID</h1></header><div class="page-body"><p id="075a4704-00d0-4281-8bd8-19104c8c4e65" class=""><strong>Service - Armazena a regra de negocio da aplicação.</strong></p><p id="2f8021b7-b1ad-4da8-a49d-16e28df04734" class="">
+</p><p id="b7ffc26b-3711-49ee-bbb9-426eaec38053" class="">Na <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-yellow"><code><strong>services</strong></code></mark><mark class="highlight-yellow"><strong> </strong></mark>e dentro criar o arquivo <mark class="highlight-blue"><code><strong>CreateAppointmentService.ts</strong></code></mark><mark class="highlight-blue"><strong>.</strong></mark></p><p id="18fcaaf4-578b-4df7-bb53-53d38961756b" class="">
+</p><p id="436ab46c-cc71-4775-a6e9-2466d7023ab2" class="">O <mark class="highlight-blue"><code><strong>CreateAppointmentService.ts</strong></code></mark><mark class="highlight-blue"><strong> </strong></mark>vai ficar responsável somente pela criação de appointment.</p><p id="3b39ceac-0b8c-4458-9c8b-785e6dd41570" class="">NÃO vai ficar responsável por Listar, Alterar ou Deletar.</p><p id="ab95d4ec-37c8-491b-81da-51416f53ec65" class="">
+</p><p id="b15b86d1-ecf8-490a-ba84-b0d796ace00f" class=""><mark class="highlight-blue"><code><strong>CreateAppointmentService.ts</strong></code></mark></p><pre id="6837c91d-9f9a-41f5-b8e2-6d1354bdaae2" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+import Appointment from &#x27;../models/Appointment&#x27;;
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+/**
+ * [x] Recebimento das informacoes
+ * [x] Trativa de erros/excessoes
+ * [x] Acesso ao repositorio
+ */
+
+interface Request {
+  provider: string;
+  date: Date;
+}
+
+// SOLID
+
+// Single Responsability Principle
+// Dependency Inversion Principle
+
+class CreateAppointmentService {
+  private appointmentsRepository: AppointmentsRepository;
+
+  constructor(appointmentsRepository: AppointmentsRepository) {
+    this.appointmentsRepository = appointmentsRepository;
+  }
+
+  public execute({ date, provider }: Request): Appointment {
+    const appointmentDate = startOfHour(date);
+
+    // Verificar se existe uma data ja agendada.
+    const findAppointmentInSameDate = this.appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      throw Error(&#x27;This appointment is already booked&#x27;);
+    }
+
+    const appointment = this.appointmentsRepository.create({
+      provider,
+      date: appointmentDate,
+    });
+
+    return appointment;
+  }
+}
+
+export default CreateAppointmentService;</code></pre><p id="989468ea-adfb-4eb6-b0cf-653f6efb98ae" class="">
+</p><p id="f998c1fa-7b5b-4184-a191-31ff29be13ca" class=""><mark class="highlight-blue"><code><strong>appointments.routes.ts</strong></code></mark></p><pre id="c25f2ae0-7753-4ac7-97dd-321e335c9a6e" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+const appointmentsRouter = Router();
+const appointmentsRepository = new AppointmentsRepository();
+
+// Rota: Receber a requisicao, chamar outro arquivo, devolver uma resposta
+
+appointmentsRouter.get(&#x27;/&#x27;, (request, response) =&gt; {
+  const appointments = appointmentsRepository.all();
+
+  return response.json(appointments);
+});
+
+appointmentsRouter.post(&#x27;/&#x27;, (request, response) =&gt; {
+  try {
+    const { provider, date } = request.body;
+
+    // Tranformar a data no tipo date do Javascript
+    const parsedDate = parseISO(date);
+
+    const createAppoinment = new CreateAppointmentService(
+      appointmentsRepository,
+    );
+
+    const appointment = createAppoinment.execute({
+      date: parsedDate,
+      provider,
+    });
+
+    return response.json(appointment);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default appointmentsRouter;</code></pre><p id="7e69be41-367f-4701-9961-91b2c30187c3" class="">
+</p></div></article></body></html>

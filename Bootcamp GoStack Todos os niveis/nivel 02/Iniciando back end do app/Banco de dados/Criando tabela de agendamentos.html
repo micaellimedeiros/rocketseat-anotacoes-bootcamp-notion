@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Criando tabela de agendamentos</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,88 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="4c817dc7-204a-42ec-a9d4-cd3d2c841994" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📅</span></div><h1 class="page-title">Criando tabela de agendamentos</h1></header><div class="page-body"><p id="f34a77e3-dee3-44af-99a2-a96860924df1" class="">Criar a tabela de appointments</p><p id="87afb745-9de2-4e98-b5b2-d2b373cfcc94" class="">
+</p><p id="184fe3cd-7381-4d28-9a4f-fa338222a317" class="">No ormconfig.json configurar uma pasta onde serao armazenadas as migrations do banco de dados.</p><p id="afe2558e-0e63-4221-9bf1-2896d402ae00" class="">
+</p><p id="29c950b7-ccf1-47ba-bb48-23cb91d41c19" class="">Criar na pasta database a pasta migrations</p><p id="53a2e72e-548b-4fba-9119-67db121a01b8" class="">
+</p><pre id="6c408d43-89fb-4558-a178-613b19e70c97" class="code"><code>{
+  &quot;type&quot;: &quot;postgres&quot;,
+  &quot;host&quot;: &quot;localhost&quot;,
+  &quot;port&quot;: 5432,
+  &quot;username&quot;: &quot;postgres&quot;,
+  &quot;password&quot;: &quot;docker&quot;,
+  &quot;database&quot;: &quot;gostack_gobarber&quot;,
+  &quot;migrations&quot;: [&quot;./src/database/migrations/*.ts&quot;],
+  &quot;cli&quot;: {
+    &quot;migrationsDir&quot;: &quot;./src/database/migrations&quot;
+  }
+}</code></pre><p id="5a93b2b7-0626-4c6c-806b-8abe093426fe" class="">
+</p><p id="39a2e947-c50e-41d9-a54e-060ee82bd645" class="">
+</p><p id="25345440-6c05-4920-94aa-c136ab91b376" class="">Ir no package.json e criar um script para fazer o typeorm salvar no formato de TypeScript.</p><p id="708942a8-dfe4-4a22-992e-a3244c176f0f" class="">package.json</p><pre id="3511a131-5fc6-49ef-a69e-0635b5cd832a" class="code"><code>{
+  &quot;name&quot;: &quot;primeiro-projeto-node&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsc&quot;,
+    &quot;dev:server&quot;: &quot;ts-node-dev --inspect --transpileOnly --no-notify --ignore-watch node_modules src/server.ts&quot;,
+    &quot;typeorm&quot;: &quot;ts-node-dev ./node_modules/typeorm/cli.js&quot;
+  },
+}</code></pre><p id="d446a769-b4dd-4c09-8c39-99e8cbe85181" class="">
+</p><p id="4d56a309-4c9f-447a-981b-02cd14c46ad4" class="">Verificar se esta funcionando:</p><pre id="914ed783-9be2-436c-a200-bf23cbbebd72" class="code"><code>yarn typeorm</code></pre><p id="07e27c4d-cd7d-4784-bf41-b58a1a19b157" class="">
+</p><p id="e62febf1-c3be-428b-8f9c-9182879ecb2d" class="">Para criar um <strong>migration</strong> no <mark class="highlight-red"><strong>Type</strong></mark><strong>ORM</strong></p><pre id="2a145eef-7801-4f6c-b17b-5e98a02bc9b4" class="code"><code>yarn typeorm migration:create -n CreateAppointments</code></pre><p id="be2a3d11-e5f6-4719-9ec4-e87641f7491c" class="">
+</p><p id="339e6c8e-fe5e-4cc8-9bf4-e0e646ed3ef1" class="">Agora ver na pasta de migrations, a migration CreateAppointments criada.</p><p id="db7a4a87-73bd-4f3e-8144-f434c71738ee" class="">
+</p><hr id="56699b36-4fce-4366-920d-6f7f6d8f2e2d"/><p id="9bcb3510-b5cf-4f78-a4c1-999bf20224cf" class="">
+</p><p id="6f6236fe-82a6-4e6d-9a98-4e16700a99b8" class="">1 semana : Agendamentos</p><p id="9136473e-005e-49a3-9da2-2ae2f5d49b64" class="">2 semana: Usuários</p><p id="ccfc8d47-f41c-4893-ae86-7a1eb11b3b88" class="">3 semana: (NOVO DEV) Edição Agendamentos</p><p id="04a2dd0c-7a8a-4e6e-ad45-32b4ca77eb48" class="">4 semana: Compras</p><p id="09ce464b-f8af-4e2b-abea-5766e341341e" class="">
+</p><hr id="2bd46b6e-1071-4feb-a071-425418e2d91b"/><p id="41fa7cbb-9d13-4ea6-af88-c651c5a4c9c8" class="">
+</p><p id="906d75c0-51ed-4826-babf-883ca1311b5e" class="">Desabilitar a regra do this no codigo da migration.</p><p id="e63d4736-bfc5-405c-90dd-7326cd45c413" class="">Adicionando o <code>&quot;class-methods-use-this&quot;: &quot;off&quot;</code> nas <code>rules</code></p><p id="667d7f4f-27bf-4ccc-811c-3b8388c8efea" class="">Ir no .eslint.json:</p><pre id="90124390-a769-4acb-82a7-ca75d4720ffd" class="code"><code>&quot;rules&quot;: {
+    &quot;prettier/prettier&quot;: &quot;error&quot;,
+    &quot;class-methods-use-this&quot;: &quot;off&quot;,
+    &quot;import/extensions&quot;: [
+      &quot;error&quot;,
+      &quot;ignorePackages&quot;,
+      {
+        &quot;ts&quot;: &quot;never&quot;
+      }
+    ]
+  },</code></pre><p id="35090cdf-a3ed-486a-a120-2cf982c20bf8" class="">
+</p><p id="0c0c743d-1beb-41f2-8166-bcc643b84435" class=""><mark class="highlight-blue"><code><strong>Migration de CreateAppointments</strong></code></mark></p><pre id="186931de-c62e-4218-92d9-eaee35f92d4b" class="code"><code>import { MigrationInterface, QueryRunner, Table } from &#x27;typeorm&#x27;;
+
+export default class CreateAppointments1587058689907
+  implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.createTable(
+      new Table({
+        name: &#x27;appointments&#x27;,
+        columns: [
+          {
+            name: &#x27;id&#x27;,
+            type: &#x27;varchar&#x27;,
+            isPrimary: true,
+            generationStrategy: &#x27;uuid&#x27;,
+          },
+          {
+            name: &#x27;provider&#x27;,
+            type: &#x27;varchar&#x27;,
+            isNullable: false,
+          },
+          {
+            name: &#x27;date&#x27;,
+            type: &#x27;timestamp with time zone&#x27;,
+            isNullable: false,
+          },
+        ],
+      }),
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropTable(&#x27;appointments&#x27;);
+  }
+}</code></pre><p id="1b74934a-142e-49a4-a59e-c0b26fde6759" class="">
+</p><p id="26ff2b15-a19c-46ab-b849-c72031ea7f09" class="">E para executar as migrations, para serem criadas no banco de dados</p><pre id="a9b22be0-04d6-4681-bcd0-0b497d7fb735" class="code"><code>yarn typeorm migration:run</code></pre><p id="47679f06-bef8-4857-b966-7d5b2d50b5f1" class="">
+</p><pre id="dd28c88d-0f45-437f-a2d3-f60e6bc67a3f" class="code"><code>yarn typeorm migration:revert // DESFAZER AS MIGRATIONS
+
+yarn typeorm migration:show // MOSTRAR AS MIGRATIONS EXECUTADAS
+
+yarn typeorm migration:run // RODAR AS MIGRATIONS</code></pre><p id="1de50306-c594-47eb-b3e1-1a9cbe76dc98" class="">
+</p></div></article></body></html>

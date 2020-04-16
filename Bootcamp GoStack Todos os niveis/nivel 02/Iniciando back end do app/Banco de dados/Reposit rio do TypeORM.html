@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Bootcamp GoStack - Todos os niveis</title><style>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Repositório do TypeORM</title><style>
 /* webkit printing magic: print all background colors */
 html {
 	-webkit-print-color-adjust: exact;
@@ -619,4 +619,213 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="0a7a138d-af6d-4e5b-a6b6-a1c9a295039e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👨‍🚀</span></div><h1 class="page-title">Bootcamp GoStack - Todos os niveis</h1></header><div class="page-body"><figure id="f6caf946-1c55-42c4-94cd-3ba7c4508ca7" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2001.html"><span class="icon">1️⃣</span>nivel-01</a></figure><figure id="a8b10ede-e79e-4a53-8e65-87dc59168db5" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2002.html"><span class="icon">2️⃣</span>nivel-02</a></figure><figure id="c93d7309-667b-4932-8469-9ec3133e5178" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2003.html"><span class="icon">3️⃣</span>nivel-03</a></figure><figure id="30ecd906-6c20-4ac6-b61c-3a91c3f990a3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2004.html"><span class="icon">4️⃣</span>nivel-04</a></figure><figure id="ea469936-230b-45ca-8122-4aaa3d757fcc" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2005.html"><span class="icon">5️⃣</span>nivel-05</a></figure><figure id="bdc19c48-2d1c-4b96-9e58-666bba8cbff8" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2006.html"><span class="icon">6️⃣</span>nivel-06</a></figure><figure id="10fb1dc6-38d6-42c0-8827-ea571a1894b3" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2007.html"><span class="icon">7️⃣</span>nivel-07</a></figure><figure id="edcda49c-f30a-45c7-b497-74fa9b96bd44" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2008.html"><span class="icon">8️⃣</span>nivel-08</a></figure><figure id="4fcd22c7-9901-4937-90c4-c3d13bc1d390" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2009.html"><span class="icon">9️⃣</span>nivel-09</a></figure><figure id="1fb22b67-4d48-47ba-8e90-d08d2103c940" class="link-to-page"><a href="Bootcamp%20GoStack%20Todos%20os%20niveis/nivel%2010.html"><span class="icon">🔟</span>nivel-10</a></figure></div></article></body></html>
+</style></head><body><article id="20341d41-4775-45c6-8a46-96ee48b8b2f0" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://avatars0.githubusercontent.com/u/20165699?s=200&amp;v=4"/></div><h1 class="page-title">Repositório do TypeORM</h1></header><div class="page-body"><p id="83007621-2d7b-4639-838b-54b05a848a3c" class="">AppointmentsRepository.ts</p><pre id="dfc96d3c-d3fc-4ae7-8502-3b55f642a6fb" class="code"><code>import { EntityRepository, Repository } from &#x27;typeorm&#x27;;
+
+import Appointment from &#x27;../models/Appointment&#x27;;
+
+@EntityRepository(Appointment)
+class AppointmentsRepository extends Repository&lt;Appointment&gt; {
+  // O metodo tem retoro Appointment se retornar. SE NAO retornar, ele retorna o valor como null.
+  public async findByDate(date: Date): Promise&lt;Appointment | null&gt; {
+    const findAppointment = await this.findOne({
+      where: { date },
+    });
+
+    return findAppointment || null;
+  }
+}
+
+export default AppointmentsRepository;</code></pre><p id="1f6690e9-2512-4d4c-93c4-132f3e945cd6" class="">
+</p><hr id="951af676-0e6f-4dee-8f06-00a8a1058da2"/><p id="d7d765b2-1c4e-4e74-b5ef-99e7b0361be7" class="">
+</p><p id="b5ad348a-ce7f-467b-9b91-5aa3edecb625" class="">Ir no CreateAppointmentService.ts</p><pre id="a651ba0c-d31e-41ea-a3e6-a77c55379909" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+
+import Appointment from &#x27;../models/Appointment&#x27;;
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+interface Request {
+  provider: string;
+  date: Date;
+}
+
+class CreateAppointmentService {
+  public async execute({ date, provider }: Request): Promise&lt;Appointment&gt; {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+    const appointmentDate = startOfHour(date);
+
+    // Verificar se existe uma data ja agendada.
+    const findAppointmentInSameDate = appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      throw Error(&#x27;This appointment is already booked&#x27;);
+    }
+
+    const appointment = appointmentsRepository.create({
+      provider,
+      date: appointmentDate,
+    });
+
+    await appointmentsRepository.save(appointment);
+
+    return appointment;
+  }
+}
+
+export default CreateAppointmentService;</code></pre><p id="d7fcca66-0cf6-4c36-a8e4-01e6f9f26212" class="">
+</p><hr id="8d738c3d-c2dd-485f-945e-c2b5fe6b54a2"/><p id="6c923278-62c5-4d6d-bedb-7b9287a732dd" class="">
+</p><p id="e75baf16-f795-45f9-b991-a2e3c6c1bdf0" class="">appointments.routes.ts</p><pre id="dccdb4f2-7704-4f6e-9881-902519fc8568" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+const appointmentsRouter = Router();
+
+// Rota: Receber a requisicao, chamar outro arquivo, devolver uma resposta
+
+appointmentsRouter.get(&#x27;/&#x27;, async (request, response) =&gt; {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+  const appointments = await appointmentsRepository.find();
+
+  return response.json(appointments);
+});
+
+appointmentsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { provider, date } = request.body;
+
+    // Tranformar a data no tipo date do Javascript
+    const parsedDate = parseISO(date);
+
+    const createAppoinment = new CreateAppointmentService();
+
+    const appointment = await createAppoinment.execute({
+      date: parsedDate,
+      provider,
+    });
+
+    return response.json(appointment);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default appointmentsRouter;</code></pre><p id="886d5954-d9b3-4d31-a4b8-98a0fe15aef8" class="">
+</p><p id="a382a373-e071-4237-aba0-6773cac6cd2c" class="">Instalar o reflect-metada</p><pre id="8c5a82a2-d50d-4d29-b37c-05568115700b" class="code"><code>yarn add reflect-metadata</code></pre><p id="1e2e4acb-1ad0-4509-9ef1-02cb898e7db9" class="">
+</p><p id="b5679a61-3800-4623-b548-59f038f181d2" class="">Importar o reflect-metada no server.ts</p><p id="00d8eae6-4917-4ce5-8332-94d663d48162" class="">
+</p><p id="54ea9ff2-24b1-43be-82de-559efb4425b8" class="">server.ts</p><pre id="0053096d-b247-4442-80db-d3fb5a50a9f6" class="code"><code>import &#x27;reflect-metadata&#x27;;
+
+import express from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+
+import &#x27;./database&#x27;;
+
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="7489adc5-fef7-4dca-a585-5eb2819385b2" class="">
+</p><p id="f9870a6a-1324-4cf8-bd8f-57fb0214d225" class="">E para o TypeORM carregar automaticamente todos os models</p><p id="37d5d0b9-2209-4f9a-81ba-bcd83f46c6b6" class="">Ir no ormconfig.json e adicionar o entities</p><pre id="714114c7-4abf-4ff9-a251-81e23cef59d6" class="code"><code>{
+  &quot;type&quot;: &quot;postgres&quot;,
+  &quot;host&quot;: &quot;localhost&quot;,
+  &quot;port&quot;: 5432,
+  &quot;username&quot;: &quot;postgres&quot;,
+  &quot;password&quot;: &quot;docker&quot;,
+  &quot;database&quot;: &quot;gostack_gobarber&quot;,
+  &quot;entities&quot;: [&quot;./src/models/*.ts&quot;],
+  &quot;migrations&quot;: [&quot;./src/database/migrations/*.ts&quot;],
+  &quot;cli&quot;: {
+    &quot;migrationsDir&quot;: &quot;./src/database/migrations&quot;
+  }
+}</code></pre><p id="d5ccdd3d-95ac-48cd-8919-98150c594f6a" class="">
+</p><p id="485c1b59-243d-4f08-b536-fd2cb791a2b7" class="">CreateAppointmentService.ts , colocar o await na linha do findAppointmentInSameDate</p><p id="f128520c-f340-4bc0-9f6f-dcbc01aa9601" class="">
+</p><p id="9a13e7a6-f122-47bb-9979-fb925cd93430" class="">CreateAppointmentService.ts</p><pre id="1fd952cc-9bec-414a-a340-d5e69b7def21" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+
+import Appointment from &#x27;../models/Appointment&#x27;;
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+interface Request {
+  provider: string;
+  date: Date;
+}
+
+class CreateAppointmentService {
+  public async execute({ date, provider }: Request): Promise&lt;Appointment&gt; {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+    const appointmentDate = startOfHour(date);
+
+    // Verificar se existe uma data ja agendada.
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      throw Error(&#x27;This appointment is already booked&#x27;);
+    }
+
+    const appointment = appointmentsRepository.create({
+      provider,
+      date: appointmentDate,
+    });
+
+    await appointmentsRepository.save(appointment);
+
+    return appointment;
+  }
+}
+
+export default CreateAppointmentService;</code></pre><p id="4f38d796-f41b-4b16-aa35-58767190197a" class="">
+</p><p id="6198a645-394c-409f-b8e6-8dabe5ccd36e" class="">Na migration de CreateAppointments, adicional o <mark class="highlight-red"><strong>default</strong></mark> na coluna de <strong>id. </strong>O diego esqueceu</p><p id="4e449deb-da7e-4f01-a6be-6466c3d32eb4" class="">
+</p><p id="dd56c97f-334e-4749-b303-d87eccb4ef27" class="">migrations/CreateAppointments.ts</p><pre id="70d2a4bb-2e1e-4793-8aad-b6a03dc8dca2" class="code"><code>import { MigrationInterface, QueryRunner, Table } from &#x27;typeorm&#x27;;
+
+export default class CreateAppointments1587058689907
+  implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.createTable(
+      new Table({
+        name: &#x27;appointments&#x27;,
+        columns: [
+          {
+            name: &#x27;id&#x27;,
+            type: &#x27;varchar&#x27;,
+            isPrimary: true,
+            generationStrategy: &#x27;uuid&#x27;,
+            default: &#x27;uuid_generate_v4()&#x27;,
+          },
+          {
+            name: &#x27;provider&#x27;,
+            type: &#x27;varchar&#x27;,
+            isNullable: false,
+          },
+          {
+            name: &#x27;date&#x27;,
+            type: &#x27;timestamp with time zone&#x27;,
+            isNullable: false,
+          },
+        ],
+      }),
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropTable(&#x27;appointments&#x27;);
+  }
+}</code></pre><p id="2e6fdef8-db48-42eb-93c9-b8636bfe9eac" class="">
+</p><pre id="0e4a3c91-7644-4d91-82b6-4a9ac4d5f7bb" class="code"><code>yarn typeorm migration:revert
+
+yarn typeorm migration:run</code></pre><p id="180ed618-a293-47a6-8598-6b73e763334a" class="">
+</p><p id="af823474-3d63-47b3-86e7-ffcfc1debe9f" class="">E testar o servidor e as rotas no <mark class="highlight-purple"><strong>Insomnia</strong></mark></p><pre id="27d3bde1-3abf-469e-a927-4d1eb7b5d855" class="code"><code>yarn dev:server</code></pre><p id="b33bffe7-91de-4e98-a936-1d2997ddb97a" class="">
+</p><p id="9d6e8207-94ee-4d82-af47-e3b1f694cb45" class="">Criar um cadastro e verificar no DBeaver</p><p id="37962cb4-f41c-4ad7-b6c8-71aeb0e5b41e" class="">
+</p><hr id="68f54755-5b59-4fd1-bdfa-63bd30984c01"/><p id="e4e8b97c-9f20-41f9-aaf4-03c5c8dd6085" class="">
+</p><p id="e2beb53a-1d83-46ce-8dda-9b494f6af3a1" class="">
+</p></div></article></body></html>
