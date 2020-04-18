@@ -619,4 +619,262 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="a7a6df25-66c5-43fe-9c8f-249967c9e7be" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">❗</span></div><h1 class="page-title">Lidando com erros</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="a7a6df25-66c5-43fe-9c8f-249967c9e7be" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">❗</span></div><h1 class="page-title">Lidando com erros</h1></header><div class="page-body"><p id="c0153d2b-7d99-43b2-bd89-dd6a72db66e0" class="">Automatizar os erros</p><p id="d43591f7-7b15-44aa-89eb-0fa812f196b7" class="">Construir o Global Expecional Handling</p><p id="7eb9a359-7ecd-4c7c-8d62-b45ba50a63e7" class="">Middleware que vai captar todos os erros na aplicação</p><p id="d6bd727e-de57-42f3-a64b-34286968d441" class="">
+</p><p id="bf532307-b2b3-43f7-b7ad-4cdf8388b646" class="">Ir em todas as rotas e tirar o <mark class="highlight-pink"><strong>trycatch</strong></mark></p><p id="d580a938-acb6-4829-b4ff-707ff72d7bad" class="">
+</p><blockquote id="f0b6da1b-65ba-4360-9c71-1401b2b746ab" class="">Clique para ver o código</blockquote><ul id="84ffc33e-5532-4a55-bdd7-4e359ebdcf93" class="toggle"><li><details open=""><summary>appointments.routes.ts</summary><pre id="848e1898-3f76-4d92-a2e1-639db26fc0f8" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const appointmentsRouter = Router();
+
+// Vai aplicar o middleware em todas as rotas
+appointmentsRouter.use(ensureAuthenticated);
+
+// Rota: Receber a requisicao, chamar outro arquivo, devolver uma resposta
+
+appointmentsRouter.get(&#x27;/&#x27;, async (request, response) =&gt; {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+  const appointments = await appointmentsRepository.find();
+
+  return response.json(appointments);
+});
+
+appointmentsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  const { provider_id, date } = request.body;
+
+  // Tranformar a data no tipo date do Javascript
+  const parsedDate = parseISO(date);
+
+  const createAppoinment = new CreateAppointmentService();
+
+  const appointment = await createAppoinment.execute({
+    date: parsedDate,
+    provider_id,
+  });
+
+  return response.json(appointment);
+});
+
+export default appointmentsRouter;</code></pre></details></li></ul><ul id="72322c3b-51ea-4373-a28e-6e0c1684b858" class="toggle"><li><details open=""><summary>sessions.routes.ts</summary><pre id="7ede8687-5a18-43bb-8604-7d1c1276c3e9" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  const { email, password } = request.body;
+
+  // Criar um service para fazer as regras de negocio
+  const authenticateUser = new AuthenticateUserService();
+
+  const { user, token } = await authenticateUser.execute({
+    email,
+    password,
+  });
+
+  // Nao mostrar a senha no return de user.
+  delete user.password;
+
+  return response.json({ user, token });
+});
+
+export default sessionsRouter;</code></pre></details></li></ul><ul id="39522b71-c93e-464a-9545-8fb7728ca3c7" class="toggle"><li><details open=""><summary>users.routes.ts</summary><pre id="71d2f2e9-84c0-49b4-b4c1-756af441c6dd" class="code"><code>import { Router } from &#x27;express&#x27;;
+import multer from &#x27;multer&#x27;;
+import uploadConfig from &#x27;../config/upload&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+import UpdateUserAvatarService from &#x27;../services/UpdateUserAvatarService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const usersRouter = Router();
+const upload = multer(uploadConfig);
+
+// Se precisa de regra de negocios, preciso criar um SERVICE
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  const { name, email, password } = request.body;
+
+  const createUser = new CreateUserService();
+
+  // Passar o name, email e password por parametro para o CreateUserService que estar como &quot;createUser&quot;
+  const user = await createUser.execute({ name, email, password });
+
+  // Para o password nao aparecer no response.json. COMO FORMA DE SEGURANCA
+  delete user.password;
+
+  return response.json(user);
+});
+
+usersRouter.patch(
+  &#x27;/avatar&#x27;,
+  ensureAuthenticated,
+  upload.single(&#x27;avatar&#x27;),
+  async (request, response) =&gt; {
+    // Pegar o id do usuario pelo middleware, porque ele seta na autenticacao, request.user.id
+    const updateUserAvatar = new UpdateUserAvatarService();
+
+    const user = await updateUserAvatar.execute({
+      user_id: request.user.id,
+      avatarFilename: request.file.filename,
+    });
+
+    delete user.password;
+
+    return response.json(user);
+  },
+);
+
+export default usersRouter;</code></pre></details></li></ul><p id="56f1ed9a-f1b7-43a5-b1cb-f03cb1de928b" class="">
+</p><p id="52b60b9c-5b3a-45c4-b5a0-826baf1e162e" class="">Ir no <mark class="highlight-blue"><strong><code>server.ts</code></strong></mark><mark class="highlight-blue"><strong> </strong></mark>e colocar o middleware<mark class="highlight-blue"><strong> </strong></mark>depois do <code>app.use(routes)</code>, depois das rotas, IMPORTANTE!</p><p id="61d50716-c168-4e19-98ae-730d4ea06139" class="">
+</p><p id="3243da15-7d79-4013-a117-0262b1d5f29d" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="1d5ebbea-2873-40d4-9b0d-60e225a188ba" class="code"><code>import &#x27;reflect-metadata&#x27;;
+
+import express, { Request, Response, NextFunction } from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+import uploadConfig from &#x27;./config/upload&#x27;;
+import AppError from &#x27;./errors/AppError&#x27;;
+
+import &#x27;./database&#x27;;
+
+const app = express();
+
+app.use(express.json());
+app.use(&#x27;/files&#x27;, express.static(uploadConfig.directory));
+app.use(routes);
+
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) =&gt; {
+    // Se eh um erro que eu conheco, que foi originida da minha aplicacao do AppError, eu devolvo de uma maneira amigavel a trativa do erro
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: &#x27;error&#x27;,
+        message: err.message,
+      });
+    }
+
+    console.error(err);
+
+    // Se for um erro que NAO CONHECO, ai vai ser uma trativa mais generica. Ele nao vai cair no primeiro if se cair aqui. Eh um erro que eu nao estava esperando
+    return response.status(500).json({
+      status: &#x27;error&#x27;,
+      message: &#x27;Internal server error&#x27;,
+    });
+  },
+);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="7e8a1c33-4748-41f2-8fbe-9d0d186d2725" class="">
+</p><p id="f08734ae-a679-430d-a7b2-797dd94bba2a" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e tentar fazer login com um e-mail não cadastrado.</p><p id="1d6e4197-b547-4705-9249-b07d87e3c15e" class="">O <mark class="highlight-purple"><strong>Insomnia</strong></mark> vai entrar em loop infinito, o servidor vai dar erro.</p><p id="f791d9b0-813f-4b60-9366-53824cb1f12a" class="">
+</p><p id="a2fa6f24-3e1f-401c-b097-460560218538" class="">Instalar o Express Async Errors</p><pre id="8200b676-ec3d-439b-bbed-1c51120bda2a" class="code"><code>yarn add express-async-errors</code></pre><p id="d11027a4-3f99-490c-9e73-931ed6eb2c72" class="">
+</p><p id="e93c51dc-11f7-4e8c-94ec-d1cb62525f68" class="">E no <mark class="highlight-blue"><strong><code>server.ts</code></strong></mark>, fazer a importação do <code>express-async-erros</code> logo depois da importação do express</p><p id="93aecfa3-3879-42ee-a297-0b2b4385f096" class="">
+</p><p id="abdd851b-0202-4ce5-a8f7-84f6c701d8b2" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="b9ce2ff1-86d7-41b8-9b54-29c60170df16" class="code"><code>import &#x27;reflect-metadata&#x27;;
+
+import express, { Request, Response, NextFunction } from &#x27;express&#x27;;
+<strong>import &#x27;express-async-errors&#x27;;</strong>
+
+import routes from &#x27;./routes&#x27;;
+import uploadConfig from &#x27;./config/upload&#x27;;
+import AppError from &#x27;./errors/AppError&#x27;;</code></pre><p id="b283cea2-9a5d-4996-b6a4-7a00c96713f1" class="">
+</p><p id="511ab51e-490b-4d7f-b964-1aed2d40f7f1" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark>, fazer de novo a requisição, agora ele vai dar o erro de forma amigável!</p><p id="457b3870-b6d1-4760-85fc-41e29b0074eb" class="">
+</p><p id="2971c6b3-7989-47a4-9e26-eafad3ce0934" class="">Preview:</p><pre id="528c6f9e-45f8-4c06-b957-fe907864625a" class="code"><code>{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;Incorrect email/password combination&quot;
+}</code></pre><p id="7ed905b2-537b-45a0-b95c-140ec3e8b2f2" class="">
+</p><hr id="3535b47c-c0e5-42dd-ae3c-18577ceaf91c"/><p id="ca6bf10c-dbbe-43f0-9ad4-3abeeafe0e37" class="">
+</p><p id="a8cf4a20-59e2-4dd3-8b60-c990df4eefbd" class="">Ir na rota de <mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark> e forcar um erro, errando o nome da função ou variável. Ex: <strong>request.boooooody.</strong></p><p id="b6b64a69-fda9-4748-a7f1-c1689280a2a6" class="">Isso foi um erro <strong><mark class="highlight-red">inesperado</mark></strong>
+</p><p id="189b68a5-0263-414d-9959-7f6bce5622e1" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark></p><pre id="c26405f7-f3a1-4c20-a5e2-9b823b4f1644" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  <strong>const { email, password } = request.boooooody;</strong>
+
+  // Criar um service para fazer as regras de negocio
+  const authenticateUser = new AuthenticateUserService();
+
+  const { user, token } = await authenticateUser.execute({
+    email,
+    password,
+  });
+
+  // Nao mostrar a senha no return de user.
+  delete user.password;
+
+  return response.json({ user, token });
+});
+
+export default sessionsRouter;</code></pre><p id="2664938f-e0f1-4ec8-a351-e58f27dca239" class="">
+</p><p id="234a064f-3b23-4f68-a256-a7a0a737b232" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e criar uma session. O erro vai vir diferente.</p><p id="24749f28-ee92-4c0c-9404-07c4b32b44f4" class="">
+</p><p id="a5f3173c-4d13-4ee1-8062-eba851625c98" class="">Preview:</p><pre id="2d399564-53b4-4344-a562-06ecb3d57840" class="code"><code>{
+  &quot;status&quot;: &quot;error&quot;,
+  &quot;message&quot;: &quot;Internal server error&quot;
+}</code></pre><p id="7f22d805-8322-4550-9658-0a006332299c" class="">
+</p><hr id="1304bf75-7726-432e-96a7-1c193134dbd9"/><p id="de28d639-4c13-4fc7-b552-b27c415ada13" class="">
+</p><p id="98940eef-ccc9-44fd-9433-b9abccfbcebc" class="">Para o eslint ignorar variáveis que começam com _</p><p id="6374c4a9-6140-478b-b1ca-95e4cc13b0f0" class="">Adicionar o <code>@typescript-eslint/no-unused-vars</code></p><p id="568073dc-8e56-4bee-9378-67867432cd71" class="">
+</p><p id="81993809-841f-457c-aeea-f8d6dd54999a" class=""><mark class="highlight-purple"><strong><code>.eslintrc.json</code></strong></mark></p><pre id="bb0748ba-1f0f-4f2b-b24e-4c73343d7c2f" class="code"><code>&quot;rules&quot;: {
+    &quot;prettier/prettier&quot;: &quot;error&quot;,
+    &quot;class-methods-use-this&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/camelcase&quot;: &quot;off&quot;,
+    <strong>&quot;@typescript-eslint/no-unused-vars&quot;: [
+      &quot;error&quot;,
+      {
+        &quot;argsIgnorePattern&quot;: &quot;_&quot;
+      }
+    ],</strong>
+    &quot;import/extensions&quot;: [
+      &quot;error&quot;,
+      &quot;ignorePackages&quot;,
+      {
+        &quot;ts&quot;: &quot;never&quot;
+      }
+    ]
+  },</code></pre><p id="4a000d97-b520-4657-9f16-33ba9a2f299f" class="">
+</p><p id="9e149624-de85-4105-9204-d9855309e32a" class="">Ai o<mark class="highlight-blue"> NextFunction</mark> vai parar de reclamar</p><p id="ea81d4c8-8cbe-4c40-9e6b-5a7889a4a629" class="">
+</p><p id="3b462874-7eab-4c90-9036-339551331e5e" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="9924867d-127c-4b29-a1d0-0f4abb2c4862" class="code"><code>import &#x27;reflect-metadata&#x27;;
+
+import express, { Request, Response, NextFunction } from &#x27;express&#x27;;
+import &#x27;express-async-errors&#x27;;
+
+import routes from &#x27;./routes&#x27;;
+import uploadConfig from &#x27;./config/upload&#x27;;
+import AppError from &#x27;./errors/AppError&#x27;;
+
+import &#x27;./database&#x27;;
+
+const app = express();
+
+app.use(express.json());
+app.use(&#x27;/files&#x27;, express.static(uploadConfig.directory));
+app.use(routes);
+
+<strong>app.use((err: Error, request: Request, response: Response, _: NextFunction) =&gt; {</strong>
+  // Se eh um erro que eu conheco, que foi originida da minha aplicacao do AppError, eu devolvo de uma maneira amigavel a trativa do erro
+  if (err instanceof AppError) {
+    return response.status(err.statusCode).json({
+      status: &#x27;error&#x27;,
+      message: err.message,
+    });
+  }
+
+  console.error(err);
+
+  // Se for um erro que NAO CONHECO, ai vai ser uma trativa mais generica. Ele nao vai cair no primeiro if se cair aqui. Eh um erro que eu nao estava esperando
+  return response.status(500).json({
+    status: &#x27;error&#x27;,
+    message: &#x27;Internal server error&#x27;,
+  });
+});
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="9e860a3e-1861-4055-bded-333a31158dac" class="">
+</p><p id="124b22bf-6f05-4bcc-a38e-36f151460186" class="">Ai vou saber os erros que conheço, e os erros que desconheço.</p></div></article></body></html>

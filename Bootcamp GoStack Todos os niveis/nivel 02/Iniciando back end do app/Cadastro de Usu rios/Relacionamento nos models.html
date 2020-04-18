@@ -619,4 +619,145 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="de26cede-675a-49d1-94c3-f2be5c37ddea" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👫</span></div><h1 class="page-title">Relacionamento nos models</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="de26cede-675a-49d1-94c3-f2be5c37ddea" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">👫</span></div><h1 class="page-title">Relacionamento nos models</h1></header><div class="page-body"><p id="7aec2812-9c5f-43f6-9201-b975fb5350c9" class="">Mudar a maneira de como salvar o appointment</p><p id="6d2619e5-7301-4e12-bced-226111213566" class="">
+</p><p id="48ea3301-d923-4a8c-9dc8-20cdfbba4e78" class=""><mark class="highlight-blue"><strong><code>Appointments.ts</code></strong></mark> (mudar o nome do campo de provider para provider_id)</p><pre id="243d339c-20d8-48b0-aa63-45620196d487" class="code"><code>import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from &#x27;typeorm&#x27;;
+
+// O Entity pega esse model, toda vez que ele for salvo
+// Vai ser armazenado dentro da tabela de appointments
+@Entity(&#x27;appointments&#x27;)
+class Appointment {
+  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
+  id: string;
+
+  @Column()
+  provider_id: string;
+
+  @Column(&#x27;timestamp with time zone&#x27;)
+  date: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}
+
+export default Appointment;</code></pre><p id="2eb51dac-fd3d-440c-9623-e01999646fc3" class="">
+</p><p id="a3927271-b3a1-44a5-93be-bdd681d8be30" class="">Criar uma nova migration para mudar o nome do campo de <strong>provider</strong> para <strong>provider_id</strong></p><p id="d4243a5d-cb2b-481d-a895-958469bda381" class="">
+</p><p id="9fd43dd3-a26e-410a-a194-b5522a54cb58" class=""><mark class="highlight-gray"><strong><code>migrations/</code></strong></mark><mark class="highlight-blue"><strong><code>CreateAppointments.ts</code></strong></mark></p><pre id="2cdafea4-aab4-4eef-a970-4ef30a21f275" class="code"><code></code></pre><p id="b4028359-de18-4781-ae73-8370a150b728" class="">
+</p><p id="4eeb6772-92b7-419f-9c06-ec39a8b04da4" class="">Adicionando o <strong>uuid</strong> no type da coluna id, nas <code><strong><mark class="highlight-gray">migrations</mark></strong></code> <code><strong><mark class="highlight-blue">CreateAppointments.ts</mark></strong></code> e na <code><strong><mark class="highlight-blue">CreateUsers.ts</mark></strong></code></p><pre id="6a6dd0be-6624-423b-97f9-b53163a864f8" class="code"><code>{
+  name: &#x27;id&#x27;,
+  type: &#x27;uuid&#x27;,
+  isPrimary: true,
+  generationStrategy: &#x27;uuid&#x27;,
+  default: &#x27;uuid_generate_v4()&#x27;,
+},</code></pre><p id="826292c1-a5c7-43ac-8716-8a58cf592768" class="">
+</p><hr id="c2993dbf-3e55-48bd-96b3-399c2487004f"/><p id="481bf315-0392-4306-afe9-64b19ef9728f" class="">
+</p><p id="960e1f79-535f-4fed-84f3-8f5cf35743ee" class="">Alterar o nome de uma coluna da tabela</p><pre id="0007b652-6661-4f6e-b42f-985c4313c635" class="code"><code>yarn typeorm migration:create -n AlterProviderFieldToProviderId</code></pre><p id="d400fe9f-b430-4d16-9f59-2e56068988e7" class="">
+</p><p id="5abb5d20-995a-4dfa-bdc3-b520c3ba338d" class=""><mark class="highlight-gray"><code><strong>migrations/</strong></code></mark><mark class="highlight-blue"><code><strong>AlterProviderFieldToProviderId.ts</strong></code></mark></p><pre id="c56b0033-4620-4785-a217-647204300b46" class="code"><code>import {
+  MigrationInterface,
+  QueryRunner,
+  TableColumn,
+  TableForeignKey,
+} from &#x27;typeorm&#x27;;
+
+export default class AlterProviderFieldToProviderId1587126078114
+  implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropColumn(&#x27;appointments&#x27;, &#x27;provider&#x27;);
+
+    await queryRunner.addColumn(
+      &#x27;appointments&#x27;,
+      new TableColumn({
+        name: &#x27;provider_id&#x27;,
+        type: &#x27;uuid&#x27;,
+        isNullable: true,
+      }),
+    );
+
+    // Criar a chave estrangeira
+    await queryRunner.createForeignKey(
+      &#x27;appointments&#x27;,
+      new TableForeignKey({
+        name: &#x27;AppointmentProvider&#x27;,
+        columnNames: [&#x27;provider_id&#x27;], // Vai receber a chave estrangeira
+        referencedColumnNames: [&#x27;id&#x27;], // Da coluna &#x27;id&#x27;, da tabela de &#x27;users&#x27;
+        referencedTableName: &#x27;users&#x27;,
+        onDelete: &#x27;SET NULL&#x27;, // Quando deletar esse provider, vai setar o &#x27;provider_id&#x27; como &#x27;null&#x27;
+        onUpdate: &#x27;CASCADE&#x27;, // Quando atualizar o id do provider, vai atualizar o provider_id, nas tabela que estao relacionadas, como a tabela &#x27;users&#x27;
+      }),
+    );
+  }
+
+  // Quando apagar essa migration, Fazer ao contrario do metodo &#x27;up&#x27;
+  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropForeignKey(&#x27;appointments&#x27;, &#x27;AppointmentProvider&#x27;);
+
+    await queryRunner.dropColumn(&#x27;appointments&#x27;, &#x27;provider_id&#x27;);
+
+    await queryRunner.addColumn(
+      &#x27;appointments&#x27;,
+      new TableColumn({
+        name: &#x27;provider&#x27;,
+        type: &#x27;varchar&#x27;,
+      }),
+    );
+  }
+}</code></pre><p id="996613a3-c7ea-4236-9264-24dea643dfdd" class="">
+</p><pre id="e6875836-5412-4a9b-a450-d5daf06f9057" class="code"><code>yarn typeorm migration:revert
+yarn typeorm migration:revert
+
+yarn typeorm migration:run</code></pre><p id="3ced39fb-259c-47d2-a35f-925132d9223b" class="">
+</p><p id="fc4ce0e8-1326-4ab7-b627-cc9e23dce208" class=""><code><strong>models/</strong></code><mark class="highlight-blue"><code><strong>Appointments.ts</strong></code></mark></p><pre id="99d4128e-0707-4ab2-972c-b85f2b0ce712" class="code"><code>import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from &#x27;typeorm&#x27;;
+
+import User from &#x27;./User&#x27;;
+
+// KISS - Keep It Simple &amp; Stupid
+
+/**
+ * Um para um (OneToOne)
+ * Um para muitos (OneToMany)
+ * Muitos para muitos(ManyToMany)
+ */
+
+// O Entity pega esse model, toda vez que ele for salvo
+// Vai ser armazenado dentro da tabela de appointments
+@Entity(&#x27;appointments&#x27;)
+class Appointment {
+  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
+  id: string;
+
+  @Column()
+  provider_id: string;
+
+  // Partindo do model de Appointment para o model de User
+  // Muitos agendamentos para um usuario
+  @ManyToOne(() =&gt; User)
+  @JoinColumn({ name: &#x27;provider_id&#x27; }) // Qual eh a coluna que vai identificar qual eh o prestador desse agendamento
+  provider: User;
+
+  @Column(&#x27;timestamp with time zone&#x27;)
+  date: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}
+
+export default Appointment;</code></pre></div></article></body></html>

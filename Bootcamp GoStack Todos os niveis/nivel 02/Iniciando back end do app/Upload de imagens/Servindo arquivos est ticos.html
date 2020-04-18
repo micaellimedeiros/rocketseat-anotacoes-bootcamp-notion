@@ -619,4 +619,25 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="f8953527-5016-48fc-ba7b-892baba28c5c" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗽</span></div><h1 class="page-title">Servindo arquivos estáticos</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="f8953527-5016-48fc-ba7b-892baba28c5c" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🗽</span></div><h1 class="page-title">Servindo arquivos estáticos</h1></header><div class="page-body"><p id="71da5eff-7a76-4b40-9e92-1c75bffa8a4d" class="">Uma rota que consiga ver os arquivos que foram feitos uploads</p><p id="03ab5e65-83a9-45a7-b29b-77c2b90c6a90" class="">Para mostrar a imagem para o usuário</p><p id="d9052404-ee0d-4190-9761-9da1bd4216b4" class="">
+</p><p id="aaeeac66-8099-4423-ad2c-e62651a50c24" class="">Importar o uploadConfig, e criar uma nova rota <code><strong>app.use(&#x27;/files&#x27;, express.static(uploadConfig.directory));</strong></code></p><p id="f5966f63-3598-4c88-8290-f8c418aa1e38" class="">
+</p><p id="8d2d2cf2-06b0-4cd3-8f3f-2b2a3f253938" class=""><mark class="highlight-blue"><strong><code>server.ts</code></strong></mark></p><pre id="4038180e-011e-4b63-ae20-e61591e3f533" class="code"><code>import &#x27;reflect-metadata&#x27;;
+
+import express from &#x27;express&#x27;;
+import routes from &#x27;./routes&#x27;;
+<strong>import uploadConfig from &#x27;./config/upload&#x27;;</strong>
+
+import &#x27;./database&#x27;;
+
+const app = express();
+
+app.use(express.json());
+<strong>app.use(&#x27;/files&#x27;, express.static(uploadConfig.directory));</strong>
+app.use(routes);
+
+app.listen(3333, () =&gt; {
+  console.log(&#x27;🚀️ Server started on port 3333!&#x27;);
+});</code></pre><p id="c5a16f5e-179a-4623-a720-40d205e78373" class="">
+</p><p id="8dfea24c-45fc-4cbb-bcbc-767cebdb4881" class="">E para ver a imagem. Acessar, passando por ultimo o nome do avatar que tem na rota <mark class="highlight-yellow"><strong>PATCH</strong></mark>.</p><p id="3ab26d9c-eaeb-4fa8-909f-48b8114b3086" class=""><a href="http://localhost:3333/files/6ce2026151e8ee2f576a-certificado_gostack.png">http://localhost:3333/files/6ce2026151e8ee2f576a-certificado_gostack.png</a></p><p id="ce77abad-088b-4aed-af4e-b877164a2889" class="">
+</p><p id="233c99f6-5b76-4e42-96c3-063cbe8e5740" class="">ou criar essa rota no <mark class="highlight-purple"><strong>Insomnia</strong></mark>.</p><p id="f3b6cf52-4075-4d71-a5c3-1a0a04a71f18" class="">
+</p></div></article></body></html>

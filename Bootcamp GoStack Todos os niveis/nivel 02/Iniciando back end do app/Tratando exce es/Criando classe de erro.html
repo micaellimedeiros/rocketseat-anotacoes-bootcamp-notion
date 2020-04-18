@@ -619,4 +619,304 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="9298e4ba-96cc-4115-8b07-380da369c5fa" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">❎</span></div><h1 class="page-title">Criando classe de erro</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="9298e4ba-96cc-4115-8b07-380da369c5fa" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">❎</span></div><h1 class="page-title">Criando classe de erro</h1></header><div class="page-body"><p id="d1457f4c-75fd-4b6a-935c-64502f67a965" class="">Expection Handling</p><p id="20493f5d-b4d3-49df-897c-7b9f210219c3" class="">
+</p><p id="d43fe4e9-29cf-484b-b9a1-2315cad64c0f" class="">Criar nossa própria classe de erros</p><p id="77518a47-76a8-4fcb-a426-6c8a761d985b" class="">Na <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-red"><strong><code>errors</code></strong></mark> e dentro o arquivo <code><mark class="highlight-blue"><strong>AppError.ts</strong></mark></code></p><p id="4919d6a4-f8a0-4de9-805f-25fbd44859c0" class="">
+</p><p id="2e004f37-88fd-4932-8599-545d9d5d9eec" class=""><mark class="highlight-blue"><strong><code>AppError.ts</code></strong></mark></p><pre id="2a582980-d1a6-4842-9cc0-9de96443ef5c" class="code"><code>class AppError {
+  public readonly message: string;
+
+  public readonly statusCode: number; // 400, 401 ,404
+
+  constructor(message: string, statusCode = 400) {
+    this.message = message;
+    this.statusCode = statusCode;
+  }
+}
+
+export default AppError;</code></pre><p id="ffc36248-fb9c-44a9-85b9-675ed5366936" class="">
+</p><hr id="a7b5b3f0-904c-472c-b157-82d6782bbbf2"/><p id="fda250eb-c532-49a3-85c0-838e32c3cc0f" class="">
+</p><p id="874f3980-7129-4c55-9cd1-90ff47eeae2b" class="">No <mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark> importar o <mark class="highlight-blue">AppError</mark></p><p id="f34d9d73-c794-4d25-bb51-88b04fccd863" class="">E em todo lugar que tem o <em><mark class="highlight-blue"><strong>Error </strong></mark></em>trocar por<em><mark class="highlight-blue"><strong> AppError</strong></mark></em>, e colocar o status code</p><p id="ec58957b-3e9e-4819-b7ce-686e88a1ff25" class="">
+</p><p id="7d2c1412-6101-46d9-8497-7986d6b66414" class=""><mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark></p><pre id="9d5c1bbb-7ee5-4937-808f-05f18bfa449b" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import { compare } from &#x27;bcryptjs&#x27;;
+import { sign } from &#x27;jsonwebtoken&#x27;;
+import authConfig from &#x27;../config/auth&#x27;;
+
+<strong>import AppError from &#x27;../errors/AppError&#x27;;</strong>
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  email: string;
+  password: string;
+}
+
+interface Response {
+  user: User;
+  token: string;
+}
+
+class AuthenticateUserService {
+  public async execute({ email, password }: Request): Promise&lt;Response&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verificar se existe o email na base de dados.
+    const user = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se nao existir o email, dar ERRO.
+    if (!user) {
+      <strong>throw new AppError(&#x27;Incorrect email/password combination&#x27;, 401);</strong>
+    }
+
+    // user.password - Senha criptografada
+    // password - Senha nao criptografada
+
+    // Vai comparar se a senha digitada e criptografada sao iguais.
+    const passwordMatched = await compare(password, user.password);
+
+    if (!passwordMatched) {
+      <strong>throw new AppError(&#x27;Incorrect email/password combination&#x27;, 401);</strong>
+    }
+
+    // Fazendo um token
+    // sign({ Payload }, &#x27;Chave Secreta&#x27;, { Configuracoes do Token })
+    // sign {} Payload - Informacoes do usuario para utilizar depois. Ex.: Permissoes, nome do usuario. Nao pode informacoes segurar como email ou senha.
+    // sign &#x27;&#x27; Chave secreata - md5 online - 54f15c68e0c65c99a450c519379e4b73
+    // sign {} - Configuracoes do token
+
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
+      subject: user.id, // Id do usuario que gerou esse token
+      expiresIn, // Quanto tempo o token vai durar
+    });
+
+    return {
+      user,
+      token,
+    };
+  }
+}
+
+export default AuthenticateUserService;</code></pre><p id="64b36fcf-8983-4d03-8bf9-e4d3f159e5ca" class="">
+</p><hr id="1240b159-3a56-4369-a241-5e5923598593"/><p id="f0a791cc-a394-4f90-bb22-5ff6a3e9fbc7" class="">
+</p><p id="511f65f4-0d82-480f-adea-8d02015ce141" class=""><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark></p><pre id="e5e17eaa-fd3f-4713-9bc3-de01906c4c21" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+
+<strong>import AppError from &#x27;../errors/AppError&#x27;;</strong>
+
+import Appointment from &#x27;../models/Appointment&#x27;;
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+interface Request {
+  provider_id: string;
+  date: Date;
+}
+
+class CreateAppointmentService {
+  public async execute({ date, provider_id }: Request): Promise&lt;Appointment&gt; {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+    const appointmentDate = startOfHour(date);
+
+    // Verificar se existe uma data ja agendada.
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      <strong>throw new AppError(&#x27;This appointment is already booked&#x27;);</strong>
+    }
+
+    const appointment = appointmentsRepository.create({
+      provider_id,
+      date: appointmentDate,
+    });
+
+    await appointmentsRepository.save(appointment);
+
+    return appointment;
+  }
+}
+
+export default CreateAppointmentService;</code></pre><p id="68583b09-4ffe-4d10-9311-cb3b9a978b46" class="">
+</p><hr id="fa32ef51-ca40-43d2-87e8-62d7bac9032a"/><p id="61c70263-2d4b-4117-a868-ed3dea9465dd" class="">
+</p><p id="3d12d299-59b8-4e9c-8b28-fc8061580ee4" class=""><mark class="highlight-blue"><strong><code>CreateUserService.ts</code></strong></mark></p><pre id="42cc4330-d9f1-4b17-bae2-38d5a113db73" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import { hash } from &#x27;bcryptjs&#x27;;
+
+import AppError from &#x27;../errors/AppError&#x27;;
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Se for usar os metodos padroes do TypeORM(create,update), nao precisar criar um metodo adicional(findByDate), nao preciso de repositorio, apenas usar o getRepository do TypeORM
+class CreateUserService {
+  public async execute({ name, email, password }: Request): Promise&lt;User&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verifica se existe um usuario com um email ja criado
+    const checkUserExists = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se existir, dar ERRO
+    if (checkUserExists) {
+      throw new AppError(&#x27;Email address already used.&#x27;);
+    }
+
+    // Cria a hash no password
+    const hashedPassword = await hash(password, 8);
+
+    // Criar uma instacia para salvar no banco
+    const user = usersRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    // Salvando o usuario no banco de dados
+    await usersRepository.save(user);
+
+    return user;
+  }
+}
+
+export default CreateUserService;</code></pre><p id="c422c338-9388-4c09-b176-4c40575d8e65" class="">
+</p><hr id="9cb777d7-c867-4499-8b69-18a0147d1727"/><p id="1016d877-e886-48ec-bcbb-fd1b85337713" class="">
+</p><p id="0990a5ad-f1ba-42de-b57f-369a13e2a128" class=""><mark class="highlight-blue"><strong><code>UpdateUserAvatarService.ts</code></strong></mark></p><pre id="1b8bbe51-8513-442a-b865-e7d17c7a4019" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import path from &#x27;path&#x27;;
+import fs from &#x27;fs&#x27;;
+import uploadConfig from &#x27;../config/upload&#x27;;
+
+<strong>import AppError from &#x27;../errors/AppError&#x27;;</strong>
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  user_id: string;
+  avatarFilename: string;
+}
+
+class UpdateUserAvatarService {
+  public async execute({ user_id, avatarFilename }: Request): Promise&lt;User&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verificar ser o id eh de um id de um usuario valido
+    const user = await usersRepository.findOne(user_id); // Aqui ele vai procurar diretamente pelo id
+
+    if (!user) {
+      <strong>throw new AppError(&#x27;Only authenticated users can change avatar.&#x27;, 401);</strong>
+    }
+
+    // Se o usuario ja tiver um avatar
+    if (user.avatar) {
+      // Deletar avatar anterior. Vai buscar o arquivo de avatar do usuario
+      // Pegar a directory, que vai ser importada da uploadConfig
+      // Unir dois caminhos, primeiro caminho = uploadConfig.directory, depois o arquivo para remover = user.avatar
+      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
+
+      // Verificar se o arquivo realmente existe. Stat traz o status de um arquivo somente se ele existir.
+      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
+
+      // Se o arquivo existir, vai deletar
+      if (userAvatarFileExists) {
+        await fs.promises.unlink(userAvatarFilePath);
+      }
+    }
+
+    // Vai salvar no user.avatar o avatarFilename, que eh passado por parametro
+    user.avatar = avatarFilename;
+
+    // Vai salvar no banco de dados a informacao do user, a informacao do avatar
+    await usersRepository.save(user);
+
+    return user;
+  }
+}
+
+export default UpdateUserAvatarService;</code></pre><p id="dc418e63-e686-4381-85ed-c087a4a9e648" class="">
+</p><hr id="3c7e92a8-d02f-4328-bfeb-8ee5546f88b9"/><p id="8c5ac20b-92cf-482b-a8ab-9aeae2f68329" class="">
+</p><p id="ea7c723c-4a94-42b7-b1f6-457799f42f92" class=""><mark class="highlight-blue"><strong><code>ensureAuthenticated.ts</code></strong></mark></p><pre id="273d86ce-181a-4f96-847b-7f62d72b312e" class="code"><code>import { Request, Response, NextFunction } from &#x27;express&#x27;;
+import { verify } from &#x27;jsonwebtoken&#x27;;
+
+import authConfig from &#x27;../config/auth&#x27;;
+
+<strong>import AppError from &#x27;../errors/AppError&#x27;;</strong>
+
+interface TokenPayload {
+  iat: number;
+  exp: number;
+  sub: string;
+}
+
+// Se for validado/autenticado vai chamar o next
+export default function ensureAuthenticated(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+): void {
+  // Validacao do token JWT
+  const authHeader = request.headers.authorization;
+
+  if (!authHeader) {
+    <strong>throw new AppError(&#x27;JWT token is missing&#x27;, 401);</strong>
+  }
+
+  // Bearer aodkaowjTOKEN
+  // Vai dividir pelo espaco
+  const [, token] = authHeader.split(&#x27; &#x27;);
+
+  try {
+    // token, e o segundo parametro vai ser o secret. Vou abstrair em um arquivo na pasta config no arquivo auth.ts
+    const decoded = verify(token, authConfig.jwt.secret);
+
+    // Forcar um tipo de uma variavel com &quot;as&quot; - Hackzinho do TypeScript
+    const { sub } = decoded as TokenPayload;
+
+    // Fazer outro hackezinho pra sobrescreve tipos de uma biblioteca. @types/express.d.ts
+    request.user = {
+      id: sub,
+    };
+
+    // Se estiver com o jwt autenticado/correto, pode continuar usando a aplicacao.
+    return next();
+  } catch {
+    // Se nao estiver autenticado
+    <strong>throw new AppError(&#x27;Invalid JWT token&#x27;, 401);</strong>
+  }
+}</code></pre><p id="f4bb8ec5-2b33-4ac9-89ad-efd22084c03d" class="">
+</p><hr id="bf02b9c4-fea9-43e5-897c-85ea2997ddb4"/><p id="ec111408-9d1e-4b28-b3d7-67ba34c10a65" class="">
+</p><p id="69ba46dd-4936-437c-b895-1dc14adecd94" class="">E no <mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark>, mudar o <strong>400</strong> para <strong>err.statusCode</strong></p><p id="8d61f452-7bad-497d-9a09-6524eaccffac" class="">
+</p><p id="8385213c-2c74-417a-b280-89f34e23dd57" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark></p><pre id="9305c0c1-89d8-4d51-9734-85cd4d56b581" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { email, password } = request.body;
+
+    // Criar um service para fazer as regras de negocio
+    const authenticateUser = new AuthenticateUserService();
+
+    const { user, token } = await authenticateUser.execute({
+      email,
+      password,
+    });
+
+    // Nao mostrar a senha no return de user.
+    delete user.password;
+
+    return response.json({ user, token });
+  } catch (err) {
+    <strong>return response.status(err.statusCode).json({ error: err.message });</strong>
+  }
+});
+
+export default sessionsRouter;</code></pre></div></article></body></html>

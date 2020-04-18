@@ -619,4 +619,234 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="ce1dd72d-8bcc-4505-a525-2d63f89660ca" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">®️</span></div><h1 class="page-title">Criação de registros</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="ce1dd72d-8bcc-4505-a525-2d63f89660ca" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">➕</span></div><h1 class="page-title">Criação de registros</h1></header><div class="page-body"><p id="8920eb68-a2eb-4939-a769-c1397f11aea9" class="">Criar na pasta <mark class="highlight-teal"><strong><code>routes</code></strong></mark> o arquivo <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><p id="f72d590b-b540-4f38-849d-c0bacf723496" class="">
+</p><p id="26f749bd-8b5c-498d-bd65-fbc19a1b67bb" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="7f9eda12-ecf4-4859-b531-725abc0cc518" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+const usersRouter = Router();
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    return response.send();
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default usersRouter;</code></pre><p id="fca6a54e-c497-4fd2-ae73-a144181adb8c" class="">
+</p><p id="dbcad13c-0c55-44d5-88f1-5a4829e8ffe1" class=""><mark class="highlight-blue"><strong><code>index.ts</code></strong></mark> - Importar a rota users</p><pre id="ba561916-0ab3-470a-84a9-9006429ed416" class="code"><code>import { Router } from &#x27;express&#x27;;
+import appointmentsRouter from &#x27;./appointments.routes&#x27;;
+import usersRouter from &#x27;./users.routes&#x27;;
+
+const routes = Router();
+
+routes.use(&#x27;/appointments&#x27;, appointmentsRouter);
+routes.use(&#x27;/users&#x27;, usersRouter);
+
+export default routes;</code></pre><p id="9f98f190-a717-4dbf-b2c5-0cf8e12788be" class="">
+</p><hr id="8006723d-1e15-4044-b7c4-dda7fa90649e"/><p id="dd59943f-b493-4ee9-8f4a-a1c7e56a1206" class="">
+</p><p id="912917e1-917f-4be8-a6c5-0210766da6e1" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark><mark class="highlight-blue"><strong> - PASSO A PASSO</strong></mark></p><p id="b41c8c38-1b30-4979-a8d9-fabc88cccba0" class="">
+</p><p id="94fd4d6f-fbba-44ff-96a3-88e019d2306d" class=""><strong>Se precisa de regra de negócios, preciso criar um SERVICE</strong></p><p id="e83da9be-bba5-48e9-bc2f-c2b952e2f259" class="">
+</p><p id="c6e5e892-1572-446a-a317-b7b21fd95246" class="">Criar na pasta services o arquivo <mark class="highlight-blue"><strong><code>CreateUserService.ts</code></strong></mark></p><p id="7a9b0603-516c-4941-9003-b683245b19cd" class="">
+</p><p id="a3c1c4da-4c22-4376-96d5-c97bb6daadd2" class=""><mark class="highlight-blue"><strong><code>CreateUserService.ts</code></strong></mark></p><pre id="5bf0cb9d-ae3a-454a-9b0f-0fad59ee1f08" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Se for usar os metodos padroes do TypeORM(create,update), nao precisar criar um metodo adicional(findByDate), nao preciso de repositorio, apenas usar o getRepository do TypeORM
+class CreateUserService {
+  public async execute({ name, email, password }: Request): Promise&lt;User&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verifica se existe um usuario com um email ja criado
+    const checkUserExists = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se existir, dar ERRO
+    if (checkUserExists) {
+      throw new Error(&#x27;Email address already used.&#x27;);
+    }
+
+    // Criar uma instacia para salvar no banco
+    const user = usersRepository.create({
+      name,
+      email,
+      password,
+    });
+
+    // Salvando o usuario no banco de dados
+    await usersRepository.save(user);
+
+    return user;
+  }
+}
+
+export default CreateUserService;</code></pre><p id="e5f837a4-8ad4-4579-8da3-3743cdbf2f6e" class="">
+</p><p id="002bb765-6377-46fb-870f-3a2fb40af2b1" class="">Agora importar o <mark class="highlight-blue">CreateUserService</mark> na rota de users, no arquivo <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><p id="2786d76e-b810-4ab9-a685-3807522b5d07" class="">
+</p><p id="85c893de-5a58-421a-80a2-69a6f651caf7" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="22a073e2-c6e5-4b80-82d7-bd40bce8d0f2" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+
+const usersRouter = Router();
+
+/**
+ * Repositories
+ * Services
+ */
+
+// Se precisa de regra de negocios, preciso criar um SERVICE
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { name, email, password } = request.body;
+
+    const createUser = new CreateUserService();
+
+    // Passar o name, email e password por parametro para o CreateUserService que estar como &quot;createUser&quot;
+    const user = await createUser.execute({ name, email, password });
+
+    return response.json(user);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default usersRouter;</code></pre><p id="8aece544-6939-4f2b-84c1-168c35e0c066" class="">
+</p><hr id="5c7988e1-5b6e-442e-af40-3852c097a9cf"/><p id="f980b5f2-baec-4c36-befb-7d9162319d96" class="">
+</p><p id="7ffe202e-2826-4ea4-b463-9804ef254895" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e criar uma pasta para Users e uma rota POST como o nome Create que recebe um JSON</p><p id="87e7c8db-6484-4422-b593-089efc665028" class="">
+</p><p id="a238e4e8-cbd0-4598-8e36-758536524ea5" class="">POST - Create - {{ base_url }}/users</p><p id="91ac07c4-a5ad-41af-8f77-097789c68355" class="">
+</p><p id="13bf1a8b-0bc4-4463-a373-183e56f271e8" class="">JSON:</p><pre id="cd222e6b-35d1-4add-a17b-f8eb85cac880" class="code"><code>{
+	&quot;name&quot;: &quot;Diego Fernandes&quot;,
+	&quot;email&quot;: &quot;diego@rocketseat.com.br&quot;,
+	&quot;password&quot;: &quot;123456&quot;
+}</code></pre><p id="4538973d-9f68-4da7-a0e3-0f7ceeafa420" class="">
+</p><p id="1a7792fe-2d19-474a-a7db-d5fe79e5395e" class="">Crie um usuário e vai dar OK.</p><p id="6818f08e-eb50-4db4-9b65-6d4699b1642a" class="">Preview:</p><pre id="7660fa18-c911-443c-ace3-9efd747bd8c4" class="code"><code>{
+  &quot;name&quot;: &quot;Diego Fernandes&quot;,
+  &quot;email&quot;: &quot;diego@rocketseat.com.br&quot;,
+  &quot;password&quot;: &quot;123456&quot;,
+  &quot;id&quot;: &quot;527cd406-487e-4c9d-9789-c35425ebd1e2&quot;,
+  &quot;created_at&quot;: &quot;2020-04-17T16:34:18.195Z&quot;,
+  &quot;updated_at&quot;: &quot;2020-04-17T16:34:18.195Z&quot;
+}</code></pre><p id="98eea064-68f0-41f7-9af0-fd9c4a1fea7c" class="">
+</p><p id="3152b8d3-8a2a-4ab5-afb3-beb56c064c4c" class="">Crie novamente com o mesmo e-mail e dará um ERRO.</p><pre id="ed0dd05d-44eb-4ee1-bc5f-209b87b8cb02" class="code"><code>{
+  &quot;error&quot;: &quot;Email address already used.&quot;
+}</code></pre><p id="d963bd68-fbc4-4b7b-bf21-1be5baaa90d4" class="">
+</p><hr id="36c1d851-48b4-4000-843c-97b2125f15f2"/><p id="b3fd2c9f-050f-4acc-aaa6-4f338fa271ab" class="">
+</p><p id="15134043-99d8-40e2-b396-6ee7b64b8305" class="">Consertar</p><p id="cd22631b-dca2-4816-a78a-992582bf1405" class="">Na <mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark>, <strong>consertar o provider para provider_id</strong></p><p id="43174ff6-d024-4397-9779-cfa01783fc67" class="">
+</p><p id="ed27c39d-305f-44be-928f-cbf2dc997ae1" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="6124a21b-a13b-418c-a4d7-27c9cb1738ad" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+const appointmentsRouter = Router();
+
+// Rota: Receber a requisicao, chamar outro arquivo, devolver uma resposta
+
+appointmentsRouter.get(&#x27;/&#x27;, async (request, response) =&gt; {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+  const appointments = await appointmentsRepository.find();
+
+  return response.json(appointments);
+});
+
+appointmentsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { <strong>provider_id</strong>, date } = request.body;
+
+    // Tranformar a data no tipo date do Javascript
+    const parsedDate = parseISO(date);
+
+    const createAppoinment = new CreateAppointmentService();
+
+    const appointment = await createAppoinment.execute({
+      date: parsedDate,
+      <strong>provider_id</strong>,
+    });
+
+    return response.json(appointment);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default appointmentsRouter;</code></pre><p id="3174fff5-2ccc-455e-baa0-f0509db1803b" class="">
+</p><hr id="c5527b7d-0a2f-43b1-a989-e5bd02bd2a4d"/><p id="32dc51cf-62ba-49b5-a8d6-e53ad7ff2b5a" class="">
+</p><p id="5def1d8e-bed7-4d5f-8438-88ec6d826057" class=""><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark>, <strong>consertar o provider para provider_id</strong></p><p id="742596dd-5349-42c6-9f14-1f623f84dc0c" class="">
+</p><p id="c7760556-f5f7-4284-949f-ff9800a8997f" class=""><mark class="highlight-blue"><strong><code>CreateAppointmentService.ts</code></strong></mark></p><pre id="06954f70-41b3-4597-97ce-40167163e408" class="code"><code>import { startOfHour } from &#x27;date-fns&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+
+import Appointment from &#x27;../models/Appointment&#x27;;
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+
+interface Request {
+  <strong>provider_id</strong>: string;
+  date: Date;
+}
+
+class CreateAppointmentService {
+  public async execute({ date, <strong>provider_id</strong> }: Request): Promise&lt;Appointment&gt; {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+    const appointmentDate = startOfHour(date);
+
+    // Verificar se existe uma data ja agendada.
+    const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+      appointmentDate,
+    );
+
+    if (findAppointmentInSameDate) {
+      throw Error(&#x27;This appointment is already booked&#x27;);
+    }
+
+    const appointment = appointmentsRepository.create({
+      <strong>provider_id</strong>,
+      date: appointmentDate,
+    });
+
+    await appointmentsRepository.save(appointment);
+
+    return appointment;
+  }
+}
+
+export default CreateAppointmentService;</code></pre><p id="7add2b2d-9285-4cd9-934d-48d165c90f7c" class="">
+</p><hr id="0c1b8016-226f-48aa-9929-61bb84a9cf24"/><p id="764ecf6a-f9f6-4354-b2ff-cebbc3516164" class="">
+</p><p id="4739386f-799e-4f23-98f9-6adecb82aa2c" class="">Erro no <mark class="highlight-purple">ESLint</mark>, adicionar nas <strong>rules</strong>, <code>&quot;@typescript-eslint/camelcase&quot;: &quot;off&quot;</code></p><p id="daaf0b79-ce4a-43ec-bfaa-d92ea5d8da3f" class="">
+</p><p id="224b5d04-612d-48f2-985f-c7c566d2a275" class=""><mark class="highlight-purple"><strong><code>.eslint.json</code></strong></mark></p><pre id="f1b08aad-d5ba-4f65-b884-9b5116422216" class="code"><code>&quot;rules&quot;: {
+    &quot;prettier/prettier&quot;: &quot;error&quot;,
+    &quot;class-methods-use-this&quot;: &quot;off&quot;,
+    <mark class="highlight-pink"><strong>&quot;@typescript-eslint/camelcase&quot;: &quot;off&quot;,</strong></mark>
+    &quot;import/extensions&quot;: [
+      &quot;error&quot;,
+      &quot;ignorePackages&quot;,
+      {
+        &quot;ts&quot;: &quot;never&quot;
+      }
+    ]
+  },</code></pre><p id="e95fd8dd-a879-4aa0-a958-898ea3cd73e7" class="">
+</p><hr id="3cf7dcf5-7021-4056-8807-8883ebf0864e"/><p id="7e67cdc4-4d0e-4e36-8ac9-21b1b621a289" class="">
+</p><p id="3c66573b-1cea-49b8-b746-8281bcc1515d" class="">Criar um appointment</p><p id="dc2ac8a6-52ca-4d98-be60-6dd1de0b7d09" class="">Pegar o Id do usuário que acabou de criar: 527cd406-487e-4c9d-9789-c35425ebd1e2</p><p id="b29022ef-7af8-418f-81ff-01a8923de34b" class="">
+</p><p id="c71cf841-6321-4aa2-afc4-839e2fad6846" class="">E na criação de um novo appointment no <mark class="highlight-purple"><strong>Insomnia</strong></mark>, <strong>trocar de provider para provider_id.</strong></p><p id="52ced056-f564-419c-a7d1-a21e82a7f2ec" class="">
+</p><p id="ad6869d0-6b61-407b-8e31-d6a543e20a47" class="">E passar o id do usuário criado e fazer um novo agendamento</p><p id="d4e6ee5e-515f-4cad-ac71-7fd1fed5bdb3" class="">
+</p><p id="a050e82d-683f-47c0-ae8b-d9a71cc7e6cc" class="">JSON:</p><pre id="1301a61f-9c7b-4490-b392-2488100662a5" class="code"><code>{
+	&quot;provider_id&quot;: &quot;527cd406-487e-4c9d-9789-c35425ebd1e2&quot;,
+	&quot;date&quot;: &quot;Timestamp =&gt; ISO-8601&quot;
+}</code></pre><p id="82c38a43-affc-481c-85a7-40a32d0ecc6a" class="">
+</p><p id="0d7baee4-5253-4e38-84af-e75183553355" class="">Preview:</p><pre id="06b9b35e-4dcb-4a55-99a7-bc8bce646a03" class="code"><code>{
+  &quot;provider_id&quot;: &quot;527cd406-487e-4c9d-9789-c35425ebd1e2&quot;,
+  &quot;date&quot;: &quot;2020-04-17T13:00:00.000Z&quot;,
+  &quot;id&quot;: &quot;78a6e522-638f-4cc0-bb4c-516d3e83fb7a&quot;,
+  &quot;created_at&quot;: &quot;2020-04-17T16:49:16.535Z&quot;,
+  &quot;updated_at&quot;: &quot;2020-04-17T16:49:16.535Z&quot;
+}</code></pre><p id="9b9030bd-e086-4aef-a448-d4fe1edb61b3" class="">
+</p><hr id="7670a131-427d-4cdd-9118-84a420c0046e"/><p id="22474981-167d-41f0-a5d7-3f3c02246b41" class="">
+</p><p id="3d0349c6-c82c-4495-bbc3-9a222d91e274" class="">Se criar na mesma data e horário, vai dar ERRO:</p><p id="51790c57-789a-45d6-96d1-c33633a82436" class="">Preview</p><pre id="bd4a3b04-7296-4439-a730-3c6ccad2bda5" class="code"><code>{
+  &quot;error&quot;: &quot;This appointment is already booked&quot;
+}</code></pre></div></article></body></html>

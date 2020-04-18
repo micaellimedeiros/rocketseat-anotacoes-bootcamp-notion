@@ -619,4 +619,126 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="dbd451ee-7e9c-41fb-90ea-e374c2cc3711" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">⬆️</span></div><h1 class="page-title">Upload de arquivos</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="dbd451ee-7e9c-41fb-90ea-e374c2cc3711" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">⬆️</span></div><h1 class="page-title">Upload de arquivos</h1></header><div class="page-body"><p id="ec8c4ed7-984d-4ca4-9752-bea97930b0ae" class="">Adicionar o campo de avatar nas migration de Users</p><pre id="ad31c434-d871-44bb-b59c-b43bad7562e2" class="code"><code>yarn typeorm migration:create -n AddAvatarFieldToUsers</code></pre><p id="00dfb957-b591-41b0-a391-8ed2bb82327a" class="">
+</p><p id="6ef33aa3-a594-46c3-99d9-3843794c6a21" class=""><mark class="highlight-gray"><strong><code>migrations/</code></strong></mark><mark class="highlight-blue"><strong><code>AddAvatarFieldToUsers.ts</code></strong></mark></p><pre id="60c963df-14b6-4272-b1c5-10348ca6ef52" class="code"><code>import { MigrationInterface, QueryRunner, TableColumn } from &#x27;typeorm&#x27;;
+
+export default class AddAvatarFieldToUsers1587149949398
+  implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.addColumn(
+      &#x27;users&#x27;,
+      new TableColumn({
+        name: &#x27;avatar&#x27;,
+        type: &#x27;varchar&#x27;,
+        isNullable: true,
+      }),
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropColumn(&#x27;users&#x27;, &#x27;avatar&#x27;);
+  }
+}</code></pre><p id="7681eff1-6459-4559-b495-d461ac40b1b5" class="">
+</p><p id="dc0fcd24-27d0-42c7-a4e7-4e1119aa1a86" class="">Rodar a migration</p><pre id="c85e85f1-c3b1-4876-8f2a-de979c4270ab" class="code"><code>yarn typeorm migration:run</code></pre><p id="82318236-15c0-412e-8a39-4f4b2f439698" class="">
+</p><hr id="2f9a317f-5fc8-484e-9e80-892be2adf7dd"/><p id="7d4baf81-1628-4a7b-ba1c-7f0347b1db43" class="">
+</p><p id="78c4ea75-d757-4654-bb97-59cda288c28e" class="">Criar uma rota patch dentro de <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark>. <strong>&quot;/users/avatar&quot;</strong></p><p id="f71619c2-22f7-4ee1-8de9-5903cad5b4c3" class="">
+</p><p id="325d58e2-d966-405a-885f-709c521be5e8" class="">patch - Atualizar uma unica informacao do usuario</p><p id="1db45ee2-3f8f-47ec-9827-ee45efeabc28" class="">Colocar o middleware na rota de patch</p><p id="08eef00f-492a-4b36-8065-82024a1f6374" class="">
+</p><p id="66203a66-0779-46d7-b9af-5b76f33b0f00" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="caf4fbb8-2df0-4e35-9a07-04f6a8e08a7d" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const usersRouter = Router();
+
+// Se precisa de regra de negocios, preciso criar um SERVICE
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { name, email, password } = request.body;
+
+    const createUser = new CreateUserService();
+
+    // Passar o name, email e password por parametro para o CreateUserService que estar como &quot;createUser&quot;
+    const user = await createUser.execute({ name, email, password });
+
+    // Para o password nao aparecer no response.json. COMO FORMA DE SEGURANCA
+    delete user.password;
+
+    return response.json(user);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+usersRouter.patch(&#x27;/avatar&#x27;, ensureAuthenticated, async (request, response) =&gt; {
+  return response.json({ ok: true });
+});
+
+export default usersRouter;</code></pre><p id="6bee5485-a161-4638-bbcf-5d37bfe7a42a" class="">
+</p><p id="59b4ca3e-6cff-40d6-94b7-987bb8f81208" class="">Testar no <mark class="highlight-purple"><strong>Insomnia</strong></mark> para ver se a rota esta funcionando</p><p id="f10c3eb5-33c7-4d3f-95af-d78c1fc78e6c" class="">Na pasta Users criar a rota.</p><p id="de59221d-aa00-4ed1-b9f8-29d0476f8ce8" class=""><strong><mark class="highlight-yellow">PATCH</mark></strong> - UpdateAvatar - <strong>{{ base_url }}/users/avatar</strong></p><p id="eeac9128-b0f4-41dd-b65d-5c263f1dcd03" class="">Não esqueça de colocar o Bearer Token</p><p id="67d5dc14-6ade-424b-909f-25691570e23c" class="">
+</p><p id="96427e8f-a6e6-449d-afdd-ad19317b4764" class="">Preview:</p><pre id="fd9e70fe-ed84-4d92-90a4-c38a06ae2812" class="code"><code>{
+  &quot;ok&quot;: true
+}</code></pre><p id="d002031e-6ac5-45f7-8406-0c0e8ed87902" class="">
+</p><p id="bd4d7d3c-cb92-46db-892c-bf456626d865" class="">Instalar o multer - para upload de arquivos</p><pre id="c7b311d7-7fd6-4865-a0da-b1c35fc8a999" class="code"><code>yarn add multer
+
+yarn add -D @types/multer</code></pre><p id="9a9622f7-71dc-4c98-89ff-1a9c77a0c321" class="">
+</p><hr id="dedb1e64-bc16-4a0e-84ed-2149d128e971"/><p id="6230bff3-b457-4344-ae4b-7973bc87ce34" class="">
+</p><p id="6b5d2c64-ddf6-4e1e-870c-3f1cd35eba06" class="">Na pasta config criar o arquivo upload.ts, vai armazenar as configurações de upload de imagens ou arquivos.</p><p id="fa915d0f-cedf-4077-aaa2-7e155ba965e4" class="">
+</p><p id="78e9eac7-6610-4682-a527-188058258b4c" class="">Criar a pasta <mark class="highlight-blue"><strong><code>tmp</code></strong></mark> na raiz do projeto, para armazenar os arquivos de imagens.</p><p id="00e0a0af-e77a-4152-ba98-694409f7e7ea" class="">E dentro da pasta <mark class="highlight-blue"><strong><code>tmp</code></strong></mark>, criar o arquivo <strong><code>.gitkeep</code></strong></p><p id="4c41c99b-576c-42f1-b468-f6b1106b40f3" class="">
+</p><p id="9861782b-2594-4353-9685-d8a45aa1e4d1" class="">E adicionar o <mark class="highlight-blue"><strong><code>tmp</code></strong></mark> no .<strong><code>gitignore</code></strong>. </p><p id="d644675f-1778-4e79-bf86-60788c0a5796" class="">Ele vai ignorar todos os arquivo da pasta <mark class="highlight-blue"><strong><code>tmp</code></strong></mark>, mas não vai ignorar o <strong><code>.gitkeep</code></strong></p><pre id="b5f357e6-15a0-4a1b-a553-cff13b990f53" class="code"><code>.idea/
+.vscode/
+node_modules/
+build/
+temp/
+
+tmp/*
+!tmp/.gitkeep</code></pre><p id="4057dc59-8468-43dc-a1c3-7ac5ca4846c6" class="">
+</p><p id="ee6e3950-096e-479e-b42f-285d1ccd7b1d" class=""><mark class="highlight-blue"><strong><code>upload.ts</code></strong></mark></p><pre id="12fe7424-87fe-4197-89a1-68257914ad09" class="code"><code>import path from &#x27;path&#x27;;
+import crypto from &#x27;crypto&#x27;;
+import multer from &#x27;multer&#x27;;
+
+// Vai armazenar as imagens dentro da propria estrutura do app.
+// Mais pra frente do bootcamp, vai ser ensinado como usar ferramentas para upload de imagens
+
+// destination - Os arquivos vao ser salvos neste caminho
+// filename - O nome que o arquivo vai receber
+export default {
+  storage: multer.diskStorage({
+    destination: path.resolve(__dirname, &#x27;../&#x27;, &#x27;..&#x27;, &#x27;tmp&#x27;),
+    filename(request, file, callback) {
+      const fileHash = crypto.randomBytes(10).toString(&#x27;HEX&#x27;);
+
+      const fileName = `${fileHash}-${file.originalname}`;
+
+      return callback(null, fileName);
+    },
+  }),
+};</code></pre><p id="3801f96f-6f43-49aa-9fde-502a27d06f3c" class="">
+</p><p id="0f3d8307-08f8-4de5-a707-59e25b0ee6fe" class="">Voltar para a <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark> e importar o multer e as configurações de upload, uploadConfig.</p><p id="f198fee4-8310-47a8-8789-a051d5012591" class="">
+</p><p id="7b7ba4f3-6311-4216-a761-951f04e2a2c9" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="9e02712b-0285-4ca2-a348-003f3e8a4b25" class="code"><code>import { Router } from &#x27;express&#x27;;
+<strong>import multer from &#x27;multer&#x27;;
+import uploadConfig from &#x27;../config/upload&#x27;;</strong>
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+<strong>const usersRouter = Router();
+const upload = multer(uploadConfig);</strong>
+
+usersRouter.patch(
+  &#x27;/avatar&#x27;,
+  ensureAuthenticated,
+  <strong>upload.single(&#x27;avatar&#x27;),</strong>
+  async (request, response) =&gt; {
+		console.log(request.file);
+
+    return response.json({ ok: true });
+  },
+);
+
+export default usersRouter;</code></pre><p id="1bf1e65c-1a1b-4023-9564-aad6465d1b69" class="">
+</p><p id="b44cacac-a23c-4301-a36a-04859e6043f9" class="">E testar no <mark class="highlight-purple"><strong>Insomnia</strong></mark></p><p id="d07bc450-1efc-4484-ac80-67d0baeb7a53" class="">Na rota de <mark class="highlight-yellow"><strong>PATCH</strong></mark> o tipo nao vai ser JSON, e sim <strong>Multipart Form</strong>.</p><p id="e61a7b65-0936-48d7-946d-d67f564633e7" class=""><strong>Multipart Form</strong> aceita arquivos.</p><p id="4baf7b14-c5e4-443f-92da-50427341eba6" class="">Criar um campo com o nome <strong>avatar</strong></p><p id="d07ad131-bf24-4dcc-afea-c8e0ef3f79af" class="">E escolhe o tipo de campo <strong>file</strong></p><p id="0f6a593e-a5c3-45d7-9781-9088183dcf6c" class="">
+</p><p id="9ba8c9af-69db-464c-bf43-f2a7589285fa" class="">Dar um send com um arquivo de imagem.</p><p id="c2e1db45-c41b-4968-9bf5-50114b3f3156" class="">E ver na pasta <mark class="highlight-blue"><strong><code>tmp</code></strong></mark> o arquivo enviado que ele vai estar la salvo</p><p id="d5e4a599-3c8d-402f-98c5-7c343b18b9fd" class="">Depois apagar.</p><p id="0ac1842a-4284-4a23-81ed-34a968a47e40" class="">
+</p></div></article></body></html>

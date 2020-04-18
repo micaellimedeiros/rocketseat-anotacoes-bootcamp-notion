@@ -619,4 +619,222 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="e9dc5357-4314-4219-a9b1-ce186cc5b625" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔁</span></div><h1 class="page-title">Atualizando avatar</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="e9dc5357-4314-4219-a9b1-ce186cc5b625" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔁</span></div><h1 class="page-title">Atualizando avatar</h1></header><div class="page-body"><p id="9e5fccad-2f34-4ae0-a9df-73a803602a40" class="">Criar um service para atualizar o avatar</p><p id="a20e55e9-f4bd-47b4-8509-b046ca344f1b" class="">Na pasta services criar o arquivo UpdateUserAvatarService.ts</p><p id="b96bcfd8-fe02-42a0-a14f-6857542450d4" class="">
+</p><p id="c67bf884-4707-40fb-8174-a354a99e0da5" class=""><mark class="highlight-blue"><strong><code>UpdateUserAvatarService.ts</code></strong></mark></p><pre id="8b1a3beb-db54-4e96-83fd-fbf096729521" class="code"><code>interface Request {
+  user_id: string;
+  avatar_filename: string;
+}
+
+class UpdateUserAvatarService {
+  public async execute({ user_id, avatar_filename }: Request): Promise&lt;void&gt; {}
+}
+
+export default UpdateUserAvatarService;</code></pre><p id="c390f6d6-8208-4679-a79e-789545ce9f12" class="">
+</p><p id="1acde07f-6ce4-43bc-9da2-46fd49c3af17" class="">Na <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark> importar o <mark class="highlight-blue">UpdateUserAvatarService</mark></p><pre id="60e8c63a-a284-4a65-bba2-2007f1c8fce6" class="code"><code>import { Router } from &#x27;express&#x27;;
+import multer from &#x27;multer&#x27;;
+import uploadConfig from &#x27;../config/upload&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+<strong>import UpdateUserAvatarService from &#x27;../services/UpdateUserAvatarService&#x27;;</strong>
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const usersRouter = Router();
+const upload = multer(uploadConfig);
+
+usersRouter.patch(
+  &#x27;/avatar&#x27;,
+  ensureAuthenticated,
+  upload.single(&#x27;avatar&#x27;),
+  async (request, response) =&gt; {
+    <strong>try {
+      // Pegar o id do usuario pelo middleware, porque ele seta na autenticacao, request.user.id
+      const updateUserAvatar = new UpdateUserAvatarService();
+
+      await updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename,
+      });
+
+      return response.json({ ok: true });
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }</strong>
+  },
+);
+
+export default usersRouter;</code></pre><p id="5423a4d5-7ac3-466e-bfd3-181f2a44467e" class="">
+</p><hr id="1abd72f3-1017-4ddb-936a-a8540a491391"/><p id="8876b9ee-ab06-4953-bcf0-0c3e3c332501" class="">
+</p><p id="12f2456e-c47e-40f6-bfae-6ca909d7905b" class="">Adicionar no model de User a coluna avatar</p><p id="bd05c241-1490-40d4-a15b-00df16cd5a1b" class="">
+</p><p id="87003de7-2d05-49c2-9ca0-f4bc937cc525" class=""><strong><code>models/</code></strong><mark class="highlight-blue"><strong><code>User.ts</code></strong></mark></p><pre id="54287030-0fed-4c2d-9478-7a9353215f81" class="code"><code>import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from &#x27;typeorm&#x27;;
+
+@Entity(&#x27;users&#x27;)
+class User {
+  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
+  id: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  <strong>@Column()
+  avatar: string;</strong>
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}
+
+export default User;</code></pre><p id="3e58705f-1e1d-46dd-afbe-9b01ab4675ed" class="">
+</p><hr id="6dce840d-02fa-46b0-bde1-5521dc7086e0"/><p id="64f95f6f-1ac1-466a-89db-323a25d596ed" class="">
+</p><p id="b98d8650-01d9-415a-a04b-fbb08438b1d4" class="">Na <mark class="highlight-blue"><strong><code>config/upload.js</code></strong></mark> alterar o caminho para ficar mais fácil.</p><p id="c19240a7-e0bd-4e5a-ad89-a3e20831f079" class="">
+</p><p id="129ae4d8-d10e-40d5-b52b-713e0d37c2fb" class=""><mark class="highlight-blue"><strong><code>config/upload.js</code></strong></mark></p><pre id="3f566645-aa0d-43e3-a6ae-924721f2cce9" class="code"><code>import path from &#x27;path&#x27;;
+import crypto from &#x27;crypto&#x27;;
+import multer from &#x27;multer&#x27;;
+
+// Vai armazenar as imagens dentro da propria estrutura do app.
+// Mais pra frente do bootcamp, vai ser ensinado como usar ferramentas para upload de imagens
+
+// destination - Os arquivos vao ser salvos neste caminho
+// filename - O nome que o arquivo vai receber
+
+const tmpFolder = path.resolve(__dirname, &#x27;../&#x27;, &#x27;..&#x27;, &#x27;tmp&#x27;);
+
+export default {
+  directory: tmpFolder,
+
+  storage: multer.diskStorage({
+    destination: tmpFolder,
+    filename(request, file, callback) {
+      const fileHash = crypto.randomBytes(10).toString(&#x27;HEX&#x27;);
+
+      const fileName = `${fileHash}-${file.originalname}`;
+
+      return callback(null, fileName);
+    },
+  }),
+};</code></pre><p id="234c1294-f945-400b-8fda-b096c225720c" class="">
+</p><hr id="6d6b3808-436e-4cdf-a0a5-109f845ac8e0"/><p id="b5a4c588-fb7c-458b-8743-92c451eb496c" class="">
+</p><p id="6d42fff9-e5c6-4520-a8b7-157976fe9695" class="">Voltar no <mark class="highlight-blue"><strong><code>UpdateUserAvatarService.ts</code></strong></mark></p><p id="e179e0c0-022b-4b4d-87bf-1868f77a7864" class="">
+</p><p id="bcada332-67c0-45ad-a931-5aa96102bab6" class=""><mark class="highlight-blue"><strong><code>UpdateUserAvatarService.ts</code></strong></mark></p><pre id="5469582a-5648-4119-af43-ea8cf5698563" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import path from &#x27;path&#x27;;
+import fs from &#x27;fs&#x27;;
+
+import uploadConfig from &#x27;../config/upload&#x27;;
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  user_id: string;
+  avatarFilename: string;
+}
+
+class UpdateUserAvatarService {
+  public async execute({ user_id, avatarFilename }: Request): Promise&lt;User&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verificar ser o id eh de um id de um usuario valido
+    const user = await usersRepository.findOne(user_id); // Aqui ele vai procurar diretamente pelo id
+
+    if (!user) {
+      throw new Error(&#x27;Only authenticated users can change avatar.&#x27;);
+    }
+
+    // Se o usuario ja tiver um avatar
+    if (user.avatar) {
+      // Deletar avatar anterior. Vai buscar o arquivo de avatar do usuario
+      // Pegar a directory, que vai ser importada da uploadConfig
+      // Unir dois caminhos, primeiro caminho = uploadConfig.directory, depois o arquivo para remover = user.avatar
+      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
+
+      // Verificar se o arquivo realmente existe. Stat traz o status de um arquivo somente se ele existir.
+      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
+
+      // Se o arquivo existir, vai deletar
+      if (userAvatarFileExists) {
+        await fs.promises.unlink(userAvatarFilePath);
+      }
+    }
+
+    // Vai salvar no user.avatar o avatarFilename, que eh passado por parametro
+    user.avatar = avatarFilename;
+
+    // Vai salvar no banco de dados a informacao do user, a informacao do avatar
+    await usersRepository.save(user);
+
+    return user;
+  }
+}
+
+export default UpdateUserAvatarService;</code></pre><p id="84c0840e-7b73-4c25-89f4-1d0718d17d12" class="">
+</p><p id="c7d2006a-57f2-4d1b-b958-03297eff3df5" class="">Voltar na users.routes.ts e retornar o user, inves de so rodar o await,<code><strong>const user </strong></code><code>= await updateUserAvatar.execute</code></p><p id="7e2a656c-e888-4f7a-b47d-9820d89fa394" class="">
+</p><p id="aa8a095e-3202-44b7-82be-439ae9795296" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="a3b11b62-15ae-41e3-8094-777547f1d567" class="code"><code>import { Router } from &#x27;express&#x27;;
+import multer from &#x27;multer&#x27;;
+import uploadConfig from &#x27;../config/upload&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+import UpdateUserAvatarService from &#x27;../services/UpdateUserAvatarService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const usersRouter = Router();
+const upload = multer(uploadConfig);
+
+// Se precisa de regra de negocios, preciso criar um SERVICE
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { name, email, password } = request.body;
+
+    const createUser = new CreateUserService();
+
+    // Passar o name, email e password por parametro para o CreateUserService que estar como &quot;createUser&quot;
+    const user = await createUser.execute({ name, email, password });
+
+    // Para o password nao aparecer no response.json. COMO FORMA DE SEGURANCA
+    delete user.password;
+
+    return response.json(user);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+usersRouter.patch(
+  &#x27;/avatar&#x27;,
+  ensureAuthenticated,
+  upload.single(&#x27;avatar&#x27;),
+  async (request, response) =&gt; {
+    try {
+      // Pegar o id do usuario pelo middleware, porque ele seta na autenticacao, request.user.id
+      const updateUserAvatar = new UpdateUserAvatarService();
+
+      <strong>const user </strong>= await updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename,
+      });
+
+			<strong>delete user.password;</strong>
+
+      <strong>return response.json(user);</strong>
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  },
+);
+
+export default usersRouter;</code></pre><p id="fcc2a1a5-5cd5-48d1-aaca-d8805fa9c4f6" class="">
+</p><p id="17110b17-6e2c-4ca3-8416-b98a8209d841" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e testar o envio de imagem.</p><p id="1f78179b-c978-4290-858e-5a6fa8b85a50" class="">Ver que no Preview do Insomnia, no DBeaver e no VSCode, que alterou o nome do arquivo da imagem e não criou outro imagem.</p><p id="a850b3a9-782d-49ed-864b-8576baddd311" class="">
+</p></div></article></body></html>

@@ -619,4 +619,105 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="99834a36-505a-4d54-938c-6e3bb4ceea55" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://jwt.io/img/logo.svg"/></div><h1 class="page-title">Gerando token JWT</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="99834a36-505a-4d54-938c-6e3bb4ceea55" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://jwt.io/img/logo.svg"/></div><h1 class="page-title">Gerando token JWT</h1></header><div class="page-body"><p id="f04f8f22-7e11-40c1-96aa-5354b4f6c59a" class="">Instalar o JSON WEB TOKEN</p><pre id="bceda9b7-3559-4bfe-8367-d762c815ab38" class="code"><code>yarn add jsonwebtoken
+
+yarn add -D @types/jsonwebtoken</code></pre><p id="22438080-7002-45bf-830a-a30b6c72d3da" class="">
+</p><p id="62acc423-c089-4a86-9e3c-e53a9ad32770" class="">
+</p><p id="741f1829-e2cd-4f18-b94f-0c2ebfa5d75e" class="">Importar o jsonwebtoken</p><p id="6fbc5d34-23ea-4cd3-8c2c-3a324e9573e7" class=""><mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark></p><pre id="466e28af-469e-4e17-98f4-3afd38289a1d" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import { compare } from &#x27;bcryptjs&#x27;;
+import { sign } from &#x27;jsonwebtoken&#x27;;
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  email: string;
+  password: string;
+}
+
+interface Response {
+  user: User;
+  token: string;
+}
+
+class AuthenticateUserService {
+  public async execute({ email, password }: Request): Promise&lt;Response&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verificar se existe o email na base de dados.
+    const user = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se nao existir o email, dar ERRO.
+    if (!user) {
+      throw new Error(&#x27;Incorrect email/password combination&#x27;);
+    }
+
+    // user.password - Senha criptografada
+    // password - Senha nao criptografada
+
+    // Vai comparar se a senha digitada e criptografada sao iguais.
+    const passwordMatched = await compare(password, user.password);
+
+    if (!passwordMatched) {
+      throw new Error(&#x27;Incorrect email/password combination&#x27;);
+    }
+
+    // Fazendo um token
+    // sign({ Payload }, &#x27;Chave Secreta&#x27;, { Configuracoes do Token })
+    // sign {} Payload - Informacoes do usuario para utilizar depois. Ex.: Permissoes, nome do usuario. Nao pode informacoes segurar como email ou senha.
+    // sign &#x27;&#x27; Chave secreata - md5 online - 54f15c68e0c65c99a450c519379e4b73
+    // sign {} - Configuracoes do token
+
+    const token = sign({}, &#x27;54f15c68e0c65c99a450c519379e4b73&#x27;, {
+      subject: user.id, // Id do usuario que gerou esse token
+      expiresIn: &#x27;1d&#x27;, // Quanto tempo o token vai durar
+    });
+
+    return {
+      user,
+      token,
+    };
+  }
+}
+
+export default AuthenticateUserService;</code></pre><p id="11999080-d77c-4bb4-b855-1516cf1b2c54" class="">
+</p><p id="54a10129-cf13-4231-99ef-b3071a0732af" class="">Buscar o token do usuario no execute, e retornar ele no return</p><p id="bbfd3a07-acdd-4140-9f1d-87395a73cdd4" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark></p><pre id="3b9280a6-0dbc-425e-9f36-4b8078f8a27f" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { email, password } = request.body;
+
+    // Criar um service para fazer as regras de negocio
+    const authenticateUser = new AuthenticateUserService();
+
+    <strong>const { user, token }</strong> = await authenticateUser.execute({
+      email,
+      password,
+    });
+
+    // Nao mostrar a senha no return de user.
+    delete user.password;
+
+    <strong>return response.json({ user, token });</strong>
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default sessionsRouter;</code></pre><p id="2a9d1cc2-b0f6-4baa-ba7e-9c2d33f0df9a" class="">
+</p><p id="0917e88c-e55d-4698-927d-c133f0328b98" class="">Ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e dar send na rota de sessions, e o token vai ter gerado.</p><p id="fb9ff567-8a00-4a3f-bc6a-0d4a418f4367" class="">
+</p><p id="514e5ce2-ed47-4f69-ae91-e1a694322edb" class="">Preview:</p><pre id="3fe23cf9-a9fa-47a4-8b51-dac818b6090e" class="code"><code>{
+  &quot;user&quot;: {
+    &quot;id&quot;: &quot;69c65745-39c7-4e51-ae34-559f4c115ae9&quot;,
+    &quot;name&quot;: &quot;Diego Fernandes&quot;,
+    &quot;email&quot;: &quot;diego@rocketseat.com.br&quot;,
+    &quot;created_at&quot;: &quot;2020-04-17T17:23:57.283Z&quot;,
+    &quot;updated_at&quot;: &quot;2020-04-17T17:23:57.283Z&quot;
+  },
+  &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1ODcxNDM2NDksImV4cCI6MTU4NzIzMDA0OSwic3ViIjoiNjljNjU3NDUtMzljNy00ZTUxLWFlMzQtNTU5ZjRjMTE1YWU5In0.al7wsZjIfIGscd41UEH335uN2T0SUfx4ZpKh7FmQyLY&quot;
+}</code></pre></div></article></body></html>

@@ -619,4 +619,189 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="47606fe5-d81f-44f4-be1e-e413358a3241" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🛣️</span></div><h1 class="page-title">Rotas autenticadas</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="47606fe5-d81f-44f4-be1e-e413358a3241" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🛣️</span></div><h1 class="page-title">Rotas autenticadas</h1></header><div class="page-body"><p id="ec7be38e-b201-4f04-8dd6-c93609e68480" class=""><strong><mark class="highlight-purple">Middleware</mark></strong> de autenticação</p><p id="a5690869-34b5-4447-9448-14e3c5ba7b78" class="">
+</p><p id="cea8992d-8721-450d-8816-b91b47fd4551" class="">Enviar o token no Header</p><h1 id="13494905-32d4-4839-b439-128f138df8cc" class="">Enviar o Token nas rotas de appointments, List e Create</h1><p id="2d54a442-7892-4078-aecc-91582b325809" class="">
+</p><p id="aef2f7b5-fc04-49ab-b7cd-ab79c0061014" class="">No <strong><mark class="highlight-purple">Insomnia</mark></strong> ir no Header, criar o Authorization, ao lado colocar o Bearer + token</p><figure id="03133493-a3c3-49bb-a421-4c6d04242798" class="image"><a href="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-23-33.png"><img style="width:909px" src="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-23-33.png"/></a></figure><p id="f87400e9-ef31-4437-b44c-be560150d1f0" class="">
+</p><p id="25a4f4f7-7b2d-4f85-88c4-3ed8ccef6508" class="">ou a <strong>MELHOR FORMA, </strong>ir em <strong>Auth</strong>, ao lado de <strong>JSON, e selecionar a opção Bearer Token.</strong></p><figure id="efb4e062-7553-474d-8692-fce3fd0b1637" class="image"><a href="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-27-09.png"><img style="width:907px" src="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-27-09.png"/></a></figure><p id="feb348d7-0af1-4447-ad3d-daa84e0ea15c" class="">
+</p><p id="c39d1e81-e80b-4f63-a33b-9f5824cccb25" class="">E para facilitar ir no SubEnviroments e deixar:</p><pre id="5a5c9a10-7923-41a5-bfea-85a51b8710ff" class="code"><code>{
+  &quot;base_url&quot;: &quot;http://localhost:3333&quot;,
+  &quot;token&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1ODcxNDM2NDksImV4cCI6MTU4NzIzMDA0OSwic3ViIjoiNjljNjU3NDUtMzljNy00ZTUxLWFlMzQtNTU5ZjRjMTE1YWU5In0.al7wsZjIfIGscd41UEH335uN2T0SUfx4ZpKh7FmQyLY&quot;
+}</code></pre><p id="cbf8a658-343a-4f2f-a532-02b361205cdf" class="">
+</p><p id="9d24fcce-d1aa-4d5a-9a0e-c3f0237650e8" class="">Ctrl + Espaço</p><figure id="19615516-52ce-429e-a6fb-c916a9ae8f03" class="image"><a href="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-29-39.png"><img style="width:905px" src="Rotas%20autenticadas/Captura_de_tela_de_2020-04-17_14-29-39.png"/></a></figure><p id="621abb93-8dd1-4fe7-86a7-426c76a14da2" class="">
+</p><h1 id="44c9de8d-a87a-4f82-83d9-ce2e2c61183c" class="">Enviar o Token nas rotas de appointments, List e Create</h1><p id="f0abc760-da1b-4a74-bb77-a6f72137d314" class="">
+</p><hr id="723acd55-d650-49ec-b5c9-7f842f12b926"/><p id="a8cfd2b8-567d-4f33-8bcd-47d78086c764" class="">
+</p><p id="0e2bb8b0-2d66-4e15-bb87-a78401503af2" class="">Na <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-blue"><code><strong>config</strong></code></mark> e dentro o arquivo <strong><code><mark class="highlight-blue">auth.ts</mark></code></strong>. Vou colocar as informações do secret e do expiresIn.</p><p id="18fe873b-d726-4059-9f4b-77fa1b47938e" class="">
+</p><p id="e65409cb-9201-4b58-bb43-2ead9933dd44" class=""><mark class="highlight-blue"><strong><code>auth.ts</code></strong></mark></p><pre id="1885bbcf-ff7f-4eba-8c4a-753662bcd496" class="code"><code>export default {
+  jwt: {
+    secret: &#x27;54f15c68e0c65c99a450c519379e4b73&#x27;,
+    expiresIn: &#x27;1d&#x27;,
+  },
+};</code></pre><p id="74d52d85-3218-4a87-8010-2dc8f035c0a3" class="">
+</p><p id="e46d1007-e8f1-4ebc-b7eb-d42a9571f156" class="">Depois trocar no arquivo de <strong><code><mark class="highlight-blue">AuthenticateUserService.ts</mark></code></strong></p><pre id="188e5865-09b9-417d-9b25-7bc803685e2a" class="code"><code>import authConfig from &#x27;../config/auth&#x27;;
+
+const { secret, expiresIn } = authConfig.jwt;
+
+const token = sign({}, secret, {
+  subject: user.id, // Id do usuario que gerou esse token
+  expiresIn, // Quanto tempo o token vai durar
+});</code></pre><p id="97c80bec-f511-48b7-81b2-c8ac44c19cb2" class="">
+</p><p id="bfbfe058-904b-449e-84e0-11cfa286d93f" class="">Na pasta <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar uma pasta chamada <mark class="highlight-purple"><strong><code>middlewares</code></strong></mark> e dentro o arquivo <mark class="highlight-blue"><strong><code>ensureAuthenticated.ts</code></strong></mark> - Vai verificar se o usuário esta realmente autenticado na aplicação</p><p id="9125725d-6a2c-4ae1-a783-2963ed8f78ab" class="">
+</p><p id="8ab2855c-7e23-4f77-8a32-4d9b392d5472" class=""><mark class="highlight-blue"><strong><code>ensureAuthenticated.ts</code></strong></mark></p><pre id="8b8d1af0-4d9a-4581-89ca-308645648e23" class="code"><code>import { Request, Response, NextFunction } from &#x27;express&#x27;;
+import { verify } from &#x27;jsonwebtoken&#x27;;
+
+import authConfig from &#x27;../config/auth&#x27;;
+
+// Se for validado/autenticado vai chamar o next
+export default function ensureAuthenticated(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+): void {
+  // Validacao do token JWT
+
+  const authHeader = request.headers.authorization;
+
+  if (!authHeader) {
+    throw new Error(&#x27;JWT token is missing&#x27;);
+  }
+
+  // Bearer aodkaowjTOKEN
+  // Vai dividir pelo espaco
+  const [, token] = authHeader.split(&#x27; &#x27;);
+
+  try {
+    // token, e o segundo parametro vai ser o secret. Vou abstrair em um arquivo na pasta config no arquivo auth.ts
+    const decoded = verify(token, authConfig.jwt.secret);
+
+    console.log(decoded);
+
+    // Se estiver com o jwt autenticado/correto, pode continuar usando a aplicacao.
+    return next();
+  } catch {
+    // Se nao estiver autenticado
+    throw new Error(&#x27;Invalid JWT token&#x27;);
+  }
+}</code></pre><p id="e700d158-daaa-4580-acbf-6357d3d24561" class="">
+</p><p id="cfbc6b1e-52e8-41b1-af24-1dc0a95641be" class="">
+</p><p id="5235bb09-2f40-4c49-ab2a-e326bfba5bdf" class="">Importar o <mark class="highlight-blue"><strong><code>ensureAuthenticated.ts</code></strong></mark>  na rota de appointments, e aplicar para todas as rotas.</p><p id="f9bd2df2-5d59-4422-a96c-914b073e7527" class="">
+</p><p id="25c584f2-0f6a-476b-a8a3-3f556c890a6c" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="8128c511-8e19-4107-a405-808585e18eb5" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+<strong>import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;</strong>
+
+const appointmentsRouter = Router();
+
+<strong>// Vai aplicar o middleware em todas as rotas
+appointmentsRouter.use(ensureAuthenticated);</strong></code></pre><p id="e93e067d-31a7-4ab1-9f02-6a95e283cbb2" class="">
+</p><p id="46213ce9-b7ce-44da-80e8-eddd63997686" class="">E ir no <mark class="highlight-purple"><strong>Insomnia</strong></mark> e testar, desabilitando o Bearer, e depois escrevendo um token não valido.</p><p id="ebdc64bd-2aee-44bd-8cdc-9354665c1cd5" class="">
+</p><p id="4b1b599b-cb1f-4a98-9126-001fb55cbaaf" class="">Preview: <strong><mark class="highlight-red_background">E vai dar o erro 500</mark></strong></p><pre id="5165a6ad-b27b-498d-85f2-0e7ce4b7c03c" class="code"><code>Error: JWT token is missing
+
+Error: Invalid JWT token</code></pre><p id="47b73ace-d35a-45d7-bf41-cebbd4866495" class="">
+</p><hr id="8969d7b8-5316-42b2-929a-dec611b79f4b"/><p id="22e4eccc-1ef4-409d-a68e-a7d7152bf4fd" class="">
+</p><p id="2fbf374c-2e22-44d2-8048-905acd691351" class="">Fazer hackezinho para <strong>sobrescrever</strong> tipos de uma biblioteca</p><p id="6d434bed-d071-4c48-a764-44de1acec928" class="">
+Na <mark class="highlight-teal"><code><strong>src</strong></code></mark> criar a pasta <mark class="highlight-blue"><strong><code>@types</code></strong></mark> e dentro o arquivo <mark class="highlight-blue"><strong><code>express.d.ts</code></strong></mark></p><p id="f584bbd6-38de-49b3-aefd-3695e92ef342" class="">Definicao de tipos do express</p><p id="724ce2f4-1f57-4413-aaa9-301cc587e68a" class="">
+</p><p id="0265dfc3-779b-4121-911f-7a4bd70060c6" class=""><strong><code><mark class="highlight-blue">express.d.ts</mark></code></strong></p><pre id="d5990364-c366-4945-a9e6-de5991f63426" class="code"><code>declare namespace Express {
+  export interface Request {
+    user: {
+      id: string;
+    };
+  }
+}</code></pre><p id="51e9ac4f-3493-42c5-9069-fbab3b3f983e" class="">
+</p><p id="250ffecc-7e99-414b-9b59-44e7ed195277" class="">Incluir o <strong>sub / subject / informações</strong> do id do usuário nas próximas requisições que vierem a partir desse middleware. Assim ele vai ficar persistido na aplicação.</p><p id="ff31d7a5-ad0c-42be-826c-2a77b3238b07" class="">
+</p><p id="4bbb0e74-259c-41f6-8442-edfe9b335a85" class=""><strong><code><mark class="highlight-blue">ensureAuthenticated.ts</mark></code></strong></p><pre id="346773da-4da5-44ad-9824-204f729c8b3b" class="code"><code>import { Request, Response, NextFunction } from &#x27;express&#x27;;
+import { verify } from &#x27;jsonwebtoken&#x27;;
+
+import authConfig from &#x27;../config/auth&#x27;;
+
+interface TokenPayload {
+  iat: number;
+  exp: number;
+  sub: string;
+}
+
+// Se for validado/autenticado vai chamar o next
+export default function ensureAuthenticated(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+): void {
+  // Validacao do token JWT
+  const authHeader = request.headers.authorization;
+
+  if (!authHeader) {
+    throw new Error(&#x27;JWT token is missing&#x27;);
+  }
+
+  // Bearer aodkaowjTOKEN
+  // Vai dividir pelo espaco
+  const [, token] = authHeader.split(&#x27; &#x27;);
+
+  try {
+    // token, e o segundo parametro vai ser o secret. Vou abstrair em um arquivo na pasta config no arquivo auth.ts
+    const decoded = verify(token, authConfig.jwt.secret);
+
+    // Forcar um tipo de uma variavel com &quot;as&quot; - Hackzinho do TypeScript
+    const { sub } = decoded as TokenPayload;
+
+    // Fazer outro hackezinho pra sobrescreve tipos de uma biblioteca. @types/express.d.ts
+    request.user = {
+      id: sub,
+    };
+
+    // Se estiver com o jwt autenticado/correto, pode continuar usando a aplicacao.
+    return next();
+  } catch {
+    // Se nao estiver autenticado
+    throw new Error(&#x27;Invalid JWT token&#x27;);
+  }
+}</code></pre><p id="7c6c6bc1-2f02-4650-8add-9551876ec519" class="">
+</p><p id="cd885f4a-53d8-4eaf-a8bc-f027b8c5fd09" class=""><mark class="highlight-blue"><strong><code>appointments.routes.ts</code></strong></mark></p><pre id="a5eadf41-b9c5-4f33-900f-00cbbeabce29" class="code"><code>import { Router } from &#x27;express&#x27;;
+import { getCustomRepository } from &#x27;typeorm&#x27;;
+import { parseISO } from &#x27;date-fns&#x27;;
+
+import AppointmentsRepository from &#x27;../repositories/AppointmentsRepository&#x27;;
+import CreateAppointmentService from &#x27;../services/CreateAppointmentService&#x27;;
+
+import ensureAuthenticated from &#x27;../middlewares/ensureAuthenticated&#x27;;
+
+const appointmentsRouter = Router();
+
+// Vai aplicar o middleware em todas as rotas
+appointmentsRouter.use(ensureAuthenticated);
+
+// Rota: Receber a requisicao, chamar outro arquivo, devolver uma resposta
+
+appointmentsRouter.get(&#x27;/&#x27;, async (request, response) =&gt; {
+  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+  const appointments = await appointmentsRepository.find();
+
+  return response.json(appointments);
+});
+
+appointmentsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { provider_id, date } = request.body;
+
+    // Tranformar a data no tipo date do Javascript
+    const parsedDate = parseISO(date);
+
+    const createAppoinment = new CreateAppointmentService();
+
+    const appointment = await createAppoinment.execute({
+      date: parsedDate,
+      provider_id,
+    });
+
+    return response.json(appointment);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default appointmentsRouter;</code></pre><p id="cfbc0248-41ad-4d22-aad4-d95fea1cefb7" class="">
+</p></div></article></body></html>

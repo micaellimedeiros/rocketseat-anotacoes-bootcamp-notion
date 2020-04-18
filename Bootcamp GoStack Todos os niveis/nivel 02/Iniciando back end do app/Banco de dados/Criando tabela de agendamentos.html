@@ -678,16 +678,25 @@ export default class CreateAppointments1587058689907
             type: &#x27;varchar&#x27;,
             isPrimary: true,
             generationStrategy: &#x27;uuid&#x27;,
+            default: &#x27;uuid_generate_v4()&#x27;,
           },
           {
             name: &#x27;provider&#x27;,
             type: &#x27;varchar&#x27;,
-            isNullable: false,
           },
           {
             name: &#x27;date&#x27;,
             type: &#x27;timestamp with time zone&#x27;,
-            isNullable: false,
+          },
+          {
+            name: &#x27;created_at&#x27;,
+            type: &#x27;timestamp&#x27;,
+            default: &#x27;now()&#x27;,
+          },
+          {
+            name: &#x27;updated_at&#x27;,
+            type: &#x27;timestamp&#x27;,
+            default: &#x27;now()&#x27;,
           },
         ],
       }),

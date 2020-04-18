@@ -619,4 +619,85 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="4a859e19-2cc8-4efe-be24-8c1ab6b3c7d9" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💃</span></div><h1 class="page-title">Model e migration de usuários</h1></header><div class="page-body"><p id="625fe831-0baf-49f4-838a-0b13558406f8" class="">Criar a migration de usuarios</p><pre id="925ffabc-9d1e-4634-b33d-664880bc1f55" class="code"><code>yarn</code></pre></div></article></body></html>
+</style></head><body><article id="4a859e19-2cc8-4efe-be24-8c1ab6b3c7d9" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💃</span></div><h1 class="page-title">Model e migration de usuários</h1></header><div class="page-body"><p id="625fe831-0baf-49f4-838a-0b13558406f8" class="">Criar a migration de usuarios</p><pre id="925ffabc-9d1e-4634-b33d-664880bc1f55" class="code"><code>yarn typeorm migration:create -n CreateUsers</code></pre><p id="14435417-3a4e-469f-8329-8bc1dbaee246" class="">
+</p><p id="9c4785e4-da11-4307-be79-e94790b99f24" class=""><strong>isNullable</strong> eh falso por padrão</p><p id="b3d9fb1a-5596-4888-9083-8b3cc715ed13" class="">
+</p><p id="1507c56d-a630-44b7-953d-be7fd43b1d16" class="">Editar a migration de Criacao de usuario</p><p id="43e1a4e0-0d06-45f0-aae2-93ae5f39aad6" class="">
+</p><p id="3d8026a5-eeb1-4a0c-b564-d840bc2e9076" class="">migrations/CreateUsers</p><pre id="33bd1b55-b28b-4b2f-b776-40955113d38e" class="code"><code>import { MigrationInterface, QueryRunner, Table } from &#x27;typeorm&#x27;;
+
+export default class CreateUsers1587070823345 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.createTable(
+      new Table({
+        name: &#x27;users&#x27;,
+        columns: [
+          {
+            name: &#x27;id&#x27;,
+            type: &#x27;varchar&#x27;,
+            isPrimary: true,
+            generationStrategy: &#x27;uuid&#x27;,
+            default: &#x27;uuid_generate_v4()&#x27;,
+          },
+          {
+            name: &#x27;name&#x27;,
+            type: &#x27;varchar&#x27;,
+          },
+          {
+            name: &#x27;email&#x27;,
+            type: &#x27;varchar&#x27;,
+            isUnique: true,
+          },
+          {
+            name: &#x27;password&#x27;,
+            type: &#x27;varchar&#x27;,
+          },
+          {
+            name: &#x27;created_at&#x27;,
+            type: &#x27;timestamp&#x27;,
+            default: &#x27;now()&#x27;,
+          },
+          {
+            name: &#x27;updated_at&#x27;,
+            type: &#x27;timestamp&#x27;,
+            default: &#x27;now()&#x27;,
+          },
+        ],
+      }),
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise&lt;void&gt; {
+    await queryRunner.dropTable(&#x27;users&#x27;);
+  }
+}</code></pre><p id="199f1efa-b4d5-4cc2-873b-6f8fa0802868" class="">
+</p><p id="5ff1a8f1-448f-4266-862d-f4204d6cf4c8" class="">E rodar a migration</p><pre id="4b0ae6dc-63a0-4a27-8373-1fd9a2209b25" class="code"><code>yarn typeorm migration:run</code></pre><p id="751ce07f-a1fb-4265-8761-e74a8170e3b8" class="">
+</p><hr id="07d93524-3c3b-40ec-8b2f-9bf3ac76dd05"/><p id="ed8222fc-f0e0-4adb-997f-e61227a1f6e3" class="">
+</p><h1 id="6a682f46-a211-4d70-8987-442ea5b0148f" class="">Criar o model de Users</h1><p id="d45cdf88-2a9f-43ef-8535-e4dbd213dc67" class="">Na pasta <strong><code>models</code></strong> criar o arquivo User.ts</p><pre id="eb2a5817-c1bd-43d0-be50-84abfe38538d" class="code"><code>import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from &#x27;typeorm&#x27;;
+
+@Entity(&#x27;users&#x27;)
+class User {
+  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
+  id: string;
+
+  @Column()
+  name: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+}
+
+export default User;</code></pre></div></article></body></html>

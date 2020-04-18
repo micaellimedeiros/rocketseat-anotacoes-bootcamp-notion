@@ -622,7 +622,13 @@ blockquote {
 </style></head><body><article id="ac716ae7-39db-40d0-a597-91cc87712d7e" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💃</span></div><h1 class="page-title">Criando model de agendamento</h1></header><div class="page-body"><p id="da7374e5-594b-4611-bd38-6f681150788b" class="">Entity, um model que vai ser salvo no banco de dados</p><p id="b3722ed6-5e61-4ba1-b22c-012ea285ff21" class="">
 </p><p id="145e87cd-3f2a-41e3-87c2-31e6bacd4e79" class="">No <mark class="highlight-orange"><strong><code>tsconfig.json</code></strong></mark>, descomentar: Funcionalidade do <mark class="highlight-blue"><strong>TypeScript</strong></mark> para usar o <strong>@</strong></p><pre id="7b54282e-e272-43d3-a710-6b58af11c90e" class="code"><code>&quot;experimentalDecorators&quot;: true /* Enables experimental support for ES7 decorators. */,
 &quot;emitDecoratorMetadata&quot;: true /* Enables experimental support for emitting type metadata for decorators. */,</code></pre><p id="834eb9ba-ccea-4b53-99ce-7727de85342e" class="">
-</p><p id="d205d9df-9868-4b1a-8e0e-a716c89df429" class="">No model de Appointment</p><p id="2fe3b024-d681-4962-a000-b19636e2389b" class=""><mark class="highlight-blue"><strong><code>models/Appointments.ts</code></strong></mark></p><pre id="d9a94d93-4c60-4719-b40d-167a4d138796" class="code"><code>import { Entity, Column, PrimaryGeneratedColumn } from &#x27;typeorm&#x27;;
+</p><p id="d205d9df-9868-4b1a-8e0e-a716c89df429" class="">No model de Appointment</p><p id="2fe3b024-d681-4962-a000-b19636e2389b" class=""><mark class="highlight-blue"><strong><code>models/Appointments.ts</code></strong></mark></p><pre id="d9a94d93-4c60-4719-b40d-167a4d138796" class="code"><code>import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from &#x27;typeorm&#x27;;
 
 // O Entity pega esse model, toda vez que ele for salvo
 // Vai ser armazenado dentro da tabela de appointments
@@ -636,6 +642,12 @@ class Appointment {
 
   @Column(&#x27;timestamp with time zone&#x27;)
   date: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Appointment;</code></pre><p id="6aadfb4f-d9c1-45b4-9ede-6e665169f2d0" class="">

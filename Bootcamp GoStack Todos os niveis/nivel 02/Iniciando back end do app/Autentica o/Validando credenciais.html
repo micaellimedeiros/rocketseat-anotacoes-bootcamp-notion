@@ -619,4 +619,167 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="c59af231-69d2-4a3c-9cad-e63596784f53" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">✔️</span></div><h1 class="page-title">Validando credenciais</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="c59af231-69d2-4a3c-9cad-e63596784f53" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">✔️</span></div><h1 class="page-title">Validando credenciais</h1></header><div class="page-body"><p id="5919d240-a4ba-438c-9f32-8f7edf1e6195" class="">Na pasta <mark class="highlight-teal"><code><strong>routes</strong></code></mark> criar o arquivo <mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark></p><p id="74322ec8-3b8f-43d9-a5f7-860694bc2038" class="">
+</p><p id="941fe76e-a210-4031-b92a-faa9579f309f" class="">EXEMPLO DO COMEÇO DE UMA NOVA ROTA COM TUDO!</p><p id="e7c3566c-0e7f-45d0-be85-6374f47e20ff" class="">
+</p><p id="8ea2708d-8771-4da7-871a-e9244096ffb8" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark></p><pre id="bc244541-591e-496b-9827-65b8e14399a4" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    return response.json({ ok: true });
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default sessionsRouter;</code></pre><p id="e7b4b2b7-196b-4b2a-b21b-c67cc9659127" class="">
+</p><p id="a143aae4-32ac-4fff-a5a2-39cd5237b15b" class="">Importar a <mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark> no <mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><p id="718820a0-9004-4e4e-82ee-0cc30f52facb" class="">
+</p><p id="90baeb6d-91d9-4fce-8115-8fb1e05d085b" class=""><mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><pre id="e2cee71b-28a7-4306-895c-81d381f184bb" class="code"><code>import { Router } from &#x27;express&#x27;;
+import appointmentsRouter from &#x27;./appointments.routes&#x27;;
+import usersRouter from &#x27;./users.routes&#x27;;
+import sessionsRouter from &#x27;./sessions.routes&#x27;;
+
+const routes = Router();
+
+routes.use(&#x27;/appointments&#x27;, appointmentsRouter);
+routes.use(&#x27;/users&#x27;, usersRouter);
+routes.use(&#x27;/sessions&#x27;, sessionsRouter);
+
+export default routes;</code></pre><p id="e25b71e0-a516-45fa-963a-61c912d96c64" class="">
+</p><hr id="31c2c769-1a88-48b5-ad26-e4bc25150759"/><p id="310e8486-7f47-4b60-9f6a-6ecea6ea2cba" class="">
+</p><p id="c58c8387-3aa3-4a70-aff8-4357e614cadd" class="">Como vai ter uma regra de negocio, preciso criar um service para verificar se o e-mail existe, verificar se a senhas batem, gerar o token JWT</p><p id="16c7c05d-0930-41b3-b78e-721747444b1b" class="">
+</p><p id="f443df1f-f530-4dd0-9da3-3b5fbf6ec095" class="">Na pastar <mark class="highlight-yellow"><strong><code>services</code></strong></mark> criar o arquivo <mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark></p><p id="0cc96c89-5e37-4755-9955-72c839450929" class="">
+</p><p id="6cae5957-69d7-4ffe-840c-96459de52b7e" class=""><mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark></p><pre id="dcbdfba1-d75a-4c3e-802a-ee3cbec447c1" class="code"><code>interface Request {
+  email: string;
+  password: string;
+}
+
+class AuthenticateUserService {
+  public async execute({ email, password }: Request): Promise&lt;void&gt; {}
+}
+
+export default AuthenticateUserService;</code></pre><p id="d3f15582-e291-4bf7-ad60-ad8e91953d30" class="">
+</p><p id="7760e93b-18ee-424c-b36d-bdc655383eb2" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark><mark class="highlight-blue"><strong> - </strong></mark>Importar o <strong>AuthenticateUserService</strong></p><pre id="0f14058a-5d6a-4225-a007-5cc10ee6281e" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+<strong>import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;</strong>
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { email, password } = request.body;
+
+    // Criar um service para fazer as regras de negocio
+    <strong>const authenticateUser = new AuthenticateUserService();
+
+    await authenticateUser.execute({
+      email,
+      password,
+    });</strong>
+
+    return response.json({ ok: true });
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default sessionsRouter;</code></pre><p id="036ebb05-c945-4af2-ac9b-0c80bd4e1fec" class="">
+</p><hr id="65011923-4ea4-4002-88a0-6dee90c64473"/><p id="a2bae25e-b3cd-4f10-a7cb-30f312ada317" class="">
+</p><p id="203cf224-29ae-4ca7-bbf9-5107a1b39aa8" class=""><mark class="highlight-blue"><strong><code>AuthenticateUserService.ts</code></strong></mark></p><pre id="1dcbac96-defb-4d44-bb9a-f6a3a496c5b4" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+import { compare } from &#x27;bcryptjs&#x27;;
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  email: string;
+  password: string;
+}
+
+interface Response {
+  user: User;
+}
+
+class AuthenticateUserService {
+  public async execute({ email, password }: Request): Promise&lt;Response&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verificar se existe o email na base de dados.
+    const user = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se nao existir o email, dar ERRO.
+    if (!user) {
+      throw new Error(&#x27;Incorrect email/password combination&#x27;);
+    }
+
+    // user.password - Senha criptografada
+    // password - Senha nao criptografada
+
+    // Vai comparar se a senha digitada e criptografada sao iguais.
+    const passwordMatched = await compare(password, user.password);
+
+    if (!passwordMatched) {
+      throw new Error(&#x27;Incorrect email/password combination&#x27;);
+    }
+
+    // Usuario autenticado
+
+    return {
+      user,
+    };
+  }
+}
+
+export default AuthenticateUserService;</code></pre><p id="ab6c40d4-61a5-460c-8b40-0042eab01390" class="">
+</p><p id="06bb51c3-a9bf-4ba4-b3e8-4a67c0cb5aa8" class=""><mark class="highlight-blue"><strong><code>sessions.routes.ts</code></strong></mark> - Agora pegar o user e retorna-lo</p><pre id="081d126a-e59a-4198-9862-c0635340653e" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import AuthenticateUserService from &#x27;../services/AuthenticateUserService&#x27;;
+
+const sessionsRouter = Router();
+
+sessionsRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { email, password } = request.body;
+
+    // Criar um service para fazer as regras de negocio
+    const authenticateUser = new AuthenticateUserService();
+
+    <strong>const { user }</strong> = await authenticateUser.execute({
+      email,
+      password,
+    });
+
+    <strong>// Nao mostrar a senha no return de user.
+    delete user.password;</strong>
+
+    <strong>return response.json({ user });</strong>
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default sessionsRouter;</code></pre><p id="8fde8d34-0bf4-47d2-8a43-78a6d757aa4f" class="">
+</p><p id="ce44beed-e500-4958-9a2c-a03822eacb5b" class="">Rodar o servidor</p><p id="083cac3d-6732-472d-9058-465ddd675cea" class="">
+</p><p id="36f3443c-cea5-48e4-8b11-9bae00d5d471" class="">E no Insomnia criar uma pasta chamada Sessions e dentro criar uma rota POST chamada Create.</p><p id="8ec7359b-9156-490c-bb35-5c92e3e52e7b" class="">
+</p><p id="c3dc3626-020f-4083-b13a-a668fd522fbe" class="">Session - POST - Create - {{ base_url }}/sessions</p><p id="9efe6b67-106b-48e4-8478-3c0f8d3703b7" class="">
+</p><p id="f9c089e1-f46e-419c-a043-43d1ba991f89" class="">JSON:</p><pre id="823c0655-0425-4239-82cc-a2b5cf4f4876" class="code"><code>{
+	&quot;email&quot;: &quot;diego@rocketseat.com.br&quot;,
+	&quot;password&quot;: &quot;123456&quot;
+}</code></pre><p id="99cc800a-e8d1-427c-8fe3-ac9f243d90ef" class="">
+</p><p id="79f65692-2097-41ae-af3f-632c616d7e09" class="">Preview:</p><pre id="2f7ae484-965a-4780-82da-2974f6715175" class="code"><code>{
+  &quot;user&quot;: {
+    &quot;id&quot;: &quot;69c65745-39c7-4e51-ae34-559f4c115ae9&quot;,
+    &quot;name&quot;: &quot;Diego Fernandes&quot;,
+    &quot;email&quot;: &quot;diego@rocketseat.com.br&quot;,
+    &quot;created_at&quot;: &quot;2020-04-17T17:23:57.283Z&quot;,
+    &quot;updated_at&quot;: &quot;2020-04-17T17:23:57.283Z&quot;
+  }
+}</code></pre><p id="6f661838-bc49-45b1-a182-80846ea073aa" class="">
+</p><hr id="3f1efd8d-a54b-47f7-a81f-5ffc4d3d8207"/><p id="765f25c1-532e-4af6-a6e6-411b515431f7" class="">
+</p><p id="1cc05449-81d3-43fd-b887-0e1194209555" class="">Se mandar o e-mail ou a password invalidar dará ERRO:</p><p id="7f44e3b1-dd56-4e07-80e2-966a9de2043e" class="">
+</p><p id="ebdb2a4a-60b4-4b49-ad40-b9d85133bb3f" class="">Preview:</p><pre id="262a6e24-7854-4b09-b3b5-283b782a8c68" class="code"><code>{
+  &quot;error&quot;: &quot;Incorrect email/password combination&quot;
+}</code></pre><p id="d4e5cba7-25c9-4c80-8c8d-68440a651fcc" class="">
+</p></div></article></body></html>

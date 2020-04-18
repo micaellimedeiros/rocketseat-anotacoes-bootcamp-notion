@@ -619,4 +619,117 @@ blockquote {
 	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
 }
 	
-</style></head><body><article id="173ef111-b820-4a03-8b9d-0f3de1fe7df6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔑</span></div><h1 class="page-title">Criptografia de senha</h1></header><div class="page-body"></div></article></body></html>
+</style></head><body><article id="173ef111-b820-4a03-8b9d-0f3de1fe7df6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🔑</span></div><h1 class="page-title">Criptografia de senha</h1></header><div class="page-body"><p id="64bbfc60-3923-4d5b-a950-8a33ad785b15" class="">Dentro do <mark class="highlight-blue"><strong><code>CreateUserService.ts</code></strong></mark> fazer o hash da senha na hora que for criar o usuário</p><p id="b15f0f1f-a87c-4136-9e5f-fe914a5077ac" class="">
+</p><p id="9e932a24-3255-4b67-be43-edb78427eec1" class="">Instalar o <strong>bcrypt</strong></p><pre id="fa22c53f-74d2-4f30-aa75-c84ae83f516e" class="code"><code>yarn add bcryptjs
+
+yarn add -D @types/bcryptjs</code></pre><p id="a568e69e-fde0-4e94-b0f5-70807386e94c" class="">
+</p><p id="a5653906-55fb-42be-b58d-596d50bbb352" class="">
+</p><pre id="4e629992-d1eb-42ac-985e-f73d5fbd11e4" class="code"><code>import { getRepository } from &#x27;typeorm&#x27;;
+<strong>import { hash } from &#x27;bcryptjs&#x27;;</strong>
+
+import User from &#x27;../models/User&#x27;;
+
+interface Request {
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Se for usar os metodos padroes do TypeORM(create,update), nao precisar criar um metodo adicional(findByDate), nao preciso de repositorio, apenas usar o getRepository do TypeORM
+class CreateUserService {
+  public async execute({ name, email, password }: Request): Promise&lt;User&gt; {
+    const usersRepository = getRepository(User);
+
+    // Verifica se existe um usuario com um email ja criado
+    const checkUserExists = await usersRepository.findOne({
+      where: { email },
+    });
+
+    // Se existir, dar ERRO
+    if (checkUserExists) {
+      throw new Error(&#x27;Email address already used.&#x27;);
+    }
+
+    <strong>// Cria a hash no password
+    const hashedPassword = await hash(password, 8);</strong>
+
+    // Criar uma instacia para salvar no banco
+    const user = usersRepository.create({
+      name,
+      email,
+      <strong>password: hashedPassword,</strong>
+    });
+
+    // Salvando o usuario no banco de dados
+    await usersRepository.save(user);
+
+    return user;
+  }
+}
+
+export default CreateUserService;</code></pre><p id="e361cca7-52bf-4460-92a0-a6d966802289" class="">
+</p><p id="4ec5325d-9e6d-4bbd-95b4-05b418ebdcae" class="">Restartar o servidor:</p><pre id="ab624fa6-ea19-4f09-a7a1-33a453563829" class="code"><code>yarn dev:server</code></pre><p id="d3ee4298-8b9a-4b44-abf2-b0f5f5708c3c" class="">
+</p><p id="d5c00700-2a80-4600-93a1-cb8678cbd03a" class="">E Criar um novo usuario no <mark class="highlight-purple"><strong>Insomnia</strong></mark></p><p id="0a56b6ed-d628-40d6-a387-53f9c8b21851" class="">
+</p><p id="aedb70a2-4210-4b38-8c58-b78ab3f90bf7" class="">JSON:</p><pre id="2b0dfa81-073d-4254-9443-22dcd0be2a44" class="code"><code>{
+	&quot;name&quot;: &quot;Diego Fernandes&quot;,
+	&quot;email&quot;: &quot;diego3@rocketseat.com.br&quot;,
+	&quot;password&quot;: &quot;123456&quot;
+}</code></pre><p id="dbe24794-6ca1-4ca1-bf5d-d7bd2990d4e1" class="">
+</p><p id="96ac1e50-9af3-425b-89d0-3045befb486e" class="">Preview:</p><pre id="9d0d4300-d2dc-4a3d-8541-125cd3d093ce" class="code"><code>{
+  &quot;name&quot;: &quot;Diego Fernandes&quot;,
+  &quot;email&quot;: &quot;diego3@rocketseat.com.br&quot;,
+  &quot;password&quot;: &quot;$2a$08$nnch4F6CHEMdXZrI/eVAo.qg30ukzGEOAjtRm6LVrfZhS47gSThEG&quot;,
+  &quot;id&quot;: &quot;72c8eb23-6d47-4f49-b2a8-66cef630bc90&quot;,
+  &quot;created_at&quot;: &quot;2020-04-17T17:18:12.717Z&quot;,
+  &quot;updated_at&quot;: &quot;2020-04-17T17:18:12.717Z&quot;
+}</code></pre><p id="ec6fa803-f209-4d2b-8869-2ed37e2c610d" class="">
+</p><hr id="630ef4b4-91d8-47dc-9026-d30a85f623f4"/><p id="42c9c938-467f-4669-9e95-cd208ce68d9f" class="">
+</p><p id="c7a91e88-3ebf-4a26-aa88-fa5f7376905d" class="">Para não retornar a senha nesse Preview como forma de segurança. </p><p id="8ba21033-b92b-451a-aa45-a5b4f6da40b0" class="">Ir no <mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark> e deletar o <strong>user.password</strong></p><p id="d4f4d14a-570a-4901-9ced-f62560839eec" class="">
+</p><p id="595badfd-4687-4c7b-b66a-c63ca66d2c6f" class=""><mark class="highlight-blue"><strong><code>users.routes.ts</code></strong></mark></p><pre id="f122264c-640b-47cf-8ca2-c8b004342193" class="code"><code>import { Router } from &#x27;express&#x27;;
+
+import CreateUserService from &#x27;../services/CreateUserService&#x27;;
+
+const usersRouter = Router();
+
+/**
+ * Repositories
+ * Services
+ */
+
+// Se precisa de regra de negocios, preciso criar um SERVICE
+
+usersRouter.post(&#x27;/&#x27;, async (request, response) =&gt; {
+  try {
+    const { name, email, password } = request.body;
+
+    const createUser = new CreateUserService();
+
+    // Passar o name, email e password por parametro para o CreateUserService que estar como &quot;createUser&quot;
+    const user = await createUser.execute({ name, email, password });
+
+    <strong>// Para o password nao aparecer no response.json. COMO FORMA DE SEGURANCA
+    delete user.password;</strong>
+
+    return response.json(user);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default usersRouter;</code></pre><p id="ada5606b-7490-4e09-b0b0-ea998cd007cd" class="">
+</p><p id="eb117bc2-15e5-465b-bc74-ae396270eee2" class="">Restartar o servidor</p><p id="b8c12824-71de-4910-bf09-4fdc75cf1073" class="">
+</p><p id="c2c20848-881b-4520-9efd-16bbc48722ef" class="">JSON:</p><pre id="17210daa-90d3-4b01-9189-71e77c3e626e" class="code"><code>{
+	&quot;name&quot;: &quot;Diego Fernandes&quot;,
+	&quot;email&quot;: &quot;diego4@rocketseat.com.br&quot;,
+	&quot;password&quot;: &quot;123456&quot;
+}</code></pre><p id="c61ff672-f588-420f-bc89-f62e63910008" class="">
+</p><p id="9c1d54b2-d35d-4439-98dd-cb3e55e189e5" class="">Preview: O password não eh retornado</p><pre id="67d5e1bc-a947-4c42-b4ba-4fee96db0784" class="code"><code>{
+  &quot;name&quot;: &quot;Diego Fernandes&quot;,
+  &quot;email&quot;: &quot;diego4@rocketseat.com.br&quot;,
+  &quot;id&quot;: &quot;28e532d9-05bc-48dc-88a0-5c11baaf959d&quot;,
+  &quot;created_at&quot;: &quot;2020-04-17T17:21:54.077Z&quot;,
+  &quot;updated_at&quot;: &quot;2020-04-17T17:21:54.077Z&quot;
+}</code></pre><p id="d948aa24-fed6-44fa-a40b-26e317766d7c" class="">
+</p><hr id="06608afc-b987-4486-a9bd-e51b7ac3b71e"/><p id="d3108d5b-a1d0-48a0-bef3-3c4397fb0622" class="">
+</p><p id="1cdadf1f-c67b-437d-b174-769220111bdb" class="">Apagar os usuários criados e criar um <strong>diego@rocketseat.com.br</strong> normal.</p><p id="a27dd2e5-0996-432f-bdb9-e8e46019b18b" class="">
+</p></div></article></body></html>
