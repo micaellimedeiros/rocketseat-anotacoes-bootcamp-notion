@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Configurando navegação</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="443f6385-364a-4428-a02a-43c88aa58dec" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🧭</span></div><h1 class="page-title">Configurando navegação</h1></header><div class="page-body"><p id="7bece89b-b737-4876-92e0-8f7f21f035fd" class="">Instalar o StyledComponents</p><pre id="44bd0179-be48-4ddc-9712-956688ec4bf4" class="code"><code>yarn add styled-components
+
+yarn add @types/styled-components -D</code></pre><p id="d01eb576-29c1-44d4-ae8a-9cf84f757e31" class="">
+</p><p id="274bdbf3-d74b-4d64-8410-c16e64c0cddb" class="">Criar na <mark class="highlight-teal"><strong><code>src</code></strong></mark> a pasta <strong><code>pages</code></strong> e dentro as pastas <mark class="highlight-gray"><strong><code>SignIn</code></strong></mark> e <mark class="highlight-gray"><strong><code>SignUp</code></strong></mark> e dentro de cada uma um arquivo <mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark><mark class="highlight-blue"><strong> </strong></mark>e<mark class="highlight-blue"><strong> </strong></mark><mark class="highlight-blue"><strong><code>styles.tsx</code></strong></mark>.</p><p id="4ad0b3e5-283a-4daa-a4fd-ebfbf5465f35" class="">
+</p><p id="4d35210f-5e68-48b1-8bc7-7b0721e05142" class=""><mark class="highlight-gray"><strong><code>SignIn</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="ba0cbe25-c2c3-497a-9341-7ae38f6d3d9d" class="code"><code>import React from &#x27;react&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+const SignIn: React.FC = () =&gt; {
+  return &lt;Container /&gt;;
+};
+
+export default SignIn;</code></pre><p id="081b8b2d-8c08-45f9-a139-47f0605969c9" class="">
+</p><p id="6fe9d42d-3ff0-4cc8-8bf8-3e7b54f4c063" class=""><mark class="highlight-gray"><strong><code>SignIn</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.tsx</code></strong></mark></p><pre id="44b5675a-d6a6-4120-8165-d2175746079b" class="code"><code>import styled from &#x27;styled-components/native&#x27;;
+
+export const Container = styled.View``;</code></pre><p id="a7fe1587-3e68-4a29-b615-ef4e248661fd" class="">
+</p><p id="1e976a2d-aa04-4e7d-9143-c5e2bde35470" class="">Fazer o mesmo para o SignUp</p><p id="d57b66c3-ad09-4b19-9383-546b6f0503b9" class="">
+</p><hr id="4c676083-a270-4be9-95e9-6ec3a09ed17b"/><p id="13ac6ec5-2769-4fde-8b8e-4e227b0cfe67" class="">
+</p><p id="8dcd2bb2-37e5-4d82-b1c7-66c97974f9e6" class="">Instalar o React-Navigation</p><pre id="a7f1c6c6-a608-4f16-b2c8-e19b8041d38f" class="code"><code>yarn add @react-navigation/native
+
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+yarn add @react-navigation/stack</code></pre><p id="fcc238fe-a40b-4019-b42a-9badcffac672" class="">
+</p><p id="dd29980c-7241-419a-8c9a-24dee6e7c5e0" class="">No src/App.tsx importar react-native-gesture-handler em primeiro!</p><pre id="df0b5c06-64e5-4eb3-b3f6-e35a80f2d543" class="code"><code>import &#x27;react-native-gesture-handler&#x27;;
+
+import React from &#x27;react&#x27;;
+import { View, StatusBar } from &#x27;react-native&#x27;;
+
+const App: React.FC = () =&gt; (
+  &lt;&gt;
+    &lt;StatusBar barStyle=&quot;light-content&quot; backgroundColor=&quot;#312e38&quot; /&gt;
+    &lt;View style={{ flex: 1, backgroundColor: &#x27;#312e38&#x27; }} /&gt;
+  &lt;/&gt;
+);
+
+export default App;</code></pre><p id="028e9a64-be3c-4192-87b4-218ac4244ab3" class="">
+</p><p id="4b09d9fb-e9b5-4f45-b684-1e1e3ff728c2" class="">Reiniciar o app</p><pre id="69f50171-b575-475a-9a06-e005182d600e" class="code"><code>yarn start
+
+yarn android</code></pre><p id="3c745e25-2b91-4d6b-834c-2ad89ea2af18" class="">
+</p><hr id="9d4cf324-4791-4952-8966-80f6b698ba78"/><p id="83d86c9e-63e8-46a3-9203-449cb281d0c4" class="">
+</p><p id="bfd56500-78b0-482a-a5d4-b56bfde1dacf" class="">Criar na <mark class="highlight-teal"><strong><code>src</code></strong></mark> a pasta <mark class="highlight-teal"><strong><code>routes</code></strong></mark> e dentro o arquivo <mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><p id="87a69408-9cb9-4a41-bedc-779a435c02e4" class="">
+</p><p id="9de03d51-fdd0-4cc3-b6c9-88bfcdb8764b" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="03f7d454-dccc-41c7-8300-852d840d57b9" class="code"><code>import React from &#x27;react&#x27;;
+import { createStackNavigator } from &#x27;@react-navigation/stack&#x27;;
+
+import SignIn from &#x27;../pages/SignIn&#x27;;
+import SignUp from &#x27;../pages/SignUp&#x27;;
+
+const Auth = createStackNavigator();
+
+const AuthRoutes: React.FC = () =&gt; (
+  &lt;Auth.Navigator
+    screenOptions={{
+      headerShown: false, // Nao mostrar o title padrao
+      cardStyle: {
+        backgroundColor: &#x27;#312e38&#x27;, // Background da aplicacao
+      },
+    }}
+  &gt;
+    &lt;Auth.Screen name=&quot;SignIn&quot; component={SignIn} /&gt;
+    &lt;Auth.Screen name=&quot;SignUp&quot; component={SignUp} /&gt;
+  &lt;/Auth.Navigator&gt;
+);
+
+export default AuthRoutes;</code></pre><p id="f5e87772-bd2e-46be-a35a-ae54c97bcfb5" class="">
+</p><p id="55d676f5-d416-4aff-9a89-66c300f140ba" class="">
+</p><p id="6bac59d6-9aff-404b-ac04-843a1427c99b" class="">Voltar no <mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-blue"><strong><code>App.tsx</code></strong></mark><mark class="highlight-blue"><strong> </strong></mark>e importar o routes e colocar o NavigationContainer por volta da aplicacao.</p><p id="b27d2fc4-bd13-4aff-a623-45ffd56bacca" class="">
+</p><p id="d7adc426-2d5a-44a3-be30-e7fc854d1534" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-blue"><strong><code>App.tsx</code></strong></mark></p><pre id="5cd3d491-982f-4cb2-bb09-034c7e32f559" class="code"><code>import &#x27;react-native-gesture-handler&#x27;;
+
+import React from &#x27;react&#x27;;
+import { View, StatusBar } from &#x27;react-native&#x27;;
+import { NavigationContainer } from &#x27;@react-navigation/native&#x27;;
+
+import Routes from &#x27;./routes&#x27;;
+
+const App: React.FC = () =&gt; (
+  &lt;NavigationContainer&gt;
+    &lt;StatusBar barStyle=&quot;light-content&quot; backgroundColor=&quot;#312e38&quot; /&gt;
+    &lt;View style={{ flex: 1, backgroundColor: &#x27;#312e38&#x27; }}&gt;
+      &lt;Routes /&gt;
+    &lt;/View&gt;
+  &lt;/NavigationContainer&gt;
+);
+
+export default App;</code></pre></div></article></body></html>

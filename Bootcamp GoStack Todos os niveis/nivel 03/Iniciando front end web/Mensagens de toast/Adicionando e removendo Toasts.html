@@ -1,0 +1,1143 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Adicionando e removendo Toasts</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="28b58bc0-2e2e-4396-ba00-bcf5bfec0f1b" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💬</span></div><h1 class="page-title">Adicionando e removendo Toasts</h1></header><div class="page-body"><p id="e6278519-b090-49c3-b833-2dbcaf6aca9a" class="">Armazenamento das mensagens de toast</p><p id="eb9cda2d-1345-48bd-897c-e6ae8c43a433" class="">
+</p><p id="61216ffb-27a4-4c9e-b48c-e8e3f1142ddd" class="">Instalar o uuidv4</p><pre id="b17fe70c-27b7-4e4b-8e6d-6d3f9e31541d" class="code"><code>yarn add uuidv4</code></pre><p id="aca8da78-f32d-4527-9c0e-0a810d2486f3" class="">
+</p><p id="2db4ecdd-5c45-4ff7-b9f2-b671ec682238" class=""><mark class="highlight-purple"><strong><code>hooks</code></strong></mark>/<mark class="highlight-blue"><strong><code>toast.tsx</code></strong></mark></p><pre id="4bfa37c8-8904-4945-aa6f-c6d710536cde" class="code"><code>import React, { createContext, useCallback, useContext, <strong>useState</strong> } from &#x27;react&#x27;;
+
+<strong>import { uuid } from &#x27;uuidv4&#x27;;</strong>
+
+import ToastContainer from &#x27;../components/ToastContainer&#x27;;
+
+<strong>export interface ToastMessage {
+  id: string;
+  type?: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;;
+  title: string;
+  description?: string;
+}</strong>
+
+<strong>interface ToastContextData {
+  addToast(message: Omit&lt;ToastMessage, &#x27;id&#x27;&gt;): void;
+  removeToast(): void;
+}</strong>
+
+const ToastContext = createContext&lt;ToastContextData&gt;({} as ToastContextData);
+
+const ToastProvider: React.FC = ({ children }) =&gt; {
+ <strong> const [messages, setMessages] = useState&lt;ToastMessage[]&gt;([]);</strong>
+
+  <strong>const addToast = useCallback(
+    ({ type, title, description }: Omit&lt;ToastMessage, &#x27;id&#x27;&gt;) =&gt; {
+      const id = uuid();
+
+      const toast = {
+        id,
+        type,
+        title,
+        description,
+      };
+
+      setMessages((state) =&gt; [...state, toast]);
+    },
+    [],
+  );</strong>
+
+  const removeToast = useCallback(() =&gt; {
+    console.log(&#x27;removeToast&#x27;);
+  }, []);
+
+  return (
+    &lt;ToastContext.Provider value={{ addToast, removeToast }}&gt;
+      {children}
+      <strong>&lt;ToastContainer messages={messages} /&gt;</strong>
+    &lt;/ToastContext.Provider&gt;
+  );
+};
+
+function useToast(): ToastContextData {
+  const context = useContext(ToastContext);
+
+  if (!context) {
+    throw new Error(&#x27;useToast must be used within a ToastProvider&#x27;);
+  }
+
+  return context;
+}
+
+export { ToastProvider, useToast };</code></pre><p id="89de339f-8501-4b67-99a7-dd49397fba69" class="">
+</p><p id="6720e24a-03c0-409f-b771-e0baa718405d" class=""><mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="c9af70fb-5dc6-4447-a017-887dab5f0b44" class="code"><code>import React from &#x27;react&#x27;;
+import { FiAlertCircle, FiXCircle } from &#x27;react-icons/fi&#x27;;
+
+import { ToastMessage } from &#x27;../../hooks/toast&#x27;;
+import { Container, Toast } from &#x27;./styles&#x27;;
+
+<strong>interface ToastContainerProps {
+  messages: ToastMessage[];
+}</strong>
+
+const ToastContainer: React.FC&lt;<strong>ToastContainerProps</strong>&gt; = ({ <strong>messages</strong> }) =&gt; {
+  return (
+    &lt;Container&gt;
+      <strong>{messages.map((message) =&gt; (
+        &lt;Toast
+          key={message.id}
+          type={message.type}
+          hasDescription={!!message.description}
+        &gt;
+          &lt;FiAlertCircle size={20} /&gt;
+
+          &lt;div&gt;
+            &lt;strong&gt;{message.title}&lt;/strong&gt;
+            {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+          &lt;/div&gt;
+
+          &lt;button type=&quot;button&quot;&gt;
+            &lt;FiXCircle size={18} /&gt;
+          &lt;/button&gt;
+        &lt;/Toast&gt;
+      ))}</strong>
+    &lt;/Container&gt;
+  );
+};
+
+export default ToastContainer;</code></pre><p id="50839724-1513-4496-8b80-c14d9c7c2be5" class="">
+</p><hr id="9aeee8f6-f799-4fcd-b610-f3962971cdf5"/><p id="918cf8c2-7f55-4de5-9362-364489997d39" class="">
+</p><p id="45160a23-fc8c-473d-bac9-cdaa07d3cdbd" class=""><strong>Passar parametro para o addToast, adicionar o toast desta forma</strong></p><pre id="8c0c3663-deb3-42a9-9c24-642f64d3bc24" class="code"><code>addToast({
+  type: &#x27;error&#x27;,
+  title: &#x27;Erro na autenticação&#x27;,
+  description: &#x27;Ocorreu um erro ao fazer login, cheque as credenciais.&#x27;,
+});</code></pre><p id="2b66c9f6-f6af-40fb-9b9d-8b5a7b2f937a" class="">
+</p><p id="c46fc7e4-f282-4351-b54f-1267fbbffb79" class="">Adicionar o <code><strong>return</strong></code> no</p><pre id="928f28f8-b189-4532-a410-d1f1d30b1d13" class="code"><code>if (err instanceof Yup.ValidationError) {
+  const errors = getValidationErrors(err);
+
+  formRef.current?.setErrors(errors);
+
+	return;</code></pre><p id="d4b560ab-e662-4e8d-b13f-0547da0ad331" class="">
+</p><p id="ba741543-5a7d-4e68-ac9d-a46862d6e5e7" class=""><strong><code>pages</code></strong>/<mark class="highlight-gray"><strong><code>SignIn</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="66c7f022-0889-435d-a0b4-ae8ea1cea405" class="code"><code>import React, { useCallback, useRef } from &#x27;react&#x27;;
+import { FiLogIn, FiMail, FiLock } from &#x27;react-icons/fi&#x27;;
+import { FormHandles } from &#x27;@unform/core&#x27;;
+import { Form } from &#x27;@unform/web&#x27;;
+import * as Yup from &#x27;yup&#x27;;
+
+import { useAuth } from &#x27;../../hooks/auth&#x27;;
+import { useToast } from &#x27;../../hooks/toast&#x27;;
+import getValidationErrors from &#x27;../../utils/getValidationErrors&#x27;;
+
+import logo from &#x27;../../assets/logo.svg&#x27;;
+
+import Input from &#x27;../../components/Input&#x27;;
+import Button from &#x27;../../components/Button&#x27;;
+
+import { Container, Content, Background } from &#x27;./styles&#x27;;
+
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
+const SignIn: React.FC = () =&gt; {
+  const formRef = useRef&lt;FormHandles&gt;(null);
+
+  const { user, signIn } = useAuth();
+  const { addToast } = useToast();
+
+  console.log(user);
+
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) =&gt; {
+      try {
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required(&#x27;E-mail obrigatório&#x27;)
+            .email(&#x27;Digite um e-mail válido&#x27;),
+          password: Yup.string().required(&#x27;Senha obrigatória&#x27;),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false, // Para nao parar no primeiro erro
+        });
+
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        //
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+
+          formRef.current?.setErrors(errors);
+
+					return;
+        }
+
+        // Disparar um toast
+        <strong>addToast({
+          type: &#x27;error&#x27;,
+          title: &#x27;Erro na autenticação&#x27;,
+          description: &#x27;Ocorreu um erro ao fazer login, cheque as credenciais.&#x27;,
+        });</strong>
+      }
+    },
+    [signIn, <strong>addToast</strong>],
+  );
+
+  return (
+    &lt;Container&gt;
+      &lt;Content&gt;
+        &lt;img src={logo} alt=&quot;GoBarber&quot; /&gt;
+
+        &lt;Form ref={formRef} onSubmit={handleSubmit}&gt;
+          &lt;h1&gt;Faça seu logon&lt;/h1&gt;
+
+          &lt;Input name=&quot;email&quot; icon={FiMail} placeholder=&quot;E-mail&quot; /&gt;
+
+          &lt;Input
+            name=&quot;password&quot;
+            icon={FiLock}
+            type=&quot;password&quot;
+            placeholder=&quot;Senha&quot;
+          /&gt;
+
+          &lt;Button type=&quot;submit&quot;&gt;Entrar&lt;/Button&gt;
+
+          &lt;a href=&quot;forgot&quot;&gt;Esqueci minha senha&lt;/a&gt;
+        &lt;/Form&gt;
+
+        &lt;a href=&quot;dwa&quot;&gt;
+          &lt;FiLogIn /&gt;
+          Criar conta
+        &lt;/a&gt;
+      &lt;/Content&gt;
+
+      &lt;Background /&gt;
+    &lt;/Container&gt;
+  );
+};
+
+export default SignIn;</code></pre><p id="a6adca3d-5b8b-4dc2-9e75-de194d907561" class="">
+</p><h1 id="e9f0bf27-4eee-471b-af81-017fb8e27a0c" class="">Remove toast</h1><p id="187f7321-e524-48df-84b0-041ba356a4af" class=""><mark class="highlight-purple"><strong><code>hooks</code></strong></mark>/<mark class="highlight-blue"><strong><code>toast.tsx</code></strong></mark></p><pre id="3d58b5ac-8708-4520-bb63-99a20cad8c40" class="code"><code>interface ToastContextData {
+  addToast(message: Omit&lt;ToastMessage, &#x27;id&#x27;&gt;): void;
+  removeToast(id: string): void;
+}
+
+// O removeToast vai receber o id como parametro, la no componente ToastContainer
+  const removeToast = useCallback((id: string) =&gt; {
+    // Vai retornar todas as mensagens que tenha o id diferente do passado pelo parametro. Nao vai retornar a message que tem o mesmo id passado pelo parametro
+    setMessages((state) =&gt; state.filter((message) =&gt; message.id !== id));
+  }, []);</code></pre><p id="8af499ec-da67-4666-a1fa-646a09fc9824" class="">
+</p><p id="7e814cdc-20d8-488d-b0a5-28d7bcdef92b" class="">
+</p><p id="70e95b79-c33f-402c-bd66-907b4a617ce3" class="">No <mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> importar o useToast e usar a funcao removeToast passando o <a href="http://message.id">message.id</a> no parametro</p><p id="130f2bc4-49f5-4ae3-a82f-2a3349674f77" class="">
+</p><p id="01b5fe76-1eb6-4a2b-aec2-2dd465d799e4" class=""><mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="7b5a36ae-4536-44a0-9efd-f306897e9b5d" class="code"><code>import React from &#x27;react&#x27;;
+import { FiAlertCircle, FiXCircle } from &#x27;react-icons/fi&#x27;;
+
+import { ToastMessage, <strong>useToast</strong> } from &#x27;../../hooks/toast&#x27;;
+import { Container, Toast } from &#x27;./styles&#x27;;
+
+interface ToastContainerProps {
+  messages: ToastMessage[];
+}
+
+const ToastContainer: React.FC&lt;ToastContainerProps&gt; = ({ messages }) =&gt; {
+  <strong>// Pegar a funcao de remover o toast e adicionar ao button
+  const { removeToast } = useToast();</strong>
+
+  return (
+    &lt;Container&gt;
+      {messages.map((message) =&gt; (
+        &lt;Toast
+          key={message.id}
+          type={message.type}
+          hasDescription={!!message.description}
+        &gt;
+          &lt;FiAlertCircle size={20} /&gt;
+
+          &lt;div&gt;
+            &lt;strong&gt;{message.title}&lt;/strong&gt;
+            {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+          &lt;/div&gt;
+
+          &lt;button <strong>onClick={() =&gt; removeToast(message.id)}</strong> type=&quot;button&quot;&gt;
+            &lt;FiXCircle size={18} /&gt;
+          &lt;/button&gt;
+        &lt;/Toast&gt;
+      ))}
+    &lt;/Container&gt;
+  );
+};
+
+export default ToastContainer;</code></pre><p id="b2fede51-d450-471b-a886-86726b3eb995" class="">
+</p><p id="b50cf444-92d0-4d13-80f2-0b47e3d4eb85" class="">
+</p><h1 id="a29b3a17-ead7-4196-bf19-4070b5410f0c" class="">Remover o toast depois de alguns segundos</h1><p id="fdabe6ff-17c5-402b-b97a-1924604f2a69" class="">Separar o componente de Toast em outro componente</p><p id="d7686a82-6e8d-4825-93c9-e95b07b60153" class="">Na pasta ToastContainer criar a pasta Toast e dentro os arquivos index.tsx e styles.ts</p><p id="4a7971d4-b3e6-4ec0-81ea-bd7b646a1ece" class="">
+</p><p id="9d644f71-8462-4c22-8fa2-2dcd9f6a6537" class="">Tirar do <mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark> o estilo sobre o Toast! e colocar no <mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><p id="adc2d7da-9831-43d3-a87f-83e1b7fad999" class="">
+</p><p id="bf5d2d57-f338-4f8c-85d0-eff648e4abe8" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><pre id="aacd5260-4dcf-41ea-aedb-69fed9cb6ca8" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+export const Container = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 30px;
+  overflow: hidden;
+`;</code></pre><p id="944b9e13-b84c-4156-9217-ebe4190aaf70" class="">
+</p><hr id="02b78c79-d9ab-407b-9480-f82c329c6a60"/><p id="99558921-968a-401f-987a-23a65b25328a" class="">
+</p><p id="a9521d23-bcd3-4f47-8654-1112ccc3b895" class="">mudar o nome do export const Toast para export const Container e mudar na importarcao do index.tsx tambem.</p><p id="79ce6aa1-a88c-45f4-bee0-661d072a5942" class="">
+</p><p id="fc9cb6d0-223f-40e3-adcb-7ffb23c73e8e" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><pre id="f645e2d6-4ff1-40f9-bed3-a8482928e93b" class="code"><code>import styled, { css } from &#x27;styled-components&#x27;;
+
+interface ContainerProps {
+  type?: &#x27;success&#x27; | &#x27;error&#x27; | &#x27;info&#x27;;
+  hasDescription: boolean;
+}
+
+const toastTypeVariations = {
+  info: css`
+    background: #ebf8ff;
+    color: #3171b7;
+  `,
+
+  success: css`
+    background: #e6fffa;
+    color: #2e656a;
+  `,
+
+  error: css`
+    background: #fddede;
+    color: #c53030;
+  `,
+};
+
+export const Container = styled.div&lt;ContainerProps&gt;`
+  width: 360px;
+
+  position: relative;
+  padding: 16px 30px 16px 16px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+
+  /* Dar um margin-top se tiver um toast em cima do toast */
+  &amp; + div {
+    margin-top: 8px;
+  }
+
+  /* Vai ser success/error OUU o estilo de info */
+  ${(props) =&gt; toastTypeVariations[props.type || &#x27;info&#x27;]}
+
+  &gt; svg {
+    margin: 4px 12px 0 0;
+  }
+
+  div {
+    flex: 1;
+
+    p {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.8;
+      line-height: 20px;
+    }
+  }
+
+  button {
+    position: absolute;
+    right: 16px;
+    top: 19px;
+    opacity: 0.6;
+    border: 0;
+    background: transparent;
+    color: inherit;
+  }
+
+  /* Se nao tiver DESCRICAO */
+  ${(props) =&gt;
+    !props.hasDescription &amp;&amp;
+    css`
+      align-items: center;
+
+      svg {
+        margin-top: 0;
+      }
+    `}
+`;</code></pre><p id="9c2073c2-9b62-47d8-8ea4-411aa3d340ee" class="">
+</p><hr id="1e60ed8e-e636-453f-8cf9-926678f416e8"/><p id="12d2e43b-b691-443f-bf66-f7d2e9ca722e" class="">
+</p><p id="da4381d9-e2a4-4e4f-8dde-b6ff9483b80c" class="">Tirar do <mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> o conteudo de dentro de Toast, do FiAlertCircle ate o button.</p><p id="dac82411-a260-46fc-afc1-5bebe7769b5d" class="">E colocar dentro do arquivo <mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><p id="03d894f2-87cc-4fd5-84ae-78be66e1c306" class="">
+</p><p id="b111eb7b-081c-44dc-b7c1-14829626449c" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="c84836ab-4196-4736-90c7-87c4a6ddb5f3" class="code"><code>&lt;Toast
+  key={message.id}
+  type={message.type}
+  hasDescription={!!message.description}
+&gt;
+  <strong>&lt;FiAlertCircle size={20} /&gt;
+
+  &lt;div&gt;
+    &lt;strong&gt;{message.title}&lt;/strong&gt;
+    {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+  &lt;/div&gt;
+
+  &lt;button onClick={() =&gt; removeToast(message.id)} type=&quot;button&quot;&gt;
+    &lt;FiXCircle size={18} /&gt;
+  &lt;/button&gt;</strong>
+&lt;/Toast&gt;</code></pre><p id="d9e18be1-c9eb-4618-b359-a678744cc042" class="">
+</p><p id="c6108b95-59a1-4f61-8de1-466cfaec99d1" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><pre id="003502b7-2af8-4776-b8e5-7529a335ad5d" class="code"><code>import React from &#x27;react&#x27;;
+
+import { FiAlertCircle, FiXCircle } from &#x27;react-icons/fi&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+const Toast: React.FC = () =&gt; {
+  return (
+    &lt;Container&gt;
+      &lt;FiAlertCircle size={20} /&gt;
+
+      &lt;div&gt;
+        &lt;strong&gt;{message.title}&lt;/strong&gt;
+        {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+      &lt;/div&gt;
+
+      &lt;button onClick={() =&gt; removeToast(message.id)} type=&quot;button&quot;&gt;
+        &lt;FiXCircle size={18} /&gt;
+      &lt;/button&gt;
+    &lt;/Container&gt;
+  );
+};
+
+export default Toast;</code></pre><p id="8ab17ae6-1d4d-4537-ad39-3d1ed861dbea" class="">
+</p><hr id="b5447358-db4a-4fd4-ad3d-e5f840c352b0"/><p id="669bac28-cbe1-471c-b0d0-e1418de6adf0" class="">
+</p><p id="44e4e2a9-11e6-420d-a52b-1d87abf441d0" class="">Transferir importar tudo certinho para o <mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><p id="6151100d-50dc-442f-8477-62287ae963d3" class="">
+</p><p id="cb1c9aa4-96d8-4a7a-b9b8-3b4e80780486" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="83dcf998-e5c6-4868-a85a-5987ed7fb99d" class="code"><code>import React from &#x27;react&#x27;;
+
+import Toast from &#x27;./Toast&#x27;;
+
+import { ToastMessage } from &#x27;../../hooks/toast&#x27;;
+import { Container } from &#x27;./styles&#x27;;
+
+interface ToastContainerProps {
+  messages: ToastMessage[];
+}
+
+const ToastContainer: React.FC&lt;ToastContainerProps&gt; = ({ messages }) =&gt; {
+  return (
+    &lt;Container&gt;
+      {messages.map((message) =&gt; (
+        &lt;Toast key={message.id} message={message} /&gt;
+      ))}
+    &lt;/Container&gt;
+  );
+};
+
+export default ToastContainer;</code></pre><p id="4f647ca1-b94b-4a40-9448-29f1fd2fd1d6" class="">
+</p><p id="d96f18cc-846b-4e73-acfc-5454e0cdece9" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="5e95204e-ade8-44b1-8389-c94c9ea61a45" class="code"><code>import React from &#x27;react&#x27;;
+import { FiAlertCircle, FiXCircle } from &#x27;react-icons/fi&#x27;;
+
+import { useToast, ToastMessage } from &#x27;../../../hooks/toast&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+interface ToastProps {
+  message: ToastMessage;
+}
+
+const Toast: React.FC&lt;ToastProps&gt; = ({ message }) =&gt; {
+  // Pegar a funcao de remover o toast e adicionar ao button
+  const { removeToast } = useToast();
+
+  return (
+    &lt;Container type={message.type} hasDescription={!!message.description}&gt;
+      &lt;FiAlertCircle size={20} /&gt;
+
+      &lt;div&gt;
+        &lt;strong&gt;{message.title}&lt;/strong&gt;
+        {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+      &lt;/div&gt;
+
+      &lt;button onClick={() =&gt; removeToast(message.id)} type=&quot;button&quot;&gt;
+        &lt;FiXCircle size={18} /&gt;
+      &lt;/button&gt;
+    &lt;/Container&gt;
+  );
+};
+
+export default Toast;</code></pre><p id="df2b5f31-3146-49a4-8188-1bcef89f1129" class="">
+</p><hr id="4c36fd12-b152-4678-b3c9-a7f95de057c0"/><p id="379dba7f-5eee-4a90-965e-16686ff4d048" class="">
+</p><p id="e345e125-8b61-4da1-aee4-5c1925c098b4" class="">Adicionando o Icone dependendo do type</p><p id="12553dd0-fe8e-4acc-9234-d7956e1f4786" class="">
+</p><p id="a0eb296c-7961-40dc-9a94-942fbe09e980" class=""><mark class="highlight-gray"><strong><code>ToastContainer</code></strong></mark>/<mark class="highlight-gray"><strong><code>Toast</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="ad0f08b7-98ad-480c-ae09-204b992e5d64" class="code"><code>import React, { useEffect } from &#x27;react&#x27;;
+import {
+  FiAlertCircle,
+  FiCheckCircle,
+  FiInfo,
+  FiXCircle,
+} from &#x27;react-icons/fi&#x27;;
+
+import { useToast, ToastMessage } from &#x27;../../../hooks/toast&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+interface ToastProps {
+  message: ToastMessage;
+}
+
+// Colocar o icone dependendo do type
+const icons = {
+  info: &lt;FiInfo size={24} /&gt;,
+  error: &lt;FiAlertCircle size={24} /&gt;,
+  success: &lt;FiCheckCircle size={24} /&gt;,
+};
+
+const Toast: React.FC&lt;ToastProps&gt; = ({ message }) =&gt; {
+  // Pegar a funcao de remover o toast e adicionar ao button
+  const { removeToast } = useToast();
+
+  useEffect(() =&gt; {
+    const timer = setTimeout(() =&gt; {
+      removeToast(message.id);
+    }, 3000);
+
+    // Vai executar automaticamente se o componente deixar de existir
+    return () =&gt; {
+      clearTimeout(timer);
+    };
+  }, [removeToast, message.id]);
+
+  return (
+    &lt;Container type={message.type} hasDescription={!!message.description}&gt;
+      {icons[message.type || &#x27;info&#x27;]}
+
+      &lt;div&gt;
+        &lt;strong&gt;{message.title}&lt;/strong&gt;
+        {message.description &amp;&amp; &lt;p&gt;{message.description}&lt;/p&gt;}
+      &lt;/div&gt;
+
+      &lt;button onClick={() =&gt; removeToast(message.id)} type=&quot;button&quot;&gt;
+        &lt;FiXCircle size={18} /&gt;
+      &lt;/button&gt;
+    &lt;/Container&gt;
+  );
+};
+
+export default Toast;</code></pre><p id="8ffb05da-1db5-40d2-8770-f697259aaf67" class="">
+</p><p id="6bb5b6b0-9e6d-4b27-b5bf-d046b174d6a2" class="">E mudar no SignIn se o login for succeso, colocar o type do toast como, success, error, info so para testar.</p><p id="5e905441-2f8d-4b7e-8d49-79e16b6afbe5" class="">
+</p><p id="eed565bb-fd5a-435e-b1a2-36b8a3ec6557" class=""><strong><code>pages</code></strong>/<mark class="highlight-gray"><strong><code>SignIn</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.ts</code></strong></mark></p><pre id="5781447c-9186-4199-9267-5d075a633f7d" class="code"><code>addToast({
+  type: &#x27;error&#x27;,
+  title: &#x27;Erro na autenticação&#x27;,
+  description: &#x27;Ocorreu um erro ao fazer login, cheque as credenciais.&#x27;,
+});</code></pre><p id="3ee3522c-c524-4c04-b27f-f529927ccd33" class="">
+</p></div></article></body></html>

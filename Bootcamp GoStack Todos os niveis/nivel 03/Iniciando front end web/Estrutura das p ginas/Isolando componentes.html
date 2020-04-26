@@ -1,0 +1,852 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Isolando componentes</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f9d29084-1092-4c18-86e2-fd92d0097b30" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🧘</span></div><h1 class="page-title">Isolando componentes</h1></header><div class="page-body"><p id="2b708c3a-57c3-4d95-9758-8a15a800ee6a" class="">Fazer componente do Input</p><p id="3374d5aa-4f1d-4d05-88ef-5bd56ea64ec2" class="">
+</p><p id="34ec585e-62f6-4ad6-9c9e-5b6d5b3f7595" class="">Na src criar a pasta components e dentro a pasta Input e Button e cada um dentro um arquivo index.tsx e styles.ts</p><p id="3c1c3091-5902-4d7e-b44a-e40defe60a94" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Input</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> e <mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><p id="016b0776-f0ac-482d-87bf-968ed97c017c" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Button</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> e <mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><p id="8cd50a68-1215-4df7-a13a-03741a8c74cd" class="">
+</p><hr id="c298117f-4d39-407c-b12e-dc9e6fcaad96"/><p id="17a8fd07-c78a-44da-9a85-a451977ee46e" class="">
+</p><p id="4e13414b-7f0a-4b94-9f10-04361e595d13" class="">Adicionar no eslint, nas rules, <strong><code>&quot;react/jsx-props-no-spreading&quot;: &quot;off&quot;</code></strong><strong> e </strong><strong><code>&quot;react/prop-types&quot;: &quot;off&quot;</code></strong><strong> desabilitar o proptypes do eslint do airbnb.</strong></p><ul id="482d778d-cfbd-48a5-a938-e1152fddf511" class="toggle"><li><details open=""><summary><mark class="highlight-purple"><strong><code>.eslint.json</code></strong></mark>
+</summary><pre id="5b7f3489-507c-4aae-a0dd-56a4271a2c0f" class="code"><code>&quot;rules&quot;: {
+  &quot;prettier/prettier&quot;: &quot;error&quot;,
+  &quot;react/jsx-one-expression-per-line&quot;: &quot;off&quot;,
+  <strong>&quot;react/jsx-props-no-spreading&quot;: &quot;off&quot;,
+  &quot;react/prop-types&quot;: &quot;off&quot;,
+ </strong> &quot;react-hooks/rules-of-hooks&quot;: &quot;error&quot;,
+  &quot;react-hooks/exhaustive-deps&quot;: &quot;warn&quot;,
+  &quot;react/jsx-filename-extension&quot;: [1, { &quot;extensions&quot;: [&quot;.tsx&quot;] }],
+  &quot;import/prefer-default-export&quot;: &quot;off&quot;,
+  &quot;@typescript-eslint/explicit-function-return-type&quot;: [
+    &quot;error&quot;,
+    {
+      &quot;allowExpressions&quot;: true
+    }
+  ],
+  &quot;import/extensions&quot;: [
+    &quot;error&quot;,
+    &quot;ignorePackages&quot;,
+    {
+      &quot;ts&quot;: &quot;never&quot;,
+      &quot;tsx&quot;: &quot;never&quot;
+    }
+  ]
+},
+</code></pre></details></li></ul><hr id="76f69315-e7f6-4227-b9ef-3c9852602926"/><p id="058bac7b-1169-4eaf-84d8-c10777f9f03d" class="">
+</p><p id="4befbeac-25f5-45f0-ac6b-357e0d550cef" class="">Input</p><p id="358684fb-515b-456b-a9c3-e1edbc80e2d4" class="">
+</p><p id="ee8a8ce0-ae9a-447b-a472-988ffcf4f201" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Input</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> </p><pre id="78cac617-4bcc-4e21-a86d-f5810a72a365" class="code"><code>import React, { InputHTMLAttributes } from &#x27;react&#x27;;
+import { IconBaseProps } from &#x27;react-icons&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+interface InputProps extends InputHTMLAttributes&lt;HTMLInputElement&gt; {
+  name: string;
+  icon?: React.ComponentType&lt;IconBaseProps&gt;;
+}
+
+const Input: React.FC&lt;InputProps&gt; = ({ icon: Icon, ...rest }) =&gt; (
+  &lt;Container&gt;
+    {Icon &amp;&amp; &lt;Icon size={20} /&gt;}
+
+    &lt;input {...rest} /&gt;
+  &lt;/Container&gt;
+);
+
+export default Input;</code></pre><p id="e7c21c90-de68-4d02-ad01-ad191ceea0f5" class="">
+</p><p id="8cca6ae7-4109-4e36-b945-b5736010d211" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Input</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><pre id="ffc11f6c-fb31-4a98-885a-5b92747e4519" class="code"><code>import styled from &#x27;styled-components&#x27;;
+
+export const Container = styled.div`
+  background: #232129;
+  border-radius: 10px;
+  border: 2px solid #232129;
+  padding: 16px;
+  width: 100%;
+  color: #666360;
+
+  display: flex;
+  align-items: center;
+
+  &amp; + div {
+    margin-top: 8px;
+  }
+
+  svg {
+    margin-right: 16px;
+  }
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    color: #f4ede8;
+
+    &amp;::placeholder {
+      color: #666360;
+    }
+  }
+`;</code></pre><p id="4000f0ed-1d8a-4fba-8791-16c89d40fe07" class="">
+</p><hr id="497915e9-dcd4-42d1-902a-58464407b1fb"/><p id="1541fee4-384f-4ccb-99b0-b174c25a8546" class="">
+</p><p id="1e39ea41-6390-4868-bba2-01ebacd6e342" class="">Button</p><p id="e65ccdaf-322c-42a6-a2d8-23524e56f2e0" class="">
+</p><p id="a971dd4f-a4a9-40aa-9d61-a8bf3eb88a7d" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Button</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> </p><pre id="b0e05633-2b9f-4908-b443-48ff70d6f510" class="code"><code>import React, { ButtonHTMLAttributes } from &#x27;react&#x27;;
+
+import { Container } from &#x27;./styles&#x27;;
+
+type ButtonProps = ButtonHTMLAttributes&lt;HTMLButtonElement&gt;;
+
+const Button: React.FC&lt;ButtonProps&gt; = ({ children, ...rest }) =&gt; (
+  &lt;Container type=&quot;button&quot; {...rest}&gt;
+    {children}
+  &lt;/Container&gt;
+);
+
+export default Button;</code></pre><p id="f76c9bab-f780-47ad-8730-d671c00768cc" class="">
+</p><p id="d668ea39-3964-493a-9fc8-2a0b72a68812" class=""><mark class="highlight-teal"><strong><code>src</code></strong></mark>/<mark class="highlight-teal"><strong><code>components</code></strong></mark>/<mark class="highlight-gray"><strong><code>Button</code></strong></mark>/<mark class="highlight-blue"><strong><code>styles.ts</code></strong></mark></p><pre id="058ffcf9-4725-41c8-b94f-eab090c882ab" class="code"><code>import styled from &#x27;styled-components&#x27;;
+import { shade } from &#x27;polished&#x27;;
+
+export const Container = styled.button`
+  background: #ff9000;
+  height: 56px;
+  border-radius: 10px;
+  border: 0;
+  padding: 0 16px;
+  color: #312e28;
+  width: 100%;
+  font-weight: 500;
+  margin-top: 16px;
+  transition: background-color 0.2s ease-in-out;
+
+  &amp;:hover {
+    background: ${shade(0.2, &#x27;#ff9000&#x27;)};
+  }
+`;</code></pre><p id="346e8b12-593c-4966-b557-09bee99867df" class="">
+</p><hr id="a25ac0cb-0ae7-4c09-9e42-47f13c03f3bf"/><p id="0ae4ca89-cbcb-4b4d-9ebd-5ffc745d3f4a" class="">
+</p><p id="2d6108b9-d2df-497f-9d3c-5a5b43b24409" class="">E importar na <code><strong>pages</strong></code><strong>/</strong><mark class="highlight-gray"><code><strong>SignIn</strong></code></mark><strong>/</strong><mark class="highlight-blue"><code><strong>index.tsx</strong></code></mark><mark class="highlight-blue"><strong> </strong></mark>os componentes <strong>Input</strong> e <strong>Button</strong></p><p id="a995a3e1-54b1-4fa7-8506-bb8a47c67dcc" class="">
+</p><p id="fddc4dbd-8d16-4a45-8fe1-5f0b1a7fae01" class=""><code><strong>pages</strong></code><strong>/</strong><mark class="highlight-gray"><code><strong>SignIn</strong></code></mark><strong>/</strong><mark class="highlight-blue"><code><strong>index.tsx</strong></code></mark></p><pre id="4fbf64bc-adb9-45e3-ab4a-525954cf2a6d" class="code"><code>import React from &#x27;react&#x27;;
+import { FiLogIn, FiMail, FiLock } from &#x27;react-icons/fi&#x27;;
+
+import logo from &#x27;../../assets/logo.svg&#x27;;
+
+import Input from &#x27;../../components/Input&#x27;;
+import Button from &#x27;../../components/Button&#x27;;
+
+import { Container, Content, Background } from &#x27;./styles&#x27;;
+
+const SignIn: React.FC = () =&gt; (
+  &lt;Container&gt;
+    &lt;Content&gt;
+      &lt;img src={logo} alt=&quot;GoBarber&quot; /&gt;
+
+      &lt;form&gt;
+        &lt;h1&gt;Faça seu logon&lt;/h1&gt;
+
+        &lt;Input name=&quot;email&quot; icon={FiMail} placeholder=&quot;E-mail&quot; /&gt;
+
+        &lt;Input
+          name=&quot;password&quot;
+          icon={FiLock}
+          type=&quot;password&quot;
+          placeholder=&quot;Senha&quot;
+        /&gt;
+
+        &lt;Button type=&quot;submit&quot;&gt;Entrar&lt;/Button&gt;
+
+        &lt;a href=&quot;forgot&quot;&gt;Esqueci minha senha&lt;/a&gt;
+      &lt;/form&gt;
+
+      &lt;a href=&quot;dwa&quot;&gt;
+        &lt;FiLogIn /&gt;
+        Criar conta
+      &lt;/a&gt;
+    &lt;/Content&gt;
+
+    &lt;Background /&gt;
+  &lt;/Container&gt;
+);
+
+export default SignIn;</code></pre><p id="3309060b-051c-4782-9abb-258ca6463898" class="">
+</p><hr id="5059357e-7312-4d29-ba48-4eed669d691b"/><hr id="dd505265-f1e4-431b-a985-866a998e5ad8"/><p id="8dae8a42-7dce-4d12-b83c-d42cb03faeba" class="">
+</p><p id="76bfa5ba-3cd9-46de-af6f-22e392db6a13" class="">Tirar o estilos do input e button no <code><strong>pages</strong></code><strong>/</strong><mark class="highlight-gray"><code><strong>SignIn</strong></code></mark><strong>/</strong><mark class="highlight-blue"><code><strong>styles.tsx</strong></code></mark></p><p id="8a1f8417-2bd1-4e64-9389-cea8d7888e51" class="">
+</p><pre id="764f1a1f-9475-4b42-8671-721b29fcffda" class="code"><code>import styled from &#x27;styled-components&#x27;;
+import { shade } from &#x27;polished&#x27;;
+
+import signInBackgroundImg from &#x27;../../assets/sign-in-background.png&#x27;;
+
+export const Container = styled.div`
+  height: 100vh;
+
+  display: flex;
+  align-items: stretch;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  place-content: center;
+
+  width: 100%;
+  max-width: 700px;
+
+  form {
+    margin: 80px;
+    width: 340px;
+    text-align: center;
+
+    h1 {
+      margin-bottom: 24px;
+    }
+
+    a {
+      color: #f4ede8;
+      display: block;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s ease-in-out;
+
+      &amp;:hover {
+        color: ${shade(0.2, &#x27;#f4ede8&#x27;)};
+      }
+    }
+  }
+
+  &gt; a {
+    color: #ff9000;
+    display: block;
+    margin-top: 24px;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 16px;
+    }
+
+    &amp;:hover {
+      color: ${shade(0.2, &#x27;#ff9000&#x27;)};
+    }
+  }
+`;
+
+export const Background = styled.div`
+  flex: 1;
+  background: url(${signInBackgroundImg}) no-repeat center;
+  background-size: cover;
+`;</code></pre></div></article></body></html>

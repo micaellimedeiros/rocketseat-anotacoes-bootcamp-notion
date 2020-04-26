@@ -1,0 +1,779 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Rotas privadas</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, YuMincho, "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Songti TC", "Songti SC", "SimSun", "Nanum Myeongjo", NanumMyeongjo, Batang, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="59c4931c-da29-45f3-8a65-e424b133ce32" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">💂</span></div><h1 class="page-title">Rotas privadas</h1></header><div class="page-body"><p id="22ed6544-5830-466d-8fcb-85712acba591" class="">Qual rota vai ser exibida quando o usuario estiver autenticado e quando nao estiver autenticado.</p><p id="98503179-bfd2-4a1c-ba36-9c64e5b47a08" class="">
+</p><p id="1ce55c7f-6650-419e-b354-238dfa46f2a9" class="">Renomear o arquivo que estava dentro da pasta <mark class="highlight-teal"><strong><code>routes</code></strong></mark><mark class="highlight-teal"><strong> </strong></mark><strong>de</strong> <mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark> <strong>para</strong> <mark class="highlight-blue"><strong><code>auth.routes.tsx</code></strong></mark>, ele so vai cuidar das rotas de autenticacao</p><p id="7c5d59eb-7485-4d6d-b386-5c225d20d0c4" class="">
+</p><p id="bd2a5ffc-616e-4f90-8a62-12def8f6bcc0" class="">E na pasta <mark class="highlight-teal"><strong><code>routes</code></strong></mark> criar o arquivo <mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark><mark class="highlight-blue"><strong> </strong></mark>o para lidar com todas as rotas</p><p id="391dedc7-7112-42c3-9819-68508784cbe4" class="">
+</p><p id="086f56ef-b4d7-491a-a6c2-16d1871e6e7a" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="40c9ae0e-c4c9-43b1-a3be-b2f48a672010" class="code"><code>import React from &#x27;react&#x27;;
+import AuthRoutes from &#x27;./auth.routes&#x27;;
+
+const Routes: React.FC = () =&gt; {
+  return &lt;AuthRoutes /&gt;;
+};
+
+export default Routes;</code></pre><p id="ff4d1038-a22c-4d70-8479-1dd7bc82c095" class="">
+</p><hr id="d72de54c-9d48-4038-95a3-f2605d733b27"/><p id="ee9ab306-ccea-4ea5-90c4-8b3830f91aa0" class="">
+</p><p id="63539d63-930f-4499-b8e8-78a45a2baab2" class="">Na pasta <strong><code>pages</code></strong> criar a pasta <mark class="highlight-gray"><strong><code>Dashboard</code></strong></mark> e dentro dela o arquivo <mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><p id="0e5802e9-1347-4a21-8b81-6095277aa221" class="">
+</p><p id="78cb44b7-9dcd-4e36-99f8-8810311c8df2" class=""><strong><code>pages</code></strong>/<mark class="highlight-gray"><strong><code>Dashboard</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="88587ed6-bd4c-42aa-8a85-7baff88a307d" class="code"><code>import React from &#x27;react&#x27;;
+import { View } from &#x27;react-native&#x27;;
+
+const Dashboard: React.FC = () =&gt; {
+  return &lt;View /&gt;;
+};
+
+export default Dashboard;</code></pre><p id="e3ae026e-c816-4c57-b608-945fe15ad874" class="">
+</p><p id="c0b83de7-df2a-4d0f-8c0c-28d8beb469f5" class="">Na pasta <mark class="highlight-teal"><strong><code>routes</code></strong></mark> criar o arquivo <mark class="highlight-blue"><strong><code>app.routes.tsx</code></strong></mark>, que vai ser as rotas quando o usuario ja estiver autenticado na aplicacao.</p><p id="eab3a089-64ce-4029-95a2-eaa2bda7619c" class="">
+</p><p id="0ff8c94b-acf0-4e14-9261-9157cd52cca8" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>app.routes.tsx</code></strong></mark></p><pre id="c5742164-7f87-4dc9-bd2b-277ed5e629ca" class="code"><code>import React from &#x27;react&#x27;;
+import { createStackNavigator } from &#x27;@react-navigation/stack&#x27;;
+
+import Dashboard from &#x27;../pages/Dashboard&#x27;;
+
+const App = createStackNavigator();
+
+const AppRoutes: React.FC = () =&gt; (
+  &lt;App.Navigator
+    screenOptions={{
+      // headerShown: false, // Nao mostrar o title padrao
+      cardStyle: {
+        backgroundColor: &#x27;#312e38&#x27;, // Background da aplicacao
+      },
+    }}
+  &gt;
+    &lt;App.Screen name=&quot;Dashboard&quot; component={Dashboard} /&gt;
+  &lt;/App.Navigator&gt;
+);
+
+export default AppRoutes;</code></pre><p id="c33f5ce6-04a2-4ec7-80c9-63d22d1ffc3b" class="">
+</p><p id="c76d0115-9c8e-4420-b512-1e6af8c72956" class="">Voltar para o index de routes e ver se ele esta autenticado</p><p id="dd1cf722-ece6-439e-8019-b00de841e41e" class="">
+</p><p id="a7da35da-b406-461e-9521-433cfb739b6c" class="">
+</p><p id="a1e10ea7-88f1-4f25-96a7-763b75ad1207" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="353945a3-a276-4a45-9012-e06341a778f1" class="code"><code>import React from &#x27;react&#x27;;
+import AuthRoutes from &#x27;./auth.routes&#x27;;
+import AppRoutes from &#x27;./app.routes&#x27;;
+
+import { useAuth } from &#x27;../hooks/auth&#x27;;
+
+const Routes: React.FC = () =&gt; {
+  const { user } = useAuth();
+
+  // Se tiver um usuario autenticado, AppRoutes, se nao estiver autenticado AuthRoutes
+  return user ? &lt;AppRoutes /&gt; : &lt;AuthRoutes /&gt;;
+};
+
+export default Routes;</code></pre><p id="cda76fdf-99d6-41fd-aca2-0c31ff4cdf29" class="">
+</p><hr id="3428c7c3-6678-4671-a25a-3e9ff639b3b8"/><p id="5f3b7c0c-fa07-41b5-acb9-f92bf09138e8" class="">
+</p><p id="f8910f18-7b23-49e1-b64d-685cf3d24ab9" class="">Corrigir o erro quando eu to logado a tela de SignIn da um flash bem rapido e depois mudar para a rota de Dashboard.</p><p id="08c40dc4-16ac-43b2-8123-6d40d95dfe43" class="">
+</p><p id="727483b6-ff4e-4895-ba90-af74fdd66e13" class="">Criar um state de loading que comeca por padrao como true, quando terminar a function loadStorageData dar um <mark class="highlight-teal"><strong>setLoading(false)</strong></mark></p><p id="4651aa2b-6ff2-492b-b9a0-e4156a29a816" class="">
+</p><p id="d591f0b4-69c7-4801-b425-384c945b043b" class="">E passar o loading como value do AuthContext.Provider</p><p id="8746e122-4b26-4ed4-9226-d6a2c470e0e4" class="">
+</p><p id="87c3c847-f4ce-45ae-83ed-8e3712893184" class=""><mark class="highlight-purple"><strong><code>hooks</code></strong></mark>/<mark class="highlight-blue"><strong><code>auth.tsx</code></strong></mark></p><pre id="01c453bb-c29f-404f-9c1e-fb50ade2b10a" class="code"><code>interface AuthContextData {
+  user: object;
+  loading: boolean;
+  signIn(credentials: SignInCredentials): Promise&lt;void&gt;;
+  signOut(): void;
+}
+
+useEffect(() =&gt; {
+  async function loadStorageData(): Promise&lt;void&gt; {
+    const [token, user] = await AsyncStorage.multiGet([
+      &#x27;@GoBarber:token&#x27;,
+      &#x27;@GoBarber:user&#x27;,
+    ]);
+
+    if (token[1] &amp;&amp; user[1]) {
+      setData({ token: token[1], user: JSON.parse(user[1]) });
+    }
+
+    setLoading(false);
+  }
+
+  loadStorageData();
+}, []);
+
+return (
+  &lt;AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}&gt;
+    {children}
+  &lt;/AuthContext.Provider&gt;
+);</code></pre><p id="c786481c-0371-4927-ae34-f03b83032fd2" class="">
+</p><p id="7660303c-20b6-44ab-a238-3cb70ef27b50" class="">Voltar no index de <mark class="highlight-teal"><strong><code>routes</code></strong></mark><mark class="highlight-teal"><strong> </strong></mark>e fazer um loading com o ActivityIndicator</p><p id="47d1d2e2-7fd9-4503-bad3-727e8a004ad9" class="">
+</p><p id="9ef16b27-131a-42e4-ad6e-032f734c381f" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="36cf6f12-0904-4d40-a76f-a9f22843146e" class="code"><code>import React from &#x27;react&#x27;;
+import { View, ActivityIndicator } from &#x27;react-native&#x27;;
+
+import AuthRoutes from &#x27;./auth.routes&#x27;;
+import AppRoutes from &#x27;./app.routes&#x27;;
+
+import { useAuth } from &#x27;../hooks/auth&#x27;;
+
+const Routes: React.FC = () =&gt; {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      &lt;View style={{ flex: 1, justifyContent: &#x27;center&#x27;, alignItems: &#x27;center&#x27; }}&gt;
+        &lt;ActivityIndicator size=&quot;large&quot; color=&quot;#999&quot; /&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  // Se tiver um usuario autenticado, AppRoutes, se nao estiver autenticado AuthRoutes
+  return user ? &lt;AppRoutes /&gt; : &lt;AuthRoutes /&gt;;
+};
+
+export default Routes;</code></pre><p id="fe7dfb0a-3166-4404-8faa-23b6f30e3187" class="">
+</p><hr id="19078118-39a8-453f-8fc3-3f5e621bd215"/><p id="be749057-b0ff-4a30-aacf-7e7121d1ce35" class="">
+</p><p id="7b3bb08d-4617-46ff-bc3a-b3c2c22010e6" class="">Criar um button de SignOut na tela de Dashboard</p><p id="2374c4b6-c8f7-4881-aed2-e9022f73cec3" class="">
+</p><p id="8445ffad-5fe0-40b5-bf49-9c3d0be93084" class=""><mark class="highlight-gray"><strong><code>Dashboard</code></strong></mark>/<mark class="highlight-blue"><strong><code>index.tsx</code></strong></mark></p><pre id="01720ab9-195e-4052-9d59-c2f8e98fac13" class="code"><code>import React from &#x27;react&#x27;;
+import { View, Button } from &#x27;react-native&#x27;;
+
+import { useAuth } from &#x27;../../hooks/auth&#x27;;
+
+const Dashboard: React.FC = () =&gt; {
+  const { signOut } = useAuth();
+
+  return (
+    &lt;View style={{ flex: 1, justifyContent: &#x27;center&#x27; }}&gt;
+      &lt;Button title=&quot;Sair&quot; onPress={signOut} /&gt;
+    &lt;/View&gt;
+  );
+};
+
+export default Dashboard;</code></pre><p id="7fe823ac-a1fc-4a45-8cfc-5e5d108bcb74" class="">
+</p><hr id="3234604c-c42e-41cc-b35f-17536e3e6b48"/><p id="152bb0a9-9d5f-4426-9fc3-8a33d6907b92" class="">
+</p><p id="afcbebfb-4d66-40e1-8536-8408f045c7df" class="">E no <mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>app.routes.tsx</code></strong></mark><mark class="highlight-blue"><strong> </strong></mark>descomentar o headerShown, para esconder o title, ficando <mark class="highlight-gray"><strong><code>headerShown</code></strong></mark><strong><code>:</code></strong><mark class="highlight-purple"><strong><code>false</code></strong></mark></p><p id="37bc949b-742e-41dd-98f1-dd421a9885dd" class="">
+</p><p id="1518cd44-9349-453b-a518-d8ab15241621" class=""><mark class="highlight-teal"><strong><code>routes</code></strong></mark>/<mark class="highlight-blue"><strong><code>app.routes.tsx</code></strong></mark></p><pre id="e8ff89b9-4e42-4d43-be00-be88f5f5c1f2" class="code"><code>import React from &#x27;react&#x27;;
+import { createStackNavigator } from &#x27;@react-navigation/stack&#x27;;
+
+import Dashboard from &#x27;../pages/Dashboard&#x27;;
+
+const App = createStackNavigator();
+
+const AppRoutes: React.FC = () =&gt; (
+  &lt;App.Navigator
+    screenOptions={{
+      headerShown: false, // Nao mostrar o title padrao
+      cardStyle: {
+        backgroundColor: &#x27;#312e38&#x27;, // Background da aplicacao
+      },
+    }}
+  &gt;
+    &lt;App.Screen name=&quot;Dashboard&quot; component={Dashboard} /&gt;
+  &lt;/App.Navigator&gt;
+);
+
+export default AppRoutes;</code></pre></div></article></body></html>
